@@ -23,7 +23,7 @@ export group, transformation, reflection, rotation, translation
 export grid, axis, ticks, legend
 
 # Composition and convenience
-export plot, scatter, parametric, implicit, polar
+export board, plot, scatter, parametric, implicit, polar
 export julia_to_js, @jsf
 
 # Theming

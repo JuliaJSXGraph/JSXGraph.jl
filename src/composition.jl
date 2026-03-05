@@ -30,6 +30,42 @@ function Base.:+(board::Board, elem::AbstractJSXElement)
     return Board(board.id, new_elements, copy(board.options))
 end
 
+# --- do-block syntax (REQ-API-004) ---
+
+"""
+$(SIGNATURES)
+
+Create a board using Julia's `do`-block syntax.
+
+Creates a [`Board`](@ref) with the given `id` and keyword arguments, passes it
+to the callback function `f`, and returns the populated board.
+
+# Arguments
+- `f::Function`: callback that receives the board and populates it with elements
+- `id::String`: board identifier (auto-generated if empty, default: `""`)
+- `xlim`, `ylim`, `axis`, `grid`, `width`, `height`: forwarded to [`Board`](@ref)
+
+# Examples
+```julia
+b = board("myboard", xlim=(-5, 5), ylim=(-5, 5)) do b
+    push!(b, point(1, 2))
+    push!(b, point(3, 4))
+    push!(b, line(point(0, 0), point(1, 1)))
+end
+
+# With default auto-generated id
+b = board(xlim=(-10, 10)) do b
+    push!(b, functiongraph(sin; color="blue"))
+    push!(b, functiongraph(cos; color="red"))
+end
+```
+"""
+function board(f::Function, id::String=""; kwargs...)
+    b = Board(id; kwargs...)
+    f(b)
+    return b
+end
+
 """
 $(SIGNATURES)
 

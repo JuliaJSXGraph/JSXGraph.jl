@@ -208,3 +208,69 @@ end
     html = html_string(b5)
     @test occursin("create('curve'", html)
 end
+
+@testset "board do-block" begin
+    # Basic do-block creates a board with elements
+    b = board("dotest1", xlim=(-5, 5), ylim=(-5, 5)) do b
+        push!(b, point(1, 2))
+        push!(b, point(3, 4))
+    end
+    @test b isa Board
+    @test b.id == "dotest1"
+    @test length(b.elements) == 2
+    @test b.elements[1].type_name == "point"
+    @test b.elements[2].type_name == "point"
+
+    # Board options are passed through
+    bb = b.options["boundingbox"]
+    @test bb[1] == -5
+    @test bb[3] == 5
+
+    # Default empty id (auto-generated)
+    b2 = board(xlim=(-10, 10)) do b
+        push!(b, functiongraph(sin))
+    end
+    @test b2 isa Board
+    @test startswith(b2.id, "jxg_")
+    @test length(b2.elements) == 1
+    @test b2.elements[1].type_name == "functiongraph"
+
+    # Empty do-block returns empty board
+    b3 = board("empty") do b
+        nothing
+    end
+    @test b3 isa Board
+    @test length(b3.elements) == 0
+
+    # Can use variadic push! inside do-block
+    b4 = board("multi") do b
+        push!(b, point(0, 0), point(1, 1), point(2, 2))
+    end
+    @test length(b4.elements) == 3
+
+    # Can use + operator inside do-block (non-mutating, must reassign)
+    b5 = board("plus") do b
+        push!(b, point(1, 2))
+        push!(b, line(point(0, 0), point(1, 1)))
+    end
+    @test length(b5.elements) == 2
+
+    # Board options: grid, axis, width, height
+    b6 = board("opts", grid=true, axis=false, width=800, height=600) do b
+        push!(b, point(0, 0))
+    end
+    @test b6.options["grid"] == true
+    @test b6.options["axis"] == false
+    @test b6.options["width"] == 800
+    @test b6.options["height"] == 600
+
+    # HTML output works correctly
+    b7 = board("htmltest", xlim=(-2, 2)) do b
+        push!(b, point(1, 1; name="A"))
+        push!(b, functiongraph(cos; color="blue"))
+    end
+    html = html_string(b7)
+    @test occursin("htmltest", html)
+    @test occursin("create('point'", html)
+    @test occursin("create('functiongraph'", html)
+end

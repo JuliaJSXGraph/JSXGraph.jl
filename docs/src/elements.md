@@ -156,6 +156,28 @@ new_board = board + point(5, 6)
 result = Board("b") + point(0, 0) + point(1, 1) + point(2, 2)
 ```
 
+### `do`-Block Syntax
+
+Use Julia's `do`-block syntax with [`board`](@ref) for idiomatic board construction:
+
+```julia
+using JSXGraph
+
+b = board("myboard", xlim=(-5, 5), ylim=(-5, 5)) do b
+    push!(b, point(1, 2; name="A"))
+    push!(b, point(3, 4; name="B"))
+    push!(b, line(point(0, 0), point(1, 1)))
+end
+
+# With auto-generated id and default options
+b = board(xlim=(-10, 10)) do b
+    push!(b, functiongraph(sin; color="blue"))
+    push!(b, functiongraph(cos; color="red"))
+end
+```
+
+See [`board`](@ref) in the API Reference.
+
 ## High-Level Plot
 
 Create a complete board with a function graph in one line:
