@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@jsxrecipe` macro for defining custom type recipes via method dispatch (REQ-ECO-020)
+- `JSXGraphRecipesBase.jl` lightweight interface package for recipe system (REQ-ECO-021)
+- `ElementSpec` intermediate representation type for recipe output
+- `realize_specs` function to convert recipe specs into concrete `JSXElement`s
+- `plot!` and `plot` functions for applying recipes to boards
+- `Board + custom_object` operator overload for recipe types
+- `has_recipe` function to check if a type has a registered recipe
+- Recipe System documentation page
 - 9 composition and transformation element constructors: `group`, `transformation`, `reflection`, `rotation`, `translation`, `grid`, `axis`, `ticks`, `legend` (REQ-GEO-004)
 - Theming system with `set_theme!`, `reset_theme!`, `with_theme`, `current_theme` (REQ-API-020)
 - Three built-in themes: `THEME_DEFAULT`, `THEME_DARK`, `THEME_PUBLICATION` (REQ-API-021)

@@ -1,5 +1,6 @@
 using Test
 using JSXGraph
+using JSXGraphRecipesBase
 using Colors
 using Tables
 
@@ -15,5 +16,6 @@ using Tables
     include("test_themes.jl")
     include("test_tables.jl")
     include("test_unitful.jl")
+    include("test_recipes.jl")
 end
 

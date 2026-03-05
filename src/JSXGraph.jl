@@ -4,6 +4,7 @@ using DocStringExtensions
 using JSON
 using Artifacts
 using Random: randstring
+using JSXGraphRecipesBase
 
 export AbstractJSXElement, Board
 export JSXElement, JSFunction
@@ -23,13 +24,17 @@ export group, transformation, reflection, rotation, translation
 export grid, axis, ticks, legend
 
 # Composition and convenience
-export board, plot, scatter, parametric, implicit, polar
+export board, plot, plot!, scatter, parametric, implicit, polar
 export julia_to_js, @jsf, @named_jsf, named_jsf, with_deps
 
 # Theming
 export Theme, THEME_DEFAULT, THEME_DARK, THEME_PUBLICATION
 export set_theme!, reset_theme!, with_theme, current_theme
 export load_theme, register_theme!
+
+# Recipe system (re-exported from JSXGraphRecipesBase)
+export ElementSpec, @jsxrecipe, apply_recipe, has_recipe
+export realize_specs
 
 include("themes.jl")
 include("types.jl")
@@ -41,5 +46,6 @@ include("assets.jl")
 include("options.jl")
 include("html.jl")
 include("display.jl")
+include("recipes.jl")
 
 end # module JSXGraph

@@ -1,10 +1,11 @@
 using Documenter
 using JSXGraph
+using JSXGraphRecipesBase
 
 DocMeta.setdocmeta!(JSXGraph, :DocTestSetup, :(using JSXGraph); recursive=true)
 
 makedocs(;
-    modules=[JSXGraph],
+    modules=[JSXGraph, JSXGraphRecipesBase],
     authors="Sebastien Celles <s.celles@gmail.com> and contributors",
     sitename="JSXGraph.jl",
     format=Documenter.HTML(;
@@ -21,6 +22,7 @@ makedocs(;
         "Geometric Elements" => "elements.md",
         "Attribute Aliases" => "aliases.md",
         "Themes" => "themes.md",
+        "Recipe System" => "recipes.md",
     ],
     warnonly=[:missing_docs],
 )
