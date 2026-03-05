@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `implicit(F)` convenience function for implicit curves (REQ-API-002)
 - `polar(r, θ_range)` convenience function for polar curves (REQ-API-002)
 - `board()` do-block syntax for idiomatic board construction (REQ-API-004)
+- Tables.jl data ingestion: `scatter(table, :x, :y)` and `plot(table, :x, :y)` for any Tables.jl-compatible source (REQ-ECO-001)
 
 ## [0.5.0] - 2026-03-01
 

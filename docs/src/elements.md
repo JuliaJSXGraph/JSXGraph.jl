@@ -253,6 +253,41 @@ b = polar(:(θ -> cos(3θ)); color="magenta")
 
 See [`scatter`](@ref), [`parametric`](@ref), [`implicit`](@ref), [`polar`](@ref) in the API Reference.
 
+## Tables.jl Data Integration
+
+When the [Tables.jl](https://github.com/JuliaTables/Tables.jl) package is loaded,
+`scatter` and `plot` gain methods that accept any Tables.jl-compatible data source
+(e.g., `DataFrame`, `NamedTuple` of vectors, vector of `NamedTuple`s).
+
+### Scatter from Table
+
+```julia
+using JSXGraph, Tables
+
+# NamedTuple of vectors (Tables.jl-compatible)
+data = (x=[1, 2, 3, 4], y=[1, 4, 9, 16])
+
+# Auto-detect first two columns
+b = scatter(data)
+
+# Explicit column names
+b = scatter(data, :x, :y)
+b = scatter(data; x=:x, y=:y; color="red")
+```
+
+### Line Plot from Table
+
+```julia
+using JSXGraph, Tables
+
+data = (time=[0, 1, 2, 3, 4], value=[0.0, 0.8, 0.9, 0.5, 0.2])
+b = plot(data, :time, :value)
+b = plot(data; color="blue", strokeWidth=2)
+```
+
+Column selection defaults to the first two columns when `x` and `y` are not specified.
+Works with any Tables.jl-compatible source including DataFrames, CSV files, and more.
+
 ## Julia-to-JavaScript Conversion
 
 The [`julia_to_js`](@ref) function converts Julia expressions to JavaScript strings:

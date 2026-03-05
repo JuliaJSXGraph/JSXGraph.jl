@@ -1,6 +1,7 @@
 using Test
 using JSXGraph
 using Colors
+using Tables
 
 @testset "JSXGraph.jl" begin
     include("test_types.jl")
@@ -12,5 +13,6 @@ using Colors
     include("test_jsfunction.jl")
     include("test_aliases.jl")
     include("test_themes.jl")
+    include("test_tables.jl")
 end
 
