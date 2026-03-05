@@ -14,5 +14,6 @@ using Tables
     include("test_aliases.jl")
     include("test_themes.jl")
     include("test_tables.jl")
+    include("test_unitful.jl")
 end
 

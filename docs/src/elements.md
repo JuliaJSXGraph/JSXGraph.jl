@@ -288,6 +288,46 @@ b = plot(data; color="blue", strokeWidth=2)
 Column selection defaults to the first two columns when `x` and `y` are not specified.
 Works with any Tables.jl-compatible source including DataFrames, CSV files, and more.
 
+## Unitful.jl Integration
+
+When the [Unitful.jl](https://github.com/PainterQubits/Unitful.jl) package is loaded,
+coordinates and ranges can include physical units. Units are automatically stripped for
+plotting, and axis labels are annotated with the unit string.
+
+### Scatter with Units
+
+```julia
+using JSXGraph, Unitful
+
+x = [1.0, 2.0, 3.0, 4.0]u"m"
+y = [0.5, 1.0, 1.5, 2.0]u"s"
+b = scatter(x, y)  # axes labeled "x (m)" and "y (s)"
+
+# Custom axis labels
+b = scatter(x, y; xlabel="distance", ylabel="time")
+# axes: "distance (m)" and "time (s)"
+```
+
+### Function Plot with Unitful Domain
+
+```julia
+using JSXGraph, Unitful
+
+b = plot(sin, (-5u"m", 5u"m"); xlabel="distance")
+```
+
+### Board with Unitful Limits
+
+```julia
+using JSXGraph, Unitful
+
+b = Board("myboard", (0u"km", 100u"km"), (0u"kg", 50u"kg");
+          xlabel="distance", ylabel="mass")
+```
+
+Mixed compatible units are automatically converted to the unit of the first element
+(e.g., `mm` values in a `m` vector are converted to meters).
+
 ## Julia-to-JavaScript Conversion
 
 The [`julia_to_js`](@ref) function converts Julia expressions to JavaScript strings:

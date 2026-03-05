@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `polar(r, θ_range)` convenience function for polar curves (REQ-API-002)
 - `board()` do-block syntax for idiomatic board construction (REQ-API-004)
 - Tables.jl data ingestion: `scatter(table, :x, :y)` and `plot(table, :x, :y)` for any Tables.jl-compatible source (REQ-ECO-001)
+- Unitful.jl integration: automatic unit stripping, axis labels with unit annotations, and consistent unit conversion for `point`, `scatter`, `plot`, and `Board` (REQ-ECO-002)
 
 ## [0.5.0] - 2026-03-01
 
