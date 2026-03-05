@@ -39,6 +39,7 @@ Create a JSXGraph element with the given type name, parents, and keyword attribu
 function _create_element(type_name::String, parents, kwargs)
     attrs = resolve_aliases(kwargs)
     attrs = convert_color_values(attrs)
+    attrs = apply_theme_defaults(type_name, attrs)
     return JSXElement(type_name, collect(Any, parents), attrs)
 end
 

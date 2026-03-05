@@ -91,5 +91,12 @@ function Board(
         options[string(k)] = v
     end
 
+    # Apply board theme defaults (lowest priority — don't override explicit options)
+    for (k, v) in board_theme_defaults()
+        if !haskey(options, k)
+            options[k] = v
+        end
+    end
+
     return Board(id, AbstractJSXElement[], options)
 end

@@ -19,6 +19,7 @@ makedocs(;
         "Display Protocol" => "display.md",
         "Geometric Elements" => "elements.md",
         "Attribute Aliases" => "aliases.md",
+        "Themes" => "themes.md",
     ],
     warnonly=[:missing_docs],
 )

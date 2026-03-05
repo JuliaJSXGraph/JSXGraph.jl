@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - 9 composition and transformation element constructors: `group`, `transformation`, `reflection`, `rotation`, `translation`, `grid`, `axis`, `ticks`, `legend` (REQ-GEO-004)
+- Theming system with `set_theme!`, `reset_theme!`, `with_theme`, `current_theme` (REQ-API-020)
+- Three built-in themes: `THEME_DEFAULT`, `THEME_DARK`, `THEME_PUBLICATION` (REQ-API-021)
+- Custom theme support via `register_theme!` and `load_theme` from TOML/JSON files (REQ-API-022)
+- Board-level theme defaults (e.g., background color) applied automatically
+- Themes documentation page
 
 ## [0.5.0] - 2026-03-01
 

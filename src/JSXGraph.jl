@@ -25,6 +25,12 @@ export grid, axis, ticks, legend
 # Composition and convenience
 export plot, julia_to_js
 
+# Theming
+export Theme, THEME_DEFAULT, THEME_DARK, THEME_PUBLICATION
+export set_theme!, reset_theme!, with_theme, current_theme
+export load_theme, register_theme!
+
+include("themes.jl")
 include("types.jl")
 include("aliases.jl")
 include("elements.jl")

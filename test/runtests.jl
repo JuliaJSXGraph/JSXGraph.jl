@@ -11,5 +11,6 @@ using Colors
     include("test_composition.jl")
     include("test_jsfunction.jl")
     include("test_aliases.jl")
+    include("test_themes.jl")
 end
 
