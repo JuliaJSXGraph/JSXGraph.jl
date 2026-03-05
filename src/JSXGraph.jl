@@ -24,7 +24,7 @@ export grid, axis, ticks, legend
 
 # Composition and convenience
 export board, plot, scatter, parametric, implicit, polar
-export julia_to_js, @jsf
+export julia_to_js, @jsf, @named_jsf, named_jsf, with_deps
 
 # Theming
 export Theme, THEME_DEFAULT, THEME_DARK, THEME_PUBLICATION

@@ -377,3 +377,69 @@ loops, array comprehensions, multi-statement function bodies, `let` blocks, `do`
 @jsf x -> begin; y = x^2; y + 1; end   # multi-statement body
 @jsf for i in 1:10; println(i); end     # for loop
 ```
+
+### Named Functions & Transitive Dependencies
+
+When one `@jsf` function needs to call another, use **named functions** and
+**dependency tracking**.  The renderer automatically emits all transitive helper
+definitions (in topological order) before the elements that use them.
+
+#### Creating Named Helpers
+
+Use [`@named_jsf`](@ref) to define a helper that will become a named `function`
+in the generated JavaScript:
+
+```julia
+using JSXGraph
+
+@named_jsf square(x) = x^2
+@named_jsf avg(a, b) = (a + b) / 2
+```
+
+Or use [`named_jsf`](@ref) with an existing [`JSFunction`](@ref):
+
+```julia
+f = @jsf x -> sin(x) + 1
+named_sin = named_jsf(:named_sin, f)
+```
+
+#### Declaring Dependencies
+
+Use [`with_deps`](@ref) to tell a function which named helpers it calls:
+
+```julia
+using JSXGraph
+
+@named_jsf square(x) = x^2
+main = with_deps(@jsf(x -> square(x) + 1), square)
+fg = functiongraph(main)
+b = Board("b") + fg
+```
+
+The generated JavaScript will contain:
+
+```javascript
+function square(x){return Math.pow(x, 2);}
+var el_001 = board_b.create('functiongraph', [function(x){return square(x) + 1;}], {});
+```
+
+#### Transitive Dependencies
+
+Dependencies are resolved transitively.  If function A depends on B, and B
+depends on C, then rendering A automatically emits C first, then B:
+
+```julia
+using JSXGraph
+
+@named_jsf base(x) = x + 1
+double = with_deps(
+    JSFunction("function(x){return base(x) * 2;}", "double", JSFunction[]),
+    base,
+)
+main = with_deps(@jsf(x -> double(x) + base(x)), double, base)
+```
+
+All three functions are emitted in the correct order: `base`, then `double`,
+then the anonymous function used by the element.
+
+See [`@jsf`](@ref), [`@named_jsf`](@ref), [`named_jsf`](@ref), [`with_deps`](@ref) in the API Reference.

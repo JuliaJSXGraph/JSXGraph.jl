@@ -5,12 +5,26 @@ $(TYPEDEF)
 
 Represents a JavaScript function string for use in JSXGraph element parents.
 
+A `JSFunction` can optionally be *named* so that other `JSFunction` objects
+can reference it, and it can carry a list of *dependencies* on other named
+`JSFunction` objects.  The rendering pipeline automatically collects all
+transitive dependencies and emits named function definitions before the
+elements that use them.
+
 $(TYPEDFIELDS)
 """
 struct JSFunction
     "JavaScript function code string"
     code::String
+    "Optional name for this function (empty string = anonymous)"
+    name::String
+    "Other named JSFunction objects this function depends on"
+    deps::Vector{JSFunction}
 end
+
+# Backward-compatible constructors
+JSFunction(code::String) = JSFunction(code, "", JSFunction[])
+JSFunction(code::String, name::String) = JSFunction(code, name, JSFunction[])
 
 """
 $(TYPEDEF)

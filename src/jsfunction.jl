@@ -255,3 +255,128 @@ macro jsf(expr)
     return :(JSFunction($js_code))
 end
 
+# --- Named JSFunctions and transitive dependency resolution (REQ-GEO-012) ---
+
+"""
+$(SIGNATURES)
+
+Create a *named* [`JSFunction`](@ref) from an existing (anonymous) one.
+
+Named functions are emitted as `function name(...){...}` declarations in the
+generated JavaScript, so that other `JSFunction` objects can reference them
+by name.
+
+# Examples
+```julia
+square = named_jsf(:square, @jsf(x -> x^2))
+```
+"""
+function named_jsf(name::Symbol, f::JSFunction)
+    return JSFunction(f.code, string(name), f.deps)
+end
+
+"""
+$(SIGNATURES)
+
+Return a copy of `f` with the given named [`JSFunction`](@ref) dependencies
+attached.  The rendering pipeline uses this information to emit named helper
+function definitions (in topological order) before the code that calls them.
+
+# Examples
+```julia
+square = named_jsf(:square, @jsf(x -> x^2))
+shifted = with_deps(@jsf(x -> square(x) + 1), square)
+```
+"""
+function with_deps(f::JSFunction, deps::JSFunction...)
+    return JSFunction(f.code, f.name, collect(JSFunction, deps))
+end
+
+"""
+    @named_jsf name(args...) = body
+
+Syntactic sugar for creating a *named* [`JSFunction`](@ref).
+
+Equivalent to `name = named_jsf(:name, @jsf(args -> body))`.
+
+# Examples
+```julia
+@named_jsf square(x) = x^2
+@named_jsf avg(a, b) = (a + b) / 2
+```
+"""
+macro named_jsf(expr)
+    if !(expr isa Expr && expr.head == :(=) &&
+         expr.args[1] isa Expr && expr.args[1].head == :call)
+        throw(ArgumentError(
+            "@named_jsf expects syntax: @named_jsf name(args...) = body"
+        ))
+    end
+
+    call_expr = expr.args[1]
+    name = call_expr.args[1]  # Symbol (:square)
+    params = call_expr.args[2:end]  # [:x] or [:a, :b]
+    body = expr.args[2]
+
+    # Build an equivalent lambda expression for validation + transpilation
+    lambda = if length(params) == 1
+        Expr(:->, params[1], body)
+    else
+        Expr(:->, Expr(:tuple, params...), body)
+    end
+
+    _validate_jsf(lambda)
+    js_code = julia_to_js(lambda)
+    name_str = string(name)
+
+    return :($(esc(name)) = JSFunction($js_code, $name_str, JSFunction[]))
+end
+
+# --- Transitive dependency collection ---
+
+"""
+Collect all transitive named [`JSFunction`](@ref) dependencies from a board's
+elements, returned in topological (definition) order.
+"""
+function collect_jsf_deps(board::Board)
+    visited = Set{String}()
+    result = JSFunction[]
+    for elem in board.elements
+        for parent in elem.parents
+            _collect_jsf_from_parent!(result, visited, parent)
+        end
+    end
+    return result
+end
+
+function _collect_jsf_from_parent!(result, visited, f::JSFunction)
+    _collect_deps_recursive!(result, visited, f)
+end
+
+function _collect_jsf_from_parent!(result, visited, v::AbstractVector)
+    for item in v
+        _collect_jsf_from_parent!(result, visited, item)
+    end
+end
+
+function _collect_jsf_from_parent!(result, visited, t::Tuple)
+    for item in t
+        _collect_jsf_from_parent!(result, visited, item)
+    end
+end
+
+function _collect_jsf_from_parent!(result, visited, @nospecialize(x))
+    # Non-JSFunction, non-collection parent — nothing to do
+    return nothing
+end
+
+function _collect_deps_recursive!(result, visited, f::JSFunction)
+    for dep in f.deps
+        if !isempty(dep.name) && dep.name ∉ visited
+            _collect_deps_recursive!(result, visited, dep)
+            push!(visited, dep.name)
+            push!(result, dep)
+        end
+    end
+end
+

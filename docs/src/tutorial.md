@@ -204,6 +204,22 @@ It supports arithmetic, math functions, constants (`π`, `ℯ`), comparisons, an
 `ifelse`. Unsupported constructs (loops, try/catch, multi-statement bodies)
 produce a clear compile-time error.
 
+### Named Functions & Dependencies
+
+When one JavaScript function needs to call another, use [`@named_jsf`](@ref) and
+[`with_deps`](@ref):
+
+```julia
+using JSXGraph
+
+@named_jsf square(x) = x^2
+main = with_deps(@jsf(x -> square(x) + 1), square)
+b = Board("b") + functiongraph(main)
+```
+
+The renderer emits all helper definitions in topological order before the
+elements that use them. See [Geometric Elements](elements.md) for details.
+
 ## Saving to HTML
 
 Export a board to a standalone HTML file:

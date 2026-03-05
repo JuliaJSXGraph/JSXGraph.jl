@@ -37,6 +37,14 @@ function render_board_js(io::IO, board::Board)
         io,
         "var board_$(board_var) = JXG.JSXGraph.initBoard('$(board.id)', $(js_options));\n",
     )
+    # Emit named JSFunction dependencies in topological order
+    deps = collect_jsf_deps(board)
+    for dep in deps
+        # Convert anonymous function to named declaration:
+        #   "function(x){...}"  →  "function square(x){...}"
+        named_code = replace(dep.code, r"^function\(" => "function $(dep.name)("; count=1)
+        print(io, named_code, "\n")
+    end
     # Build element ID mapping for cross-references
     elem_ids = Dict{UInt64,String}()
     for (i, elem) in enumerate(board.elements)

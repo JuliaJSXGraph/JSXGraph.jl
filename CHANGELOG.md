@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tables.jl data ingestion: `scatter(table, :x, :y)` and `plot(table, :x, :y)` for any Tables.jl-compatible source (REQ-ECO-001)
 - Unitful.jl integration: automatic unit stripping, axis labels with unit annotations, and consistent unit conversion for `point`, `scatter`, `plot`, and `Board` (REQ-ECO-002)
 - Getting Started tutorial page in documentation (REQ-DOC-001)
+- Named JSFunction support (`@named_jsf`, `named_jsf`) and transitive dependency resolution (`with_deps`) for composing `@jsf` functions (REQ-GEO-012)
 
 ## [0.5.0] - 2026-03-01
 
