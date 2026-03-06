@@ -32,7 +32,7 @@ function snapshot_test(name::String, board::Board; asset_mode::Symbol=:cdn)
                 "ENV[\"UPDATE_SNAPSHOTS\"]=\"true\" to generate it."
             )
         end
-        expected = read(snapshot_path, String)
+        expected = replace(read(snapshot_path, String), "\r\n" => "\n")
         @test html == expected
     end
 end

@@ -32,6 +32,20 @@ jobs:
           - windows-latest
         arch:
           - x64
+        exclude:
+          # macOS-latest runners are Apple Silicon (arm64); x64 is not available
+          - os: macOS-latest
+            arch: x64
+        include:
+          - os: macOS-latest
+            arch: aarch64
+            version: 'lts'
+          - os: macOS-latest
+            arch: aarch64
+            version: '1'
+          - os: macOS-latest
+            arch: aarch64
+            version: 'nightly'
     steps:
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v2
