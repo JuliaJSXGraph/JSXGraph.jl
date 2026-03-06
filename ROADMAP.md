@@ -145,6 +145,30 @@ Legend: ✅ Done | 🔧 Partial | ⬜ Not started
 
 ---
 
+## Phase 6 — Makie Integration
+
+> Optional `JSXGraphMakie.jl` companion package providing a Makie backend and Observables bridge.
+
+| Requirement | Description | Status |
+|---|---|---|
+| REQ-MAKIE-001 | Makie backend registration (like CairoMakie, GLMakie) | ⬜ |
+| REQ-MAKIE-002 | `scatter`, `lines`, `poly` primitive implementations | ⬜ |
+| REQ-MAKIE-003 | Axis attribute mapping (xlims, ylims, title, ticks, colorschemes) | ⬜ |
+| REQ-MAKIE-004 | Observables bridge — JSXGraph interactive elements ↔ Makie Observables/@lift | ⬜ |
+| REQ-MAKIE-005 | WGLMakie interop in Pluto/Jupyter (coexist in same cell output) | ⬜ |
+| REQ-MAKIE-006 | GeoMakie / geometry type conversion to JSXGraph ElementSpecs | ⬜ |
+
+**Architecture notes:**
+- Separate package `JSXGraphMakie.jl` (not an extension) — depends on `MakieCore.jl` + `JSXGraph.jl`
+- Implements `backend_display` to render a Makie `Scene` as a JSXGraph `Board`
+- Start with basic plot types (`scatter`, `lines`, `poly`) — unlocks entire Makie recipe ecosystem since high-level recipes compile down to those primitives
+- Bidirectional Observables bridge is natural since JSXGraph.jl already integrates with `Observables.jl`
+- Both WGLMakie and JSXGraph output HTML/JS, enabling side-by-side embedding in web notebooks
+
+**Phase 6 status: Not started (post-1.0)**
+
+---
+
 ## Suggested Next Priorities
 
 1. ~~`save()` function~~ (REQ-ECO-010) ✅
@@ -157,6 +181,7 @@ Legend: ✅ Done | 🔧 Partial | ⬜ Not started
 8. **General Registry registration** (REQ-QA-011) — make the package installable with `Pkg.add`
 9. ~~MathJS integration~~ (REQ-JSF-003) ✅
 10. **WebSocket communication** (REQ-INT-010) — optional bidirectional Julia↔JS
+11. **Makie integration** (REQ-MAKIE-001–006) — `JSXGraphMakie.jl` backend package (post-1.0)
 
 ---
 
@@ -171,3 +196,4 @@ Legend: ✅ Done | 🔧 Partial | ⬜ Not started
 | **0.10.0** | 3D Support | `View3D`, `point3d`, `curve3d`, `functiongraph3d`, `parametricsurface3d` |
 | **0.11.0** | 3D Extended | `sphere3d`, `polygon3d`, `vectorfield3d`, `mesh3d`, 3D theming |
 | **1.0.0** | Stable Release | General Registry, full docs gallery, ≥ 80% coverage |
+| **1.1.0+** | Makie Integration | `JSXGraphMakie.jl` — Makie backend, Observables bridge, WGLMakie interop |
