@@ -36,9 +36,13 @@ function _ensure_npm_package(pkg::String)
     mkpath(deps_dir)
     @info "Installing $pkg for export (one-time setup)..."
     cmd = Cmd(_npm_cmd("install", "--prefix", deps_dir, pkg); dir=deps_dir)
-    run(pipeline(cmd; stdout=devnull, stderr=devnull); wait=true)
+    err_buf = IOBuffer()
+    proc = run(pipeline(cmd; stdout=devnull, stderr=err_buf); wait=true)
     if !isdir(pkg_dir)
-        error("Failed to install $pkg. Try manually: `cd $deps_dir && npm install $pkg`")
+        stderr_output = String(take!(err_buf))
+        error("Failed to install $pkg via npm (exit code $(proc.exitcode)).\n" *
+              "stderr: $stderr_output\n" *
+              "Try manually: `cd $deps_dir && npm install $pkg`")
     end
     @info "$pkg installed successfully."
 end

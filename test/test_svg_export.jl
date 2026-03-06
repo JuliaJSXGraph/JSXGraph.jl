@@ -1,3 +1,12 @@
+# SVG/PNG/PDF export via NodeJS JLL npm is unreliable on Windows CI runners
+# (npm install fails with exit code 1). Skip these tests on Windows.
+if Sys.iswindows()
+    @testset "Export Formats (REQ-ECO-011, REQ-ECO-012)" begin
+        @info "Skipping export tests on Windows (NodeJS_22_jll npm not supported)"
+        @test_skip false
+    end
+else
+
 @testset "Export Formats (REQ-ECO-011, REQ-ECO-012)" begin
     # === SVG Export ===
     @testset "SVG Export" begin
@@ -188,3 +197,5 @@
         end
     end
 end
+
+end # else (not Windows)
