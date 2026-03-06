@@ -24,6 +24,8 @@ jobs:
         shell: julia --project=docs --color=yes {0}
         run: |
           using Pkg
+          # Remove this once JSXGraphRecipesBase is in General registry
+          Pkg.develop(url="https://github.com/s-celles/JSXGraphRecipesBase.jl")
           Pkg.develop(PackageSpec(path=pwd()))
           Pkg.instantiate()
       - name: Build and deploy documentation
