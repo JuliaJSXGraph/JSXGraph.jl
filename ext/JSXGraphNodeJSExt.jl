@@ -4,6 +4,23 @@ using JSXGraph
 using NodeJS_22_jll: NodeJS_22_jll
 
 """
+    _npm_cmd(args...) -> Cmd
+
+Build a command to run npm. On Windows, npm_path is a shell script that cannot
+be spawned directly, so we invoke it via `node <npm-cli.js>` instead.
+"""
+function _npm_cmd(args...)
+    if Sys.iswindows()
+        # On Windows, npm is a .cmd wrapper; run npm-cli.js directly via node
+        artdir = dirname(dirname(NodeJS_22_jll.npm_path))
+        npm_cli = joinpath(artdir, "lib", "node_modules", "npm", "bin", "npm-cli.js")
+        return `$(NodeJS_22_jll.node_path) $npm_cli $args`
+    else
+        return `$(NodeJS_22_jll.npm_path) $args`
+    end
+end
+
+"""
     _ensure_npm_package(pkg::String)
 
 Ensure an npm package is installed in the package-local node_modules directory.
@@ -18,7 +35,7 @@ function _ensure_npm_package(pkg::String)
     end
     mkpath(deps_dir)
     @info "Installing $pkg for export (one-time setup)..."
-    cmd = Cmd(`$(NodeJS_22_jll.npm()) install --prefix $deps_dir $pkg`; dir=deps_dir)
+    cmd = Cmd(_npm_cmd("install", "--prefix", deps_dir, pkg); dir=deps_dir)
     run(pipeline(cmd; stdout=devnull, stderr=devnull); wait=true)
     if !isdir(pkg_dir)
         error("Failed to install $pkg. Try manually: `cd $deps_dir && npm install $pkg`")
@@ -43,7 +60,7 @@ function _run_node_script(script::String)
 
         output = IOBuffer()
         errors = IOBuffer()
-        cmd = Cmd(`$(NodeJS_22_jll.node()) $script_path`; env=env)
+        cmd = Cmd(`$(NodeJS_22_jll.node_path) $script_path`; env=env)
         run(pipeline(cmd; stdout=output, stderr=errors); wait=true)
 
         return (String(take!(output)), String(take!(errors)))
