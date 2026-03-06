@@ -36,6 +36,30 @@ export load_theme, register_theme!
 export ElementSpec, @jsxrecipe, apply_recipe, has_recipe
 export realize_specs
 
+"""
+    sorted_json(d::AbstractDict) -> String
+
+Serialize a dictionary to JSON with keys sorted alphabetically.
+Ensures deterministic output across Julia versions and platforms.
+"""
+function sorted_json(d::AbstractDict)
+    io = IOBuffer()
+    write(io, "{")
+    for (i, k) in enumerate(sort(collect(keys(d))))
+        i > 1 && write(io, ",")
+        JSON.print(io, k)
+        write(io, ":")
+        v = d[k]
+        if v isa AbstractDict
+            write(io, sorted_json(v))
+        else
+            JSON.print(io, v)
+        end
+    end
+    write(io, "}")
+    return String(take!(io))
+end
+
 include("themes.jl")
 include("types.jl")
 include("aliases.jl")

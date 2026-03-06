@@ -37,7 +37,7 @@ function board_options_to_js(options::Dict{String,Any})::String
             js_options[k] = v
         end
     end
-    return JSON.json(js_options)
+    return sorted_json(js_options)
 end
 
 """

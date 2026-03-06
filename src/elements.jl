@@ -102,7 +102,7 @@ $(SIGNATURES)
 Convert element attributes to a JSON string.
 """
 function attrs_to_js(attrs::Dict{String,Any})
-    return JSON.json(attrs)
+    return sorted_json(attrs)
 end
 
 # --- Geometric Primitives ---

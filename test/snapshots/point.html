@@ -2,7 +2,7 @@
 <div id="snap_point" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_snap_point = JXG.JSXGraph.initBoard(\'snap_point\', {"showNavigation":false,"showCopyright":false,"axis":true,"boundingbox":[-5,5,5,-5]});\nvar el_001 = board_snap_point.create(\'point\', [1,2], {"name":"A","strokeColor":"blue"});\n';
+  var boardCode = 'var board_snap_point = JXG.JSXGraph.initBoard(\'snap_point\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_snap_point.create(\'point\', [1,2], {"name":"A","strokeColor":"blue"});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();

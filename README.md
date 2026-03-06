@@ -1,7 +1,8 @@
 # JSXGraph.jl
 
 [![CI](https://github.com/s-celles/JSXGraph.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/s-celles/JSXGraph.jl/actions/workflows/CI.yml)
-[![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://s-celles.github.io/JSXGraph.jl/)
+[![Stable Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://s-celles.github.io/JSXGraph.jl/stable/)
+[![Dev Documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://s-celles.github.io/JSXGraph.jl/dev/)
 [![codecov](https://codecov.io/gh/s-celles/JSXGraph.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/s-celles/JSXGraph.jl)
 
 A Julia package for creating interactive geometry, function plotting, and data visualization using [JSXGraph](https://jsxgraph.org/).
@@ -31,7 +32,8 @@ html(b)
 
 ## Documentation
 
-Full documentation is available at **<https://s-celles.github.io/JSXGraph.jl/>**.
+- [**Stable**](https://s-celles.github.io/JSXGraph.jl/stable/) — documentation for the latest tagged release
+- [**Dev**](https://s-celles.github.io/JSXGraph.jl/dev/) — documentation for the current `main` branch
 
 ## License
 

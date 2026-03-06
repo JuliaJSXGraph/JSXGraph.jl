@@ -2,7 +2,7 @@
 <div id="snap_functiongraph" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_snap_functiongraph = JXG.JSXGraph.initBoard(\'snap_functiongraph\', {"showNavigation":false,"showCopyright":false,"axis":true,"boundingbox":[-5,5,5,-5]});\nvar el_001 = board_snap_functiongraph.create(\'functiongraph\', [function(x){ return Math.sin(x); }], {"strokeColor":"purple"});\n';
+  var boardCode = 'var board_snap_functiongraph = JXG.JSXGraph.initBoard(\'snap_functiongraph\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_snap_functiongraph.create(\'functiongraph\', [function(x){ return Math.sin(x); }], {"strokeColor":"purple"});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();

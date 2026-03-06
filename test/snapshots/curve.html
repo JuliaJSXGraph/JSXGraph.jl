@@ -2,7 +2,7 @@
 <div id="snap_curve" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_snap_curve = JXG.JSXGraph.initBoard(\'snap_curve\', {"showNavigation":false,"showCopyright":false,"axis":true,"boundingbox":[-5,5,5,-5]});\nvar el_001 = board_snap_curve.create(\'curve\', [function(t){ return 2*Math.cos(t); },function(t){ return 2*Math.sin(t); },0,6.28], {"strokeColor":"teal"});\n';
+  var boardCode = 'var board_snap_curve = JXG.JSXGraph.initBoard(\'snap_curve\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_snap_curve.create(\'curve\', [function(t){ return 2*Math.cos(t); },function(t){ return 2*Math.sin(t); },0,6.28], {"strokeColor":"teal"});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();
