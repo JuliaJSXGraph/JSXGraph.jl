@@ -44,7 +44,9 @@ jobs:
         run: |
           using Pkg
           # Remove this step once JSXGraphRecipesBase is in General registry
-          Pkg.develop(url="https://github.com/s-celles/JSXGraphRecipesBase.jl")
+          Pkg.develop([
+              PackageSpec(url="https://github.com/s-celles/JSXGraphRecipesBase.jl")
+          ])
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
       - uses: julia-actions/julia-processcoverage@v1
