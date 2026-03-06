@@ -225,31 +225,33 @@ For `String` inputs:
 - Strings already starting with `function` are used as-is.
 - Other strings are wrapped as `function(x){return <expr>;}` (arity=1)
   or `function(x,y){return <expr>;}` (arity=2), etc.
+- The `param_names` keyword overrides the default parameter names.
 
-For `Function` and `Expr` inputs, `arity` is ignored (the lambda structure
-determines the parameter list).
+For `Function` and `Expr` inputs, `arity` and `param_names` are ignored
+(the lambda structure determines the parameter list).
 """
-function _to_jsfunction(f::Function, arity::Int=1)
+function _to_jsfunction(f::Function, arity::Int=1; param_names=nothing)
     return JSFunction(julia_to_js(f))
 end
 
-function _to_jsfunction(expr::Expr, arity::Int=1)
+function _to_jsfunction(expr::Expr, arity::Int=1; param_names=nothing)
     return JSFunction(julia_to_js(expr))
 end
 
 const _JS_PARAM_NAMES = ["x", "y", "z", "w"]
 
-function _to_jsfunction(x::AbstractString, arity::Int=1)
+function _to_jsfunction(x::AbstractString, arity::Int=1; param_names=nothing)
     stripped = strip(x)
     # If the string is already a complete function expression, use as-is
     if startswith(stripped, "function")
         return JSFunction(String(stripped))
     end
-    params = join(_JS_PARAM_NAMES[1:arity], ",")
+    names = param_names !== nothing ? param_names : _JS_PARAM_NAMES
+    params = join(names[1:arity], ",")
     return JSFunction("function($params){return $x;}")
 end
 
-function _to_jsfunction(x::JSXElement, arity::Int=1)
+function _to_jsfunction(x::JSXElement, arity::Int=1; param_names=nothing)
     # For curve-like elements (functiongraph, curve), extract underlying JSFunction.
     # This lets users write e.g. `riemannsum(functiongraph_elem, ...)`
     # and have the function passed correctly to JSXGraph.
@@ -259,7 +261,7 @@ function _to_jsfunction(x::JSXElement, arity::Int=1)
     return x
 end
 
-function _to_jsfunction(x, arity::Int=1)
+function _to_jsfunction(x, arity::Int=1; param_names=nothing)
     return x
 end
 
@@ -706,9 +708,9 @@ c = curve3d(
 ```
 """
 function curve3d(fx, fy, fz, t_range; kwargs...)
-    jsfx = _to_jsfunction(fx)
-    jsfy = _to_jsfunction(fy)
-    jsfz = _to_jsfunction(fz)
+    jsfx = _to_jsfunction(fx; param_names=["t"])
+    jsfy = _to_jsfunction(fy; param_names=["t"])
+    jsfz = _to_jsfunction(fz; param_names=["t"])
     return _create_element("curve3d", (jsfx, jsfy, jsfz, t_range), kwargs)
 end
 
@@ -762,8 +764,8 @@ ps = parametricsurface3d(
 ```
 """
 function parametricsurface3d(fx, fy, fz, u_range, v_range; kwargs...)
-    jsfx = _to_jsfunction(fx, 2)
-    jsfy = _to_jsfunction(fy, 2)
-    jsfz = _to_jsfunction(fz, 2)
+    jsfx = _to_jsfunction(fx, 2; param_names=["u", "v"])
+    jsfy = _to_jsfunction(fy, 2; param_names=["u", "v"])
+    jsfz = _to_jsfunction(fz, 2; param_names=["u", "v"])
     return _create_element("parametricsurface3d", (jsfx, jsfy, jsfz, u_range, v_range), kwargs)
 end

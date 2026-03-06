@@ -55,6 +55,14 @@
         @test c.parents[4] == [-6.28, 6.28]
     end
 
+    @testset "curve3d uses t parameter" begin
+        c = curve3d("Math.cos(t)", "Math.sin(t)", "t", [0, 6.28])
+        @test contains(c.parents[1].code, "function(t)")
+        @test contains(c.parents[1].code, "Math.cos(t)")
+        @test contains(c.parents[2].code, "function(t)")
+        @test contains(c.parents[3].code, "function(t)")
+    end
+
     @testset "functiongraph3d" begin
         fg = functiongraph3d("Math.sin(x)*Math.cos(y)")
         @test fg isa JSXElement
@@ -82,6 +90,19 @@
         @test ps.parents[1] isa JSFunction
         @test ps.parents[4] == [0, 2]
         @test ps.parents[5] == [0, 6.28]
+    end
+
+    @testset "parametricsurface3d uses u,v parameters" begin
+        ps = parametricsurface3d(
+            "Math.sin(u)*Math.cos(v)",
+            "Math.sin(u)*Math.sin(v)",
+            "Math.cos(u)",
+            [0, 3.14], [0, 6.28],
+        )
+        @test contains(ps.parents[1].code, "function(u,v)")
+        @test contains(ps.parents[1].code, "Math.sin(u)*Math.cos(v)")
+        @test contains(ps.parents[2].code, "function(u,v)")
+        @test contains(ps.parents[3].code, "function(u,v)")
     end
 
     @testset "View3D push!" begin
