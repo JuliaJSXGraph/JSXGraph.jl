@@ -18,8 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `has_recipe` function to check if a type has a registered recipe
 - Recipe System documentation page
 - SVG export via `save("file.svg", board)` using NodeJS_22_jll + jsdom headless rendering (REQ-ECO-011)
-- `save_svg` function for programmatic SVG export (via `JSXGraphNodeJSExt` package extension)
-- `save()` dispatches on file extension (`.html` / `.svg`), errors on unsupported formats
+- PNG export via `save("file.png", board)` using NodeJS_22_jll + jsdom + sharp (REQ-ECO-012)
+- PDF export via `save("file.pdf", board)` using NodeJS_22_jll + jsdom + pdfkit + svg-to-pdfkit (REQ-ECO-012)
+- `save_svg`, `save_png`, `save_pdf` functions for programmatic export (via `JSXGraphNodeJSExt` package extension)
+- `save()` dispatches on file extension (`.html` / `.svg` / `.png` / `.pdf`), errors on unsupported formats
+- PNG `scale` parameter for high-DPI/Retina output (e.g. `save("plot.png", b; scale=2)`)
 - `NodeJS_22_jll` as weak dependency — Node.js v22 via Julia artifacts, no system install needed
 - HTML size warning when generated content exceeds 1 MB (excluding library assets) (REQ-PERF-003)
 - HTML snapshot tests for 10 major element types to detect regressions (REQ-QA-002)

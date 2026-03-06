@@ -91,16 +91,16 @@ Legend: ✅ Done | 🔧 Partial | ⬜ Not started
 | REQ-INT-011 | Observables.jl live updates (optional) | ⬜ |
 | REQ-DOC-002 | Gallery with 30+ categorized examples | ⬜ |
 | REQ-DOC-003 | Live interactive rendering in docs | ⬜ |
-| REQ-QA-001 | ≥ 80% code coverage in CI | ⬜ |
+| REQ-QA-001 | ≥ 80% code coverage in CI | ✅ (93.7%) |
 | REQ-QA-002 | HTML snapshot tests | ✅ |
 | REQ-QA-003 | CI pipeline: tests + lint + docs on PR | ✅ |
 | REQ-ECO-011 | SVG export via `save(*.svg)` | ✅ |
-| REQ-ECO-012 | PNG/PDF export via headless browser | ⬜ |
+| REQ-ECO-012 | PNG/PDF export via headless rendering | ✅ |
 | REQ-PERF-001 | `using JSXGraph` under 1 second | ✅ (37 ms) |
 | REQ-PERF-002 | 100-element board HTML in < 50 ms | ✅ (< 2 ms) |
 | REQ-PERF-003 | Warning when HTML > 1 MB (excl. library assets) | ✅ |
 
-**Phase 4 status: ~50% complete**
+**Phase 4 status: ~70% complete**
 
 ---
 

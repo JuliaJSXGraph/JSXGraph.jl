@@ -9,7 +9,7 @@ using JSXGraphRecipesBase
 export AbstractJSXElement, Board
 export JSXElement, JSFunction
 export JSXGRAPH_VERSION
-export html_string, html_page, html_fragment, save, save_svg
+export html_string, html_page, html_fragment, save, save_svg, save_png, save_pdf
 export open_in_browser
 
 # Element constructors

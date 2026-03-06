@@ -159,12 +159,15 @@ Save a board to a file.
 
 Dispatches on the file extension:
 - `.html` (default): writes a self-contained HTML document
-- `.svg`: exports a static SVG image (requires Node.js)
+- `.svg`: exports a static SVG image (requires NodeJS_22_jll)
+- `.png`: exports a PNG image (requires NodeJS_22_jll)
+- `.pdf`: exports a PDF document (requires NodeJS_22_jll)
 
 # Arguments
-- `filename::String`: Output file path (`.html` or `.svg`)
+- `filename::String`: Output file path (`.html`, `.svg`, `.png`, `.pdf`)
 - `board::Board`: The board to save
 - `asset_mode::Symbol=:inline`: for HTML output — `:inline` embeds JS/CSS; `:cdn` references CDN URLs
+- `scale::Int=1`: for PNG output — resolution multiplier (1 = native, 2 = Retina)
 
 # Examples
 ```julia
@@ -173,20 +176,22 @@ push!(board, point(1, 2))
 save("plot.html", board)
 save("plot_cdn.html", board; asset_mode=:cdn)
 save("plot.svg", board)
+save("plot.png", board)           # PNG export
+save("plot_hd.png", board; scale=2) # 2× resolution PNG
+save("plot.pdf", board)           # PDF export
 ```
 """
-function save(filename::String, board::Board; asset_mode::Symbol=:inline)
+function save(filename::String, board::Board; asset_mode::Symbol=:inline, scale::Int=1)
     ext = lowercase(splitext(filename)[2])
     if ext == ".svg"
-        if !hasmethod(save_svg, Tuple{String, Board})
-            error(
-                "SVG export requires the NodeJS_22_jll package.\n" *
-                "Install and load it with:\n" *
-                "  using Pkg; Pkg.add(\"NodeJS_22_jll\")\n" *
-                "  using NodeJS_22_jll"
-            )
-        end
+        _require_nodejs_ext("SVG")
         return save_svg(filename, board)
+    elseif ext == ".png"
+        _require_nodejs_ext("PNG")
+        return save_png(filename, board; scale=scale)
+    elseif ext == ".pdf"
+        _require_nodejs_ext("PDF")
+        return save_pdf(filename, board)
     elseif ext == ".html" || ext == ".htm"
         html = html_string(board; full_page=true, asset_mode=asset_mode)
         open(filename, "w") do io
@@ -196,7 +201,23 @@ function save(filename::String, board::Board; asset_mode::Symbol=:inline)
     else
         error(
             "Unsupported file extension '$ext'. " *
-            "Supported formats: .html, .svg"
+            "Supported formats: .html, .svg, .png, .pdf"
+        )
+    end
+end
+
+"""
+    _require_nodejs_ext(format::String)
+
+Check that the NodeJS extension is loaded. Throws an informative error if not.
+"""
+function _require_nodejs_ext(format::String)
+    if !hasmethod(save_svg, Tuple{String, Board})
+        error(
+            "$(format) export requires the NodeJS_22_jll package.\n" *
+            "Install and load it with:\n" *
+            "  using Pkg; Pkg.add(\"NodeJS_22_jll\")\n" *
+            "  using NodeJS_22_jll"
         )
     end
 end

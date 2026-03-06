@@ -18,7 +18,7 @@ makedocs(;
         "Home" => "index.md",
         "Getting Started" => "tutorial.md",
         "HTML Generation" => "html_generation.md",
-        "SVG Export" => "svg_export.md",
+        "Static Export" => "svg_export.md",
         "Display Protocol" => "display.md",
         "Geometric Elements" => "elements.md",
         "Attribute Aliases" => "aliases.md",
