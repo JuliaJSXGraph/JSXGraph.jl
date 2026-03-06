@@ -86,6 +86,26 @@ end
     fg3 = functiongraph(sin; color="red", strokeWidth=3)
     @test fg3.attributes["strokeColor"] == "red"
     @test fg3.attributes["strokeWidth"] == 3
+
+    # String-based function graph (expression body → wrapped in function)
+    fg_str = functiongraph("Math.sin(x)")
+    @test fg_str.parents[1] isa JSFunction
+    @test fg_str.parents[1].code == "function(x){return Math.sin(x);}"
+
+    # String-based function graph (already a function → used as-is)
+    fg_fn = functiongraph("function(x){ return x*x; }")
+    @test fg_fn.parents[1] isa JSFunction
+    @test fg_fn.parents[1].code == "function(x){ return x*x; }"
+
+    # String-based slopefield (2-param: function(x,y) wrapper)
+    sf_str = slopefield("x - y")
+    @test sf_str.parents[1] isa JSFunction
+    @test sf_str.parents[1].code == "function(x,y){return x - y;}"
+
+    # String-based implicitcurve (2-param: function(x,y) wrapper)
+    ic_str = implicitcurve("x*x + y*y - 9")
+    @test ic_str.parents[1] isa JSFunction
+    @test ic_str.parents[1].code == "function(x,y){return x*x + y*y - 9;}"
 end
 
 @testset "Interactive Elements" begin

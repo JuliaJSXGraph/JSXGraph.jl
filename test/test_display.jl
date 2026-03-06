@@ -18,10 +18,11 @@
     # Contains initBoard
     @test occursin("JXG.JSXGraph.initBoard", html)
 
-    # Contains CDN script src and link tags
+    # Contains CDN script tag and link tags
     @test occursin("<script", html)
-    @test occursin("src=", html)
     @test occursin("<link rel=", html)
+    # CDN JS is loaded via RequireJS-compatible loader (not a direct <script src>)
+    @test occursin("require", html) || occursin("src=", html)
 end
 
 @testset "Unique Display IDs" begin

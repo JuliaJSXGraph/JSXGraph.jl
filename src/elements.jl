@@ -216,17 +216,50 @@ hyperbola(f1, f2, p; kwargs...) = _create_element("hyperbola", (f1, f2, p), kwar
 # --- Analytic Elements ---
 
 """
-Helper to convert a function or expression to a JSFunction.
+Helper to convert a function, expression, or string to a JSFunction.
+
+The optional `arity` parameter controls the number of parameters in the
+generated JavaScript function wrapper (only used for String inputs).
+
+For `String` inputs:
+- Strings already starting with `function` are used as-is.
+- Other strings are wrapped as `function(x){return <expr>;}` (arity=1)
+  or `function(x,y){return <expr>;}` (arity=2), etc.
+
+For `Function` and `Expr` inputs, `arity` is ignored (the lambda structure
+determines the parameter list).
 """
-function _to_jsfunction(f::Function)
+function _to_jsfunction(f::Function, arity::Int=1)
     return JSFunction(julia_to_js(f))
 end
 
-function _to_jsfunction(expr::Expr)
+function _to_jsfunction(expr::Expr, arity::Int=1)
     return JSFunction(julia_to_js(expr))
 end
 
-function _to_jsfunction(x)
+const _JS_PARAM_NAMES = ["x", "y", "z", "w"]
+
+function _to_jsfunction(x::AbstractString, arity::Int=1)
+    stripped = strip(x)
+    # If the string is already a complete function expression, use as-is
+    if startswith(stripped, "function")
+        return JSFunction(String(stripped))
+    end
+    params = join(_JS_PARAM_NAMES[1:arity], ",")
+    return JSFunction("function($params){return $x;}")
+end
+
+function _to_jsfunction(x::JSXElement, arity::Int=1)
+    # For curve-like elements (functiongraph, curve), extract underlying JSFunction.
+    # This lets users write e.g. `riemannsum(functiongraph_elem, ...)`
+    # and have the function passed correctly to JSXGraph.
+    if !isempty(x.parents) && x.parents[1] isa JSFunction
+        return x.parents[1]
+    end
+    return x
+end
+
+function _to_jsfunction(x, arity::Int=1)
     return x
 end
 
@@ -257,7 +290,7 @@ $(SIGNATURES)
 Create an implicit curve from a function `f(x, y) = 0`.
 """
 function implicitcurve(f; kwargs...)
-    jsf = _to_jsfunction(f)
+    jsf = _to_jsfunction(f, 2)
     return _create_element("implicitcurve", (jsf,), kwargs)
 end
 
@@ -312,20 +345,42 @@ end
 $(SIGNATURES)
 
 Create a slope field visualization.
+
+# Arguments
+- `f`: Function `f(x, y)` returning a slope value (Function, Expr, or String)
+- `xData`: Grid range for x as `[xmin, step, xmax]` (default: `[-5, 1, 5]`)
+- `yData`: Grid range for y as `[ymin, step, ymax]` (default: `[-5, 1, 5]`)
+
+# Example
+```julia
+slopefield("x - y")  # uses default grid
+slopefield("x - y", [-10, 0.5, 10], [-10, 0.5, 10])  # custom grid
+```
 """
-function slopefield(f; kwargs...)
-    jsf = _to_jsfunction(f)
-    return _create_element("slopefield", (jsf,), kwargs)
+function slopefield(f, xData=[-5, 1, 5], yData=[-5, 1, 5]; kwargs...)
+    jsf = _to_jsfunction(f, 2)
+    return _create_element("slopefield", (jsf, xData, yData), kwargs)
 end
 
 """
 $(SIGNATURES)
 
 Create a vector field visualization.
+
+# Arguments
+- `f`: Function `f(x, y)` returning `[vx, vy]` (Function, Expr, or String)
+- `xData`: Grid range for x as `[xmin, step, xmax]` (default: `[-5, 1, 5]`)
+- `yData`: Grid range for y as `[ymin, step, ymax]` (default: `[-5, 1, 5]`)
+
+# Example
+```julia
+vectorfield(@jsf((x, y) -> [y, -x]))  # uses default grid
+vectorfield(@jsf((x, y) -> [y, -x]), [-10, 0.5, 10], [-10, 0.5, 10])  # custom grid
+```
 """
-function vectorfield(f; kwargs...)
-    jsf = _to_jsfunction(f)
-    return _create_element("vectorfield", (jsf,), kwargs)
+function vectorfield(f, xData=[-5, 1, 5], yData=[-5, 1, 5]; kwargs...)
+    jsf = _to_jsfunction(f, 2)
+    return _create_element("vectorfield", (jsf, xData, yData), kwargs)
 end
 
 # --- Interactive Elements ---

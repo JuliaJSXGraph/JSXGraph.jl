@@ -5,21 +5,29 @@ Write JSXGraph library assets to `io`.
 
 When `mode` is `:inline`, embeds the full JS and CSS content.
 When `mode` is `:cdn`, writes `<link>` and `<script src="...">` tags referencing the jsdelivr CDN.
+
+The `css_only` flag (default `false`) can be set to `true` to emit only the CSS
+stylesheet — useful in fragment mode where the JS library is loaded via a
+RequireJS-compatible script loader.
 """
-function render_assets(io::IO; mode::Symbol=:inline)
+function render_assets(io::IO; mode::Symbol=:inline, css_only::Bool=false)
     if mode == :inline
         print(io, "<style>\n")
         print(io, jsxgraph_css())
         print(io, "\n</style>\n")
-        print(io, "<script>\n")
-        print(io, jsxgraph_js())
-        print(io, "\n</script>\n")
+        if !css_only
+            print(io, "<script>\n")
+            print(io, jsxgraph_js())
+            print(io, "\n</script>\n")
+        end
     elseif mode == :cdn
         print(
             io,
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"$(JSXGRAPH_CDN_CSS)\" />\n",
         )
-        print(io, "<script type=\"text/javascript\" src=\"$(JSXGRAPH_CDN_JS)\"></script>\n")
+        if !css_only
+            print(io, "<script type=\"text/javascript\" src=\"$(JSXGRAPH_CDN_JS)\"></script>\n")
+        end
     else
         throw(ArgumentError("asset_mode must be :inline or :cdn, got :$mode"))
     end
@@ -64,12 +72,22 @@ function render_board_js(io::IO, board::Board)
 end
 
 """
+CDN URL for the JSXGraph JavaScript library (minified, for RequireJS compatibility).
+"""
+const JSXGRAPH_CDN_JS_MIN = "https://cdn.jsdelivr.net/npm/jsxgraph@$(JSXGRAPH_VERSION)/distrib/jsxgraphcore.min"
+
+"""
 $(SIGNATURES)
 
 Write the HTML for a board to `io`.
 
 When `full_page=true`, generates a complete HTML5 document.
 When `full_page=false`, generates an embeddable HTML fragment.
+
+In fragment mode (notebooks, Documenter.jl), the board initialization script
+is wrapped in a loader that handles RequireJS environments (where the CDN
+`<script>` tag registers JSXGraph as an AMD module instead of setting `JXG`
+globally).
 """
 function render_board_html(
     io::IO, board::Board; full_page::Bool=true, asset_mode::Symbol=:inline
@@ -84,23 +102,68 @@ function render_board_html(
     style_str = join(style_parts, ";")
 
     if full_page
+        # Full page: we control the <head>, no RequireJS conflict.
         print(io, "<!DOCTYPE html>\n")
         print(io, "<html>\n<head>\n")
         print(io, "<meta charset=\"UTF-8\">\n")
         print(io, "<title>JSXGraph Board</title>\n")
         render_assets(io; mode=asset_mode)
         print(io, "</head>\n<body>\n")
-    else
-        render_assets(io; mode=asset_mode)
-    end
-
-    print(io, "<div id=\"$(board.id)\" class=\"jxgbox\" style=\"$(style_str)\"></div>\n")
-    print(io, "<script>\n")
-    render_board_js(io, board)
-    print(io, "</script>\n")
-
-    if full_page
+        print(io, "<div id=\"$(board.id)\" class=\"jxgbox\" style=\"$(style_str)\"></div>\n")
+        print(io, "<script>\n")
+        render_board_js(io, board)
+        print(io, "</script>\n")
         print(io, "</body>\n</html>\n")
+    else
+        # Fragment mode.
+        # Emit CSS only — JS is loaded dynamically to avoid conflicts with
+        # RequireJS (e.g. Documenter.jl), which causes JSXGraph's UMD wrapper
+        # to register as an AMD module instead of setting JXG globally.
+        render_assets(io; mode=asset_mode, css_only=true)
+        print(io, "<div id=\"$(board.id)\" class=\"jxgbox\" style=\"$(style_str)\"></div>\n")
+
+        board_js = sprint(render_board_js, board)
+        escaped_js = replace(board_js, "\\" => "\\\\", "'" => "\\'", "\n" => "\\n")
+
+        if asset_mode == :inline
+            # Inline: embed the full library source with AMD detection disabled,
+            # so JXG is set globally even when RequireJS is present.
+            print(io, "<script>\n")
+            print(io, "(function(){\n")
+            print(io, "if(typeof JXG==='undefined'){\n")
+            print(io, "var _sd=window.define;window.define=undefined;\n")
+            print(io, jsxgraph_js())
+            print(io, "\nwindow.define=_sd;\n")
+            print(io, "}\n")
+            print(io, "})();\n")
+            print(io, "</script>\n")
+            print(io, "<script>\n")
+            render_board_js(io, board)
+            print(io, "</script>\n")
+        else
+            # CDN: use a RequireJS-compatible loader that handles three scenarios:
+            # 1. JXG globally available → use it directly
+            # 2. RequireJS present (Documenter.jl) → load via require()
+            # 3. Neither → create a <script> tag dynamically
+            print(io, """<script>
+(function() {
+  var boardCode = '$(escaped_js)';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof require !== 'undefined') {
+    require.config({paths:{'jsxgraph':'$(JSXGRAPH_CDN_JS_MIN)'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = '$(JSXGRAPH_CDN_JS)';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+""")
+        end
     end
 end
 
