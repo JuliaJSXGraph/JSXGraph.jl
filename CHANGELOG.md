@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `functiongraph3d` now automatically inherits x/y ranges from parent `View3D` when not explicitly provided, fixing `Surface3D.updateWireframe` crash
+- CDN fragment loader now correctly detects RequireJS (checks `requirejs` global) instead of failing on Pluto.jl's custom `require`
 - String arguments to `functiongraph`, `slopefield`, `vectorfield`, `implicitcurve` are now wrapped as JavaScript function expressions instead of being JSON-quoted as JessieCode strings
 - `slopefield`, `vectorfield`, and `implicitcurve` correctly generate 2-parameter `function(x,y)` wrappers for string inputs
 - Strings starting with `function` are passed through as-is (e.g., `"function(x){ return x*x; }"`)

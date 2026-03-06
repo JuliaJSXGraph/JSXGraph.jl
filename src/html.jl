@@ -187,7 +187,7 @@ function render_board_html(
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();
-  } else if (typeof require !== 'undefined') {
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
     require.config({paths:{'jsxgraph':'$(JSXGRAPH_CDN_JS_MIN)'}});
     require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
   } else {
