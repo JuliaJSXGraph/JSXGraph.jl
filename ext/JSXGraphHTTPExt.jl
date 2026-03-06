@@ -206,7 +206,7 @@ end
 
 # ── serve() implementation ──────────────────────────────────────────────────
 
-function JSXGraph.serve(board::JSXGraph.Board; port::Int=0)
+function JSXGraph.serve(board::JSXGraph.Board; port::Int=0, open_browser::Bool=!haskey(ENV, "CI"))
     state = _ServerState(
         nothing,
         Set{Any}(),
@@ -281,10 +281,12 @@ function JSXGraph.serve(board::JSXGraph.Board; port::Int=0)
     end
 
     # Try to open in browser
-    try
-        _open_browser("http://127.0.0.1:$(lb.port)")
-    catch e
-        @warn "Could not open browser automatically" exception=e
+    if open_browser
+        try
+            _open_browser("http://127.0.0.1:$(lb.port)")
+        catch e
+            @warn "Could not open browser automatically" exception=e
+        end
     end
 
     return lb

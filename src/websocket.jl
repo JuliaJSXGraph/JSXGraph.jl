@@ -38,6 +38,11 @@ Start a local WebSocket server for the given board and open it in the default br
 Returns a [`LiveBoard`](@ref) with an active server connection.
 Port 0 means OS-assigned (returned in `liveboard.port`).
 
+# Keyword arguments
+- `port::Int=0`: TCP port to listen on (0 = OS-assigned).
+- `open_browser::Bool`: whether to open the board in the default browser.
+  Defaults to `true` unless the `CI` environment variable is set.
+
 Requires `HTTP.jl` to be loaded; throws an error otherwise.
 """
 function serve end

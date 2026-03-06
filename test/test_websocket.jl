@@ -33,7 +33,7 @@ end
         p = point(0, 0; name="P")
         push!(b, p)
 
-        lb = serve(b; port=0)
+        lb = serve(b; port=0, open_browser=false)
         @test lb.port > 0
         @test lb.is_serving == true
         @test lb.board === b
@@ -65,7 +65,7 @@ end
         s = slider([-4, 4], [0, 4], [0, 5, 10]; name="myslider")
         push!(b, p, s)
 
-        lb = serve(b; port=0)
+        lb = serve(b; port=0, open_browser=false)
         try
             # Register callbacks (use JSXGraph.on to avoid clash with Observables.on)
             received = Ref{Any}(nothing)
@@ -103,7 +103,7 @@ end
         p = point(0, 0; name="P")
         push!(b, p)
 
-        lb = serve(b; port=0)
+        lb = serve(b; port=0, open_browser=false)
         try
             received = Channel{Dict{String,Any}}(10)
 
@@ -143,12 +143,13 @@ end
         p = point(0, 0; name="P")
         push!(b, p)
 
-        lb = serve(b; port=0)
+        lb = serve(b; port=0, open_browser=false)
+        ws_task = Ref{Task}()
         try
             received_msgs = Channel{Dict{String,Any}}(10)
 
             # Connect a WebSocket client to receive updates
-            ws_task = @async begin
+            ws_task[] = @async begin
                 HTTP.WebSockets.open("ws://127.0.0.1:$(lb.port)/ws") do ws
                     for msg_data in ws
                         msg = JSON.parse(String(msg_data))
@@ -202,7 +203,12 @@ end
                 @test "setAttribute" in methods
             end
         finally
+            # Stop the server first so WebSocket iteration ends
             stop_server!(lb)
+            # Wait briefly for the async WS task to finish
+            if isassigned(ws_task)
+                timedwait(() -> istaskdone(ws_task[]), 3.0)
+            end
         end
     end
 
@@ -211,7 +217,7 @@ end
         p = point(0, 0; name="P")
         push!(b, p)
 
-        lb = serve(b; port=0)
+        lb = serve(b; port=0, open_browser=false)
         try
             # Register a callback that throws
             JSXGraph.on(lb, p, :drag) do data
@@ -252,13 +258,15 @@ end
         p = point(0, 0; name="P")
         push!(b, p)
 
-        lb = serve(b; port=0)
+        lb = serve(b; port=0, open_browser=false)
+        ws_task1 = Ref{Task}()
+        ws_task2 = Ref{Task}()
         try
             received1 = Channel{Dict{String,Any}}(10)
             received2 = Channel{Dict{String,Any}}(10)
 
             # Connect two WebSocket clients
-            ws_task1 = @async HTTP.WebSockets.open("ws://127.0.0.1:$(lb.port)/ws") do ws
+            ws_task1[] = @async HTTP.WebSockets.open("ws://127.0.0.1:$(lb.port)/ws") do ws
                 for msg_data in ws
                     msg = JSON.parse(String(msg_data))
                     if msg["type"] == "update"
@@ -267,7 +275,7 @@ end
                 end
             end
 
-            ws_task2 = @async HTTP.WebSockets.open("ws://127.0.0.1:$(lb.port)/ws") do ws
+            ws_task2[] = @async HTTP.WebSockets.open("ws://127.0.0.1:$(lb.port)/ws") do ws
                 for msg_data in ws
                     msg = JSON.parse(String(msg_data))
                     if msg["type"] == "update"
@@ -303,7 +311,12 @@ end
                 @test msg2["args"] == [[5, 6]]
             end
         finally
+            # Stop the server first so WebSocket iteration ends
             stop_server!(lb)
+            # Wait briefly for async WS tasks to finish
+            if isassigned(ws_task1) && isassigned(ws_task2)
+                timedwait(() -> istaskdone(ws_task1[]) && istaskdone(ws_task2[]), 3.0)
+            end
         end
     end
 
@@ -312,7 +325,7 @@ end
         p = point(0, 0)
         push!(b, p)
 
-        lb = serve(b; port=0)
+        lb = serve(b; port=0, open_browser=false)
         stop_server!(lb)
 
         @test_throws ErrorException update!(lb, p; x=1, y=2)
@@ -323,7 +336,7 @@ end
         p = point(0, 0; name="P")
         push!(b, p)
 
-        lb = serve(b; port=0)
+        lb = serve(b; port=0, open_browser=false)
         try
             # Before registering callbacks — no event listeners in HTML
             resp1 = HTTP.get("http://127.0.0.1:$(lb.port)/")
