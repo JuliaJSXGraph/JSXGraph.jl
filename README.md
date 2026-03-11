@@ -11,7 +11,12 @@ A Julia package for creating interactive geometry, function plotting, and data v
 
 ```julia
 using Pkg
-Pkg.add("JSXGraph")
+
+Pkg.develop("https://github.com/s-celles/JSXGraph.jl/")
+
+# or
+
+Pkg.add("JSXGraph")  # when registered
 ```
 
 ## Quick Start
