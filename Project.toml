@@ -1,7 +1,7 @@
 name = "JSXGraph"
 uuid = "97e4c2e4-f0cb-461e-a268-312dec255b76"
-authors = ["Thibaut Lienart <ltib@me.com>"]
-version = "0.1.6"
+authors = ["JuliaJSXGraph maintainers"]
+version = "0.1.7"
 
 [deps]
 Blink = "ad839575-38b3-5650-b840-f874b8c74a25"

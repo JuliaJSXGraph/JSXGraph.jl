@@ -1,3 +1,31 @@
+# Ignore everything
+*
+
+# Allow project structure
+!.gitignore
+!.github/
+!.github/**
+
+# Allow project files
+!LICENSE.md
+!README.md
+!MAINTAINERS
+!Project.toml
+!index.html
+
+# Allow source
+!src/
+!src/**
+
+# Allow tests
+!test/
+!test/**
+
+# Allow docs
+!docs/
+!docs/**
+
+# Denied files and directories
 sandbox/
 *DS_Store
 sandbox.js
