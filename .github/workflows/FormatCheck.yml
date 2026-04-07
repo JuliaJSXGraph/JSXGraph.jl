@@ -1,0 +1,28 @@
+name: Format Check
+on:
+  pull_request:
+
+jobs:
+  format:
+    name: JuliaFormatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1'
+      - uses: julia-actions/cache@v2
+      - name: Check formatting
+        run: |
+          julia -e '
+            using Pkg
+            Pkg.add("JuliaFormatter")
+            using JuliaFormatter
+            result = format(".", overwrite=false)
+            if result
+                @info "Formatting check passed"
+            else
+                @error "Formatting check failed. Run `using JuliaFormatter; format(\".\")` locally and commit the changes."
+                exit(1)
+            end
+          '

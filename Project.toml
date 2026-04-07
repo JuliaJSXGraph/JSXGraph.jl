@@ -1,24 +1,44 @@
 name = "JSXGraph"
 uuid = "97e4c2e4-f0cb-461e-a268-312dec255b76"
+version = "0.5.0"
 authors = ["JuliaJSXGraph maintainers"]
-version = "0.1.7"
 
 [deps]
-Blink = "ad839575-38b3-5650-b840-f874b8c74a25"
+Artifacts = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
-JSExpr = "97c1335a-c9c5-57fe-bc5d-ec35cebe8660"
-OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+JSXGraphRecipesBase = "bd634f59-a37b-43f6-973f-3a9fc2996b03"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+Sockets = "6462fe0b-24de-5631-8697-dd941f90decc"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+
+[weakdeps]
+Colors = "5ae59095-9a9b-59fe-a467-6f913c188581"
+DefaultApplication = "3f0dd361-4fe0-5fc6-8523-80b14ec94d85"
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+NodeJS_22_jll = "8fca9ca2-e7a1-5ccf-8c05-43be5a78664f"
+Observables = "510215fc-4207-5dde-b226-833fc4488ee2"
+Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+
+[extensions]
+JSXGraphColorsExt = "Colors"
+JSXGraphDefaultApplicationExt = "DefaultApplication"
+JSXGraphHTTPExt = "HTTP"
+JSXGraphNodeJSExt = "NodeJS_22_jll"
+JSXGraphObservablesExt = "Observables"
+JSXGraphTablesExt = "Tables"
+JSXGraphUnitfulExt = "Unitful"
 
 [compat]
-Blink = "0.12"
-DocStringExtensions = "0.8"
-JSExpr = "0.5"
-OrderedCollections = "1.1"
-julia = "1"
-
-[extras]
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-
-[targets]
-test = ["Test"]
+Colors = "0.12, 0.13"
+DefaultApplication = "1"
+DocStringExtensions = "0.9"
+HTTP = "1"
+JSON = "0.21"
+JSXGraphRecipesBase = "0.1"
+NodeJS_22_jll = "22"
+Observables = "0.5"
+Tables = "1"
+Unitful = "1"
+julia = "1.10"

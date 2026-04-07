@@ -1,0 +1,6 @@
+[jsxgraph]
+git-tree-sha1 = "3ac3cb46d5de1cd0e3e4b118f2021e1a0df9b1f4"
+
+    [[jsxgraph.download]]
+    sha256 = "81b931d00ddf2dd8297dd1bb6e97751a9e0f7df481d421f08f4d47ca4c449b0a"
+    url = "https://github.com/JuliaJSXGraph/JSXGraph.jl/releases/download/jsxgraph-1.12.2/jsxgraph-1.12.2.tar.gz"

@@ -1,75 +1,97 @@
 module JSXGraph
 
-# Javascript
-using JSExpr
-
-# Display
-import Blink
-
-# Stdlib & simple things
-using Random
 using DocStringExtensions
-import OrderedCollections: LittleDict
+using JSON
+using Artifacts
+using Random: randstring
+using JSXGraphRecipesBase
 
-# -----------------------------------------------
+export AbstractJSXElement, Board, View3D
+export JSXElement, JSFunction
+export JSXGRAPH_VERSION
+export html_string, html_page, html_fragment, save, save_svg, save_png, save_pdf
+export open_in_browser
 
-# board etc
-export board, gcb, (++)
-# save
-export save, str
+# Element constructors
+export point, line, segment, arrow, circle, arc, sector
+export polygon, regularpolygon, angle, conic, ellipse, parabola, hyperbola
+export functiongraph, curve, implicitcurve, inequality
+export tangent, normal, integral, derivative, riemannsum, slopefield, vectorfield
+export slider, checkbox, input, button, glider, tapemeasure, text, image
 
-# defining functions
-export @jsf, @js_str
-export val, valx, valy, setx, sety
+# 3D Element constructors
+export view3d, point3d, line3d, curve3d, functiongraph3d, parametricsurface3d, vectorfield3d
+export sphere3d, circle3d, polygon3d, plane3d
+export intersectionline3d, intersectioncircle3d, text3d, mesh3d, polyhedron3d
 
-# controllers
-export slider, button
+# Composition and transformation elements
+export group, transformation, reflection, rotation, translation
+export grid, axis, ticks, legend
 
-# objects
-export functiongraph, parametriccurve, polarcurve, dataplot, plot
-export point
-export scatterplot, scatter
+# Composition and convenience
+export board, plot, plot!, scatter, parametric, implicit, polar
+export julia_to_js, @jsf, @named_jsf, named_jsf, with_deps
+export enable_mathjs!, disable_mathjs!, mathjs_enabled
+export MATHJS_VERSION, MATHJS_CDN_JS
 
-# -----------------------------------------------
+# WebSocket interactivity
+export LiveBoard, serve, stop_server!, on, off, update!
 
-abstract type Object end
+# Theming
+export Theme, THEME_DEFAULT, THEME_DARK, THEME_PUBLICATION
+export set_theme!, reset_theme!, with_theme, current_theme
+export load_theme, register_theme!
 
-Base.length(o::Object) = 1
+# Recipe system (re-exported from JSXGraphRecipesBase)
+export ElementSpec, @jsxrecipe, apply_recipe, has_recipe
+export realize_specs
 
-# fallbacks overloaded by specific objects
-val(x) = 1
-valx(x) = 1
-valy(y) = 1
-setx(o, x) = 1
-sety(o, y) = 1
+"""
+$(SIGNATURES)
 
-function get_opts(x::Object)
-    isnothing(x.opts) && return JSString("{}")
-    return (;x.opts...)
+Unwrap a value for rendering. Returns the value unchanged by default.
+
+Package extensions (e.g. JSXGraphObservablesExt) can add methods to unwrap
+wrapper types such as `Observable` before HTML/JS generation.
+"""
+resolve_value(x) = x
+
+"""
+$(SIGNATURES)
+
+Serialize a dictionary to JSON with keys sorted alphabetically.
+Ensures deterministic output across Julia versions and platforms.
+"""
+function sorted_json(d::AbstractDict)
+    io = IOBuffer()
+    write(io, "{")
+    for (i, k) in enumerate(sort(collect(keys(d))))
+        i > 1 && write(io, ",")
+        JSON.print(io, k)
+        write(io, ":")
+        v = resolve_value(d[k])
+        if v isa AbstractDict
+            write(io, sorted_json(v))
+        else
+            JSON.print(io, v)
+        end
+    end
+    write(io, "}")
+    return String(take!(io))
 end
 
-# -----------------------------------------------
-
-include("jsfun.jl")
-
-# -----------------------------------------------
-
-const Option{T} = Union{<:T,Nothing} where T
-
-const FR = Union{JSFun,Real}
-const AR = AbstractArray{<:Real}
-const AFR = Union{AR,FR}
-
-# -----------------------------------------------
-
-include("utils.jl")
-
-include("board.jl")
-include("objects/controllers.jl")
-include("objects/curves.jl")
-include("objects/geom.jl")
-include("objects/extras.jl")
-
+include("themes.jl")
+include("types.jl")
+include("aliases.jl")
+include("elements.jl")
+include("jsfunction.jl")
+include("composition.jl")
+include("assets.jl")
+include("options.jl")
+include("html.jl")
+include("svg_export.jl")
 include("display.jl")
+include("recipes.jl")
+include("websocket.jl")
 
-end # module
+end # module JSXGraph

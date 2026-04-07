@@ -1,0 +1,7 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+JSXGraph = "861df16c-a258-49bd-8343-e8a09d96ee6f"
+JSXGraphRecipesBase = "bd634f59-a37b-43f6-973f-3a9fc2996b03"
+
+[compat]
+Documenter = "1"

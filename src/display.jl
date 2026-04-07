@@ -1,57 +1,48 @@
-"""
-    standalone(b; full)
+# Display protocol: Base.show methods for Board objects
 
-Internal function to return self-contained HTML with Javascript ready to be
-displayed.
 """
-function standalone(b::Board; full=false, preamble=true)
-    s = ""
-    if full
-        s = """
-            <!DOCTYPE html>
-            <html>
-            <head>
-              <script>
-              $(read(joinpath(dirname(pathof(JSXGraph)), "libs", "jsxgraphcore.js"),String))
-              </script>
-              <style>
-              $(read(joinpath(dirname(pathof(JSXGraph)), "libs", "jsxgraph.css"),String))
-              </style>
-            </head>
-            <body>
-            """
-    end
-    s *= """<div id="$(b.name)" class="jxgbox" style=\"$(b.style)\"></div>
-         <script>$(str(b, preamble=preamble))</script>"""
-    if full
-        s *= """</body></html>"""
-    end
-    return s
+    open_in_browser(board::Board; asset_mode::Symbol=:inline) → String
+
+Open a Board visualization in the default web browser.
+
+Requires the `DefaultApplication.jl` package to be installed and loaded.
+"""
+function open_in_browser end
+
+"""
+$(SIGNATURES)
+
+Display a Board as an HTML fragment for notebook environments (Jupyter, Pluto, VS Code).
+
+Generates a unique display ID per call to avoid DOM conflicts when multiple cells
+render the same board. Uses CDN mode for compact output.
+"""
+function Base.show(io::IO, ::MIME"text/html", board::Board)
+    display_id = "jxg_" * randstring(12)
+    display_board = Board(display_id, board.elements, board.options)
+    render_board_html(io, display_board; full_page=false, asset_mode=:cdn)
 end
 
-# NOTE: Juno/Atom does not allow interactive Javascript so obliged to go via
-# a Blink window. Not ideal but ok.
-#
-# For IJulia, should manage to do it like
-# https://github.com/queryverse/VegaLite.jl/blob/2208264fe0bfd38f563f26035dd00a0153bd0c61/src/rendering/render.jl#L74
-# however this is black magic, I haven't  worked out how to  do it.
+"""
+$(SIGNATURES)
 
-function Base.show(io::IO, b::Board)
-    if isempty(b.objects)
-        if isempty(b.functions)
-            println(io, "Board $(b.name) (empty).")
-        else
-            println(io, "Board $(b.name) (no objects).")
-        end
-        return
-    elseif isdefined(Main, :Atom) && Main.Atom.PlotPaneEnabled[]
-        p = Blink.Page()
-        Main.Atom.ploturl(Blink.localurl(p))
-        wait(p)
-        Blink.body!(p, standalone(b, full=true))
-    else
-        w = Blink.Window()
-        Blink.body!(w, standalone(b, full=true))
-    end
-    return nothing
+Display a compact text summary of a Board in the REPL.
+
+Format: `Board("id", N elements, x=[xmin,xmax], y=[ymin,ymax], WxHpx)`
+"""
+function Base.show(io::IO, ::MIME"text/plain", board::Board)
+    n = length(board.elements)
+    elem_str = n == 1 ? "1 element" : "$(n) elements"
+
+    bb = get(board.options, "boundingbox", [-5, 5, 5, -5])
+    xmin, ymax, xmax, ymin = bb
+
+    css = extract_css_options(board.options)
+    w = css["width"]
+    h = css["height"]
+
+    print(
+        io,
+        "Board(\"$(board.id)\", $(elem_str), x=[$(xmin),$(xmax)], y=[$(ymin),$(ymax)], $(w)x$(h)px)",
+    )
 end

@@ -1,0 +1,6 @@
+[deps]
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+JSXGraph = "861df16c-a258-49bd-8343-e8a09d96ee6f"
+
+[sources.JSXGraph]
+path = "../.."
