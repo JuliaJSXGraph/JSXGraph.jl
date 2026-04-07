@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Geometric Elements · JSXGraph.jl</title><meta name="title" content="Geometric Elements · JSXGraph.jl"/><meta property="og:title" content="Geometric Elements · JSXGraph.jl"/><meta property="twitter:title" content="Geometric Elements · JSXGraph.jl"/><meta name="description" content="Documentation for JSXGraph.jl."/><meta property="og:description" content="Documentation for JSXGraph.jl."/><meta property="twitter:description" content="Documentation for JSXGraph.jl."/><meta property="og:url" content="https://JuliaJSXGraph.github.io/JSXGraph.jl/elements/"/><meta property="twitter:url" content="https://JuliaJSXGraph.github.io/JSXGraph.jl/elements/"/><link rel="canonical" href="https://JuliaJSXGraph.github.io/JSXGraph.jl/elements/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">JSXGraph.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../tutorial/">Getting Started</a></li><li><a class="tocitem" href="../gallery/">Gallery</a></li><li><a class="tocitem" href="../gallery3d/">3D Gallery</a></li><li><a class="tocitem" href="../html_generation/">HTML Generation</a></li><li><a class="tocitem" href="../svg_export/">Static Export</a></li><li><a class="tocitem" href="../display/">Display Protocol</a></li><li class="is-active"><a class="tocitem" href>Geometric Elements</a><ul class="internal"><li><a class="tocitem" href="#Element-Creation-Pattern"><span>Element Creation Pattern</span></a></li><li><a class="tocitem" href="#Geometric-Primitives"><span>Geometric Primitives</span></a></li><li><a class="tocitem" href="#Composition-and-Transformation-Elements"><span>Composition &amp; Transformation Elements</span></a></li><li><a class="tocitem" href="#Analytic-Elements"><span>Analytic Elements</span></a></li><li><a class="tocitem" href="#Interactive-Controls"><span>Interactive Controls</span></a></li><li><a class="tocitem" href="#Board-Composition"><span>Board Composition</span></a></li><li><a class="tocitem" href="#High-Level-Plot"><span>High-Level Plot</span></a></li><li><a class="tocitem" href="#Convenience-Functions"><span>Convenience Functions</span></a></li><li><a class="tocitem" href="#Tables.jl-Data-Integration"><span>Tables.jl Data Integration</span></a></li><li><a class="tocitem" href="#Unitful.jl-Integration"><span>Unitful.jl Integration</span></a></li><li><a class="tocitem" href="#Julia-to-JavaScript-Conversion"><span>Julia-to-JavaScript Conversion</span></a></li><li><a class="tocitem" href="#3D-Elements"><span>3D Elements</span></a></li></ul></li><li><a class="tocitem" href="../aliases/">Attribute Aliases</a></li><li><a class="tocitem" href="../themes/">Themes</a></li><li><a class="tocitem" href="../mathjs/">MathJS Integration</a></li><li><a class="tocitem" href="../recipes/">Recipe System</a></li><li><a class="tocitem" href="../observables/">Observables.jl</a></li><li><a class="tocitem" href="../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Geometric Elements</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Geometric Elements</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaJSXGraph/JSXGraph.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaJSXGraph/JSXGraph.jl/blob/main/docs/src/elements.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Geometric-Elements"><a class="docs-heading-anchor" href="#Geometric-Elements">Geometric Elements</a><a id="Geometric-Elements-1"></a><a class="docs-heading-anchor-permalink" href="#Geometric-Elements" title="Permalink"></a></h1><p>JSXGraph.jl provides Julia constructors for all JSXGraph element types. Elements are created as <code>JSXElement</code> objects and added to a <code>Board</code> for rendering.</p><h2 id="Element-Creation-Pattern"><a class="docs-heading-anchor" href="#Element-Creation-Pattern">Element Creation Pattern</a><a id="Element-Creation-Pattern-1"></a><a class="docs-heading-anchor-permalink" href="#Element-Creation-Pattern" title="Permalink"></a></h2><p>All element constructors follow the same pattern:</p><pre><code class="language-julia hljs">constructor(parents...; attributes...) → JSXElement</code></pre><p>Parents define the geometry (coordinates, references to other elements), and keyword arguments become visual/behavioral attributes.</p><h2 id="Geometric-Primitives"><a class="docs-heading-anchor" href="#Geometric-Primitives">Geometric Primitives</a><a id="Geometric-Primitives-1"></a><a class="docs-heading-anchor-permalink" href="#Geometric-Primitives" title="Permalink"></a></h2><p>14 constructors for basic geometric shapes:</p><pre><code class="language-julia hljs">using JSXGraph
+
+# Points
+p1 = point(-1, 0)
+p2 = point(1, 0; color=&quot;red&quot;, size=4)
+
+# Lines and segments
+l = line(p1, p2)
+s = segment(p1, p2; strokeWidth=3)
+a = arrow(p1, p2)
+
+# Circles
+c = circle(p1, 3)             # center + radius
+c2 = circle(p1, p2)           # center + point on circle
+
+# Arcs and sectors
+a = arc(p1, p2, point(0, 1))
+s = sector(p1, p2, point(0, 1))
+
+# Polygons
+poly = polygon(p1, p2, point(0, 1))
+reg = regularpolygon(p1, p2, 5)    # 5-sided regular polygon
+
+# Conics
+e = ellipse(p1, p2, point(0, 2))
+h = hyperbola(p1, p2, point(0, 2))
+p = parabola(p1, l)</code></pre><p>See <a href="../api/#JSXGraph.point-Tuple{Any, Any}"><code>point</code></a>, <a href="../api/#JSXGraph.line-Tuple{Any, Any}"><code>line</code></a>, <a href="../api/#JSXGraph.circle-Tuple{Any, Any}"><code>circle</code></a>, <a href="../api/#JSXGraph.polygon-Tuple"><code>polygon</code></a> in the API Reference.</p><h2 id="Composition-and-Transformation-Elements"><a class="docs-heading-anchor" href="#Composition-and-Transformation-Elements">Composition &amp; Transformation Elements</a><a id="Composition-and-Transformation-Elements-1"></a><a class="docs-heading-anchor-permalink" href="#Composition-and-Transformation-Elements" title="Permalink"></a></h2><p>9 constructors for grouping, transformations, axes, and grids:</p><pre><code class="language-julia hljs">using JSXGraph
+
+p1 = point(0, 0)
+p2 = point(1, 0)
+p3 = point(0, 1)
+l = line(p1, p2)
+
+# Group elements for collective operations
+g = group(p1, p2, l)
+
+# Transformations (translate, rotate, scale, reflect, shear, generic)
+t = transformation(&quot;translate&quot;, 2, 3)
+t = transformation(&quot;rotate&quot;, π/4)
+t = transformation(&quot;rotate&quot;, π/4, 1, 1)   # rotate around (1,1)
+
+# Convenience constructors for common transformations
+r = reflection(l)              # reflect across a line
+rot = rotation(p1, π/4)       # rotate around a point
+tr = translation(2, 3)        # translate by (dx, dy)
+
+# Grid overlay
+gr = grid()
+gr = grid(; majorStep=[1, 1])
+
+# Custom axes
+ax = axis(p1, point(1, 0); name=&quot;x&quot;)
+ay = axis(p1, point(0, 1); name=&quot;y&quot;)
+
+# Tick marks on an axis
+tk = ticks(ax, 1.0; minorTicks=4, drawLabels=true)
+
+# Legend
+fg1 = functiongraph(sin; color=&quot;blue&quot;)
+fg2 = functiongraph(cos; color=&quot;red&quot;)
+leg = legend(fg1, fg2; labels=[&quot;sin&quot;, &quot;cos&quot;])</code></pre><p>See <a href="../api/#JSXGraph.group-Tuple"><code>group</code></a>, <a href="../api/#JSXGraph.transformation-Tuple{String, Vararg{Any}}"><code>transformation</code></a>, <a href="../api/#JSXGraph.reflection-Tuple{Any}"><code>reflection</code></a>, <a href="../api/#JSXGraph.rotation-Tuple{Any, Any}"><code>rotation</code></a>, <a href="../api/#JSXGraph.translation-Tuple{Any, Any}"><code>translation</code></a>, <a href="../api/#JSXGraph.grid-Tuple{}"><code>grid</code></a>, <a href="../api/#JSXGraph.axis-Tuple{Any, Any}"><code>axis</code></a>, <a href="../api/#JSXGraph.ticks-Tuple{Any, Any}"><code>ticks</code></a>, <a href="../api/#JSXGraph.legend-Tuple"><code>legend</code></a> in the API Reference.</p><h2 id="Analytic-Elements"><a class="docs-heading-anchor" href="#Analytic-Elements">Analytic Elements</a><a id="Analytic-Elements-1"></a><a class="docs-heading-anchor-permalink" href="#Analytic-Elements" title="Permalink"></a></h2><p>11 constructors for mathematical functions and calculus:</p><pre><code class="language-julia hljs">using JSXGraph
+
+# Function graphs (Julia functions auto-converted to JavaScript)
+fg = functiongraph(sin)
+fg2 = functiongraph(:(x -&gt; x^2 + 1); color=&quot;blue&quot;)
+
+# Parametric curves
+c = curve(cos, sin, 0, 2π)
+
+# Calculus constructions
+d = derivative(fg)
+i = integral(fg, -2, 2)
+rs = riemannsum(sin, 10, &quot;lower&quot;; a=0, b=3.14)
+
+# Slope and vector fields
+sf = slopefield(:(x -&gt; x^2))</code></pre><p>Julia functions like <code>sin</code>, <code>cos</code>, <code>exp</code> are automatically converted to their JavaScript <code>Math.*</code> equivalents.</p><h2 id="Interactive-Controls"><a class="docs-heading-anchor" href="#Interactive-Controls">Interactive Controls</a><a id="Interactive-Controls-1"></a><a class="docs-heading-anchor-permalink" href="#Interactive-Controls" title="Permalink"></a></h2><p>8 constructors for user interface elements:</p><pre><code class="language-julia hljs">using JSXGraph
+
+# Slider with [min, start, max]
+s = slider([0, -3], [4, -3], [1, 2, 5]; name=&quot;a&quot;)
+
+# Text and labels
+t = text(0, 4, &quot;Hello World&quot;)
+
+# Buttons and inputs
+btn = button(0, -4, &quot;Reset&quot;, &quot;handler()&quot;)
+chk = checkbox(0, -5, &quot;Show Grid&quot;)
+inp = input(0, -6, &quot;0&quot;, &quot;Value&quot;)</code></pre><h2 id="Board-Composition"><a class="docs-heading-anchor" href="#Board-Composition">Board Composition</a><a id="Board-Composition-1"></a><a class="docs-heading-anchor-permalink" href="#Board-Composition" title="Permalink"></a></h2><p>Add elements to boards using <code>push!</code> (mutating) or <code>+</code> (non-mutating):</p><pre><code class="language-julia hljs">using JSXGraph
+
+board = Board(&quot;myboard&quot;, xlim=(-5, 5), ylim=(-5, 5))
+
+# Mutating: modifies board in place
+push!(board, point(1, 2))
+push!(board, point(3, 4), line(point(0, 0), point(1, 1)))
+
+# Non-mutating: returns a new board
+new_board = board + point(5, 6)
+
+# Chaining
+result = Board(&quot;b&quot;) + point(0, 0) + point(1, 1) + point(2, 2)</code></pre><h3 id="do-Block-Syntax"><a class="docs-heading-anchor" href="#do-Block-Syntax"><code>do</code>-Block Syntax</a><a id="do-Block-Syntax-1"></a><a class="docs-heading-anchor-permalink" href="#do-Block-Syntax" title="Permalink"></a></h3><p>Use Julia&#39;s <code>do</code>-block syntax with <a href="../api/#JSXGraph.board"><code>board</code></a> for idiomatic board construction:</p><pre><code class="language-julia hljs">using JSXGraph
+
+b = board(&quot;myboard&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    push!(b, point(1, 2; name=&quot;A&quot;))
+    push!(b, point(3, 4; name=&quot;B&quot;))
+    push!(b, line(point(0, 0), point(1, 1)))
+end
+
+# With auto-generated id and default options
+b = board(xlim=(-10, 10)) do b
+    push!(b, functiongraph(sin; color=&quot;blue&quot;))
+    push!(b, functiongraph(cos; color=&quot;red&quot;))
+end</code></pre><p>See <a href="../api/#JSXGraph.board"><code>board</code></a> in the API Reference.</p><h2 id="High-Level-Plot"><a class="docs-heading-anchor" href="#High-Level-Plot">High-Level Plot</a><a id="High-Level-Plot-1"></a><a class="docs-heading-anchor-permalink" href="#High-Level-Plot" title="Permalink"></a></h2><p>Create a complete board with a function graph in one line:</p><pre><code class="language-julia hljs">using JSXGraph
+
+# One-liner function plotting
+b = plot(sin, (-5, 5))
+b = plot(cos, (0, 2π); color=&quot;blue&quot;, strokeWidth=3)</code></pre><p>See <a href="../api/#JSXGraph.plot-Tuple{Any, Tuple{Real, Real}}"><code>plot</code></a> in the API Reference.</p><h2 id="Convenience-Functions"><a class="docs-heading-anchor" href="#Convenience-Functions">Convenience Functions</a><a id="Convenience-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#Convenience-Functions" title="Permalink"></a></h2><p>Four high-level functions create complete boards for common plot types:</p><h3 id="Scatter-Plots"><a class="docs-heading-anchor" href="#Scatter-Plots">Scatter Plots</a><a id="Scatter-Plots-1"></a><a class="docs-heading-anchor-permalink" href="#Scatter-Plots" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph
+
+# Basic scatter
+b = scatter([1, 2, 3, 4], [1, 4, 9, 16])
+
+# With styling (axis limits auto-computed with 10% padding)
+b = scatter([0.0, 1.0, 2.0], [0.0, 1.0, 0.0]; color=&quot;red&quot;, size=4)
+
+# Explicit axis limits
+b = scatter([1, 2, 3], [1, 4, 9]; xlim=(0, 5), ylim=(0, 12))</code></pre><h3 id="Parametric-Curves"><a class="docs-heading-anchor" href="#Parametric-Curves">Parametric Curves</a><a id="Parametric-Curves-1"></a><a class="docs-heading-anchor-permalink" href="#Parametric-Curves" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph
+
+# Unit circle
+b = parametric(cos, sin, (0, 2π))
+
+# Ellipse with custom limits
+b = parametric(:(t -&gt; 3cos(t)), :(t -&gt; 2sin(t)), (0, 2π);
+               xlim=(-4, 4), ylim=(-3, 3), color=&quot;blue&quot;)</code></pre><h3 id="Implicit-Curves"><a class="docs-heading-anchor" href="#Implicit-Curves">Implicit Curves</a><a id="Implicit-Curves-1"></a><a class="docs-heading-anchor-permalink" href="#Implicit-Curves" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph
+
+# Unit circle: x² + y² - 1 = 0
+b = implicit(:((x, y) -&gt; x^2 + y^2 - 1))
+
+# Ellipse with custom bounds
+b = implicit(:((x, y) -&gt; x^2/4 + y^2/9 - 1); xlim=(-3, 3), ylim=(-4, 4))</code></pre><h3 id="Polar-Curves"><a class="docs-heading-anchor" href="#Polar-Curves">Polar Curves</a><a id="Polar-Curves-1"></a><a class="docs-heading-anchor-permalink" href="#Polar-Curves" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph
+
+# Cardioid
+b = polar(:(θ -&gt; 1 + cos(θ)))
+
+# Spiral over 4π
+b = polar(:(θ -&gt; θ), (0, 4π))
+
+# Rose curve with styling
+b = polar(:(θ -&gt; cos(3θ)); color=&quot;magenta&quot;)</code></pre><p>See <a href="../api/#JSXGraph.scatter-Tuple{AbstractVector{&lt;:Real}, AbstractVector{&lt;:Real}}"><code>scatter</code></a>, <a href="../api/#JSXGraph.parametric-Tuple{Any, Any, Tuple{Real, Real}}"><code>parametric</code></a>, <a href="../api/#JSXGraph.implicit-Tuple{Any}"><code>implicit</code></a>, <a href="../api/#JSXGraph.polar"><code>polar</code></a> in the API Reference.</p><h2 id="Tables.jl-Data-Integration"><a class="docs-heading-anchor" href="#Tables.jl-Data-Integration">Tables.jl Data Integration</a><a id="Tables.jl-Data-Integration-1"></a><a class="docs-heading-anchor-permalink" href="#Tables.jl-Data-Integration" title="Permalink"></a></h2><p>When the <a href="https://github.com/JuliaTables/Tables.jl">Tables.jl</a> package is loaded, <code>scatter</code> and <code>plot</code> gain methods that accept any Tables.jl-compatible data source (e.g., <code>DataFrame</code>, <code>NamedTuple</code> of vectors, vector of <code>NamedTuple</code>s).</p><h3 id="Scatter-from-Table"><a class="docs-heading-anchor" href="#Scatter-from-Table">Scatter from Table</a><a id="Scatter-from-Table-1"></a><a class="docs-heading-anchor-permalink" href="#Scatter-from-Table" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph, Tables
+
+# NamedTuple of vectors (Tables.jl-compatible)
+data = (x=[1, 2, 3, 4], y=[1, 4, 9, 16])
+
+# Auto-detect first two columns
+b = scatter(data)
+
+# Explicit column names
+b = scatter(data, :x, :y)
+b = scatter(data; x=:x, y=:y; color=&quot;red&quot;)</code></pre><h3 id="Line-Plot-from-Table"><a class="docs-heading-anchor" href="#Line-Plot-from-Table">Line Plot from Table</a><a id="Line-Plot-from-Table-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Plot-from-Table" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph, Tables
+
+data = (time=[0, 1, 2, 3, 4], value=[0.0, 0.8, 0.9, 0.5, 0.2])
+b = plot(data, :time, :value)
+b = plot(data; color=&quot;blue&quot;, strokeWidth=2)</code></pre><p>Column selection defaults to the first two columns when <code>x</code> and <code>y</code> are not specified. Works with any Tables.jl-compatible source including DataFrames, CSV files, and more.</p><h2 id="Unitful.jl-Integration"><a class="docs-heading-anchor" href="#Unitful.jl-Integration">Unitful.jl Integration</a><a id="Unitful.jl-Integration-1"></a><a class="docs-heading-anchor-permalink" href="#Unitful.jl-Integration" title="Permalink"></a></h2><p>When the <a href="https://github.com/PainterQubits/Unitful.jl">Unitful.jl</a> package is loaded, coordinates and ranges can include physical units. Units are automatically stripped for plotting, and axis labels are annotated with the unit string.</p><h3 id="Scatter-with-Units"><a class="docs-heading-anchor" href="#Scatter-with-Units">Scatter with Units</a><a id="Scatter-with-Units-1"></a><a class="docs-heading-anchor-permalink" href="#Scatter-with-Units" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph, Unitful
+
+x = [1.0, 2.0, 3.0, 4.0]u&quot;m&quot;
+y = [0.5, 1.0, 1.5, 2.0]u&quot;s&quot;
+b = scatter(x, y)  # axes labeled &quot;x (m)&quot; and &quot;y (s)&quot;
+
+# Custom axis labels
+b = scatter(x, y; xlabel=&quot;distance&quot;, ylabel=&quot;time&quot;)
+# axes: &quot;distance (m)&quot; and &quot;time (s)&quot;</code></pre><h3 id="Function-Plot-with-Unitful-Domain"><a class="docs-heading-anchor" href="#Function-Plot-with-Unitful-Domain">Function Plot with Unitful Domain</a><a id="Function-Plot-with-Unitful-Domain-1"></a><a class="docs-heading-anchor-permalink" href="#Function-Plot-with-Unitful-Domain" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph, Unitful
+
+b = plot(sin, (-5u&quot;m&quot;, 5u&quot;m&quot;); xlabel=&quot;distance&quot;)</code></pre><h3 id="Board-with-Unitful-Limits"><a class="docs-heading-anchor" href="#Board-with-Unitful-Limits">Board with Unitful Limits</a><a id="Board-with-Unitful-Limits-1"></a><a class="docs-heading-anchor-permalink" href="#Board-with-Unitful-Limits" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph, Unitful
+
+b = Board(&quot;myboard&quot;, (0u&quot;km&quot;, 100u&quot;km&quot;), (0u&quot;kg&quot;, 50u&quot;kg&quot;);
+          xlabel=&quot;distance&quot;, ylabel=&quot;mass&quot;)</code></pre><p>Mixed compatible units are automatically converted to the unit of the first element (e.g., <code>mm</code> values in a <code>m</code> vector are converted to meters).</p><h2 id="Julia-to-JavaScript-Conversion"><a class="docs-heading-anchor" href="#Julia-to-JavaScript-Conversion">Julia-to-JavaScript Conversion</a><a id="Julia-to-JavaScript-Conversion-1"></a><a class="docs-heading-anchor-permalink" href="#Julia-to-JavaScript-Conversion" title="Permalink"></a></h2><p>The <a href="../api/#JSXGraph.julia_to_js-Tuple{Expr}"><code>julia_to_js</code></a> function converts Julia expressions to JavaScript strings:</p><pre><code class="language-julia hljs">using JSXGraph
+
+julia_to_js(:(sin(x)))          # &quot;Math.sin(x)&quot;
+julia_to_js(:(x^2 + 1))        # &quot;Math.pow(x, 2) + 1&quot;
+julia_to_js(:(x -&gt; x^2))       # &quot;function(x){return Math.pow(x, 2);}&quot;
+julia_to_js(sin)                # &quot;function(x){return Math.sin(x);}&quot;</code></pre><p>Supported mappings include <code>sin</code>, <code>cos</code>, <code>tan</code>, <code>exp</code>, <code>log</code>, <code>sqrt</code>, <code>abs</code>, <code>floor</code>, <code>ceil</code>, and constants <code>π</code> → <code>Math.PI</code>, <code>ℯ</code> → <code>Math.E</code>.</p><h3 id="The-@jsf-Macro"><a class="docs-heading-anchor" href="#The-@jsf-Macro">The <code>@jsf</code> Macro</a><a id="The-@jsf-Macro-1"></a><a class="docs-heading-anchor-permalink" href="#The-@jsf-Macro" title="Permalink"></a></h3><p>The <a href="../api/#JSXGraph.@jsf-Tuple{Any}"><code>@jsf</code></a> macro provides a convenient way to create <a href="../api/#JSXGraph.JSFunction"><code>JSFunction</code></a> objects directly from Julia expressions, with compile-time validation:</p><pre><code class="language-julia hljs">using JSXGraph
+
+# Create a JSFunction from a lambda
+f = @jsf x -&gt; sin(x) + x^2
+
+# Use directly in element constructors
+fg = functiongraph(@jsf x -&gt; cos(x) * exp(-x))
+
+# Multi-argument functions
+g = @jsf (x, y) -&gt; x^2 + y^2
+
+# Mathematical constants are handled
+h = @jsf x -&gt; sin(π * x)</code></pre><p><strong>Supported constructs:</strong> arithmetic (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>), math functions (<code>sin</code>, <code>cos</code>, <code>tan</code>, <code>exp</code>, <code>log</code>, <code>sqrt</code>, …), constants (<code>π</code>, <code>ℯ</code>), comparisons, ternary <code>ifelse</code>, and anonymous functions.</p><p><strong>Unsupported constructs</strong> (raise a compile-time error): <code>try</code>/<code>catch</code>, <code>for</code>/<code>while</code> loops, array comprehensions, multi-statement function bodies, <code>let</code> blocks, <code>do</code> blocks, <code>struct</code>/<code>module</code>/<code>import</code>/<code>using</code>/<code>export</code> definitions.</p><pre><code class="language-julia hljs"># These will raise ArgumentError at macro-expansion time:
+@jsf x -&gt; begin; y = x^2; y + 1; end   # multi-statement body
+@jsf for i in 1:10; println(i); end     # for loop</code></pre><h3 id="Named-Functions-and-Transitive-Dependencies"><a class="docs-heading-anchor" href="#Named-Functions-and-Transitive-Dependencies">Named Functions &amp; Transitive Dependencies</a><a id="Named-Functions-and-Transitive-Dependencies-1"></a><a class="docs-heading-anchor-permalink" href="#Named-Functions-and-Transitive-Dependencies" title="Permalink"></a></h3><p>When one <code>@jsf</code> function needs to call another, use <strong>named functions</strong> and <strong>dependency tracking</strong>.  The renderer automatically emits all transitive helper definitions (in topological order) before the elements that use them.</p><h4 id="Creating-Named-Helpers"><a class="docs-heading-anchor" href="#Creating-Named-Helpers">Creating Named Helpers</a><a id="Creating-Named-Helpers-1"></a><a class="docs-heading-anchor-permalink" href="#Creating-Named-Helpers" title="Permalink"></a></h4><p>Use <a href="../api/#JSXGraph.@named_jsf-Tuple{Any}"><code>@named_jsf</code></a> to define a helper that will become a named <code>function</code> in the generated JavaScript:</p><pre><code class="language-julia hljs">using JSXGraph
+
+@named_jsf square(x) = x^2
+@named_jsf avg(a, b) = (a + b) / 2</code></pre><p>Or use <a href="../api/#JSXGraph.named_jsf-Tuple{Symbol, JSFunction}"><code>named_jsf</code></a> with an existing <a href="../api/#JSXGraph.JSFunction"><code>JSFunction</code></a>:</p><pre><code class="language-julia hljs">f = @jsf x -&gt; sin(x) + 1
+named_sin = named_jsf(:named_sin, f)</code></pre><h4 id="Declaring-Dependencies"><a class="docs-heading-anchor" href="#Declaring-Dependencies">Declaring Dependencies</a><a id="Declaring-Dependencies-1"></a><a class="docs-heading-anchor-permalink" href="#Declaring-Dependencies" title="Permalink"></a></h4><p>Use <a href="../api/#JSXGraph.with_deps-Tuple{JSFunction, Vararg{JSFunction}}"><code>with_deps</code></a> to tell a function which named helpers it calls:</p><pre><code class="language-julia hljs">using JSXGraph
+
+@named_jsf square(x) = x^2
+main = with_deps(@jsf(x -&gt; square(x) + 1), square)
+fg = functiongraph(main)
+b = Board(&quot;b&quot;) + fg</code></pre><p>The generated JavaScript will contain:</p><pre><code class="language-javascript hljs">function square(x){return Math.pow(x, 2);}
+var el_001 = board_b.create(&#39;functiongraph&#39;, [function(x){return square(x) + 1;}], {});</code></pre><h4 id="Transitive-Dependencies"><a class="docs-heading-anchor" href="#Transitive-Dependencies">Transitive Dependencies</a><a id="Transitive-Dependencies-1"></a><a class="docs-heading-anchor-permalink" href="#Transitive-Dependencies" title="Permalink"></a></h4><p>Dependencies are resolved transitively.  If function A depends on B, and B depends on C, then rendering A automatically emits C first, then B:</p><pre><code class="language-julia hljs">using JSXGraph
+
+@named_jsf base(x) = x + 1
+double = with_deps(
+    JSFunction(&quot;function(x){return base(x) * 2;}&quot;, &quot;double&quot;, JSFunction[]),
+    base,
+)
+main = with_deps(@jsf(x -&gt; double(x) + base(x)), double, base)</code></pre><p>All three functions are emitted in the correct order: <code>base</code>, then <code>double</code>, then the anonymous function used by the element.</p><p>See <a href="../api/#JSXGraph.@jsf-Tuple{Any}"><code>@jsf</code></a>, <a href="../api/#JSXGraph.@named_jsf-Tuple{Any}"><code>@named_jsf</code></a>, <a href="../api/#JSXGraph.named_jsf-Tuple{Symbol, JSFunction}"><code>named_jsf</code></a>, <a href="../api/#JSXGraph.with_deps-Tuple{JSFunction, Vararg{JSFunction}}"><code>with_deps</code></a> in the API Reference.</p><h2 id="3D-Elements"><a class="docs-heading-anchor" href="#3D-Elements">3D Elements</a><a id="3D-Elements-1"></a><a class="docs-heading-anchor-permalink" href="#3D-Elements" title="Permalink"></a></h2><p>JSXGraph.jl supports the JSXGraph 3D module via the <a href="../api/#JSXGraph.View3D"><code>View3D</code></a> container and a set of 3D element constructors. All 3D elements must be added to a <code>View3D</code> (not directly to a <code>Board</code>).</p><h3 id="View3D-—-The-3D-Viewport"><a class="docs-heading-anchor" href="#View3D-—-The-3D-Viewport">View3D — The 3D Viewport</a><a id="View3D-—-The-3D-Viewport-1"></a><a class="docs-heading-anchor-permalink" href="#View3D-—-The-3D-Viewport" title="Permalink"></a></h3><p>A <code>View3D</code> is created on a board and serves as the container for all 3D elements:</p><pre><code class="language-julia hljs">using JSXGraph
+
+b = board(&quot;my3d&quot;, xlim=(-8, 8), ylim=(-8, 8)) do b
+    v = view3d(xlim=(-5, 5), ylim=(-5, 5), zlim=(-5, 5)) do v
+        push!(v, point3d(1, 2, 3; size=5, color=&quot;red&quot;))
+    end
+    push!(b, v)
+end</code></pre><p>The <code>view3d</code> constructor accepts:</p><ul><li>Keyword form: <code>view3d(; xlim, ylim, zlim, position, size, ...)</code></li><li>Positional form: <code>view3d(position, size, ranges; ...)</code></li><li>Do-block syntax for both forms</li></ul><h3 id="3D-Element-Constructors"><a class="docs-heading-anchor" href="#3D-Element-Constructors">3D Element Constructors</a><a id="3D-Element-Constructors-1"></a><a class="docs-heading-anchor-permalink" href="#3D-Element-Constructors" title="Permalink"></a></h3><table><tr><th style="text-align: right">Constructor</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>point3d(x, y, z)</code></td><td style="text-align: right">3D point</td></tr><tr><td style="text-align: right"><code>line3d(p1, p2)</code></td><td style="text-align: right">3D line through two points</td></tr><tr><td style="text-align: right"><code>curve3d(fx, fy, fz, t_range)</code></td><td style="text-align: right">Parametric curve in 3D</td></tr><tr><td style="text-align: right"><code>functiongraph3d(f)</code></td><td style="text-align: right">Surface <code>z = f(x, y)</code></td></tr><tr><td style="text-align: right"><code>parametricsurface3d(fx, fy, fz, u_range, v_range)</code></td><td style="text-align: right">Parametric surface</td></tr><tr><td style="text-align: right"><code>vectorfield3d(fx, fy, fz, xrange, yrange, zrange)</code></td><td style="text-align: right">3D vector field</td></tr><tr><td style="text-align: right"><code>sphere3d(center, radius)</code></td><td style="text-align: right">3D sphere</td></tr><tr><td style="text-align: right"><code>circle3d(center, normal, radius)</code></td><td style="text-align: right">Circle in 3D space</td></tr><tr><td style="text-align: right"><code>polygon3d(p1, p2, p3, ...)</code></td><td style="text-align: right">3D polygon</td></tr><tr><td style="text-align: right"><code>plane3d(point, dir1, dir2)</code></td><td style="text-align: right">3D plane</td></tr><tr><td style="text-align: right"><code>intersectionline3d(plane1, plane2)</code></td><td style="text-align: right">Intersection line of two planes</td></tr><tr><td style="text-align: right"><code>intersectioncircle3d(el1, el2)</code></td><td style="text-align: right">Intersection circle of spheres/planes</td></tr><tr><td style="text-align: right"><code>text3d(x, y, z, txt)</code></td><td style="text-align: right">Text label in 3D space</td></tr><tr><td style="text-align: right"><code>mesh3d(point, dir1, dir2, range1, range2)</code></td><td style="text-align: right">3D wireframe mesh grid</td></tr><tr><td style="text-align: right"><code>polyhedron3d(vertices, faces)</code></td><td style="text-align: right">3D polyhedron with shaded faces</td></tr></table><p>For interactive 3D examples, see the <a href="../gallery3d/#3D-Gallery">3D Gallery</a>. Full API documentation is available in the <a href="../api/">API Reference</a>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../display/">« Display Protocol</a><a class="docs-footer-nextpage" href="../aliases/">Attribute Aliases »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Tuesday 7 April 2026 13:42">Tuesday 7 April 2026</span>. Using Julia version 1.12.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

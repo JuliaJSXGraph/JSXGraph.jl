@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Gallery · JSXGraph.jl</title><meta name="title" content="Gallery · JSXGraph.jl"/><meta property="og:title" content="Gallery · JSXGraph.jl"/><meta property="twitter:title" content="Gallery · JSXGraph.jl"/><meta name="description" content="Documentation for JSXGraph.jl."/><meta property="og:description" content="Documentation for JSXGraph.jl."/><meta property="twitter:description" content="Documentation for JSXGraph.jl."/><meta property="og:url" content="https://JuliaJSXGraph.github.io/JSXGraph.jl/gallery/"/><meta property="twitter:url" content="https://JuliaJSXGraph.github.io/JSXGraph.jl/gallery/"/><link rel="canonical" href="https://JuliaJSXGraph.github.io/JSXGraph.jl/gallery/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">JSXGraph.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../tutorial/">Getting Started</a></li><li class="is-active"><a class="tocitem" href>Gallery</a><ul class="internal"><li><a class="tocitem" href="#Basic-Geometry"><span>Basic Geometry</span></a></li><li><a class="tocitem" href="#Function-Graphs"><span>Function Graphs</span></a></li><li><a class="tocitem" href="#Interactive-Elements"><span>Interactive Elements</span></a></li><li><a class="tocitem" href="#Data-Visualization"><span>Data Visualization</span></a></li><li><a class="tocitem" href="#Composition-and-Transforms"><span>Composition &amp; Transforms</span></a></li><li><a class="tocitem" href="#Theming"><span>Theming</span></a></li><li><a class="tocitem" href="#Advanced-Examples"><span>Advanced Examples</span></a></li></ul></li><li><a class="tocitem" href="../gallery3d/">3D Gallery</a></li><li><a class="tocitem" href="../html_generation/">HTML Generation</a></li><li><a class="tocitem" href="../svg_export/">Static Export</a></li><li><a class="tocitem" href="../display/">Display Protocol</a></li><li><a class="tocitem" href="../elements/">Geometric Elements</a></li><li><a class="tocitem" href="../aliases/">Attribute Aliases</a></li><li><a class="tocitem" href="../themes/">Themes</a></li><li><a class="tocitem" href="../mathjs/">MathJS Integration</a></li><li><a class="tocitem" href="../recipes/">Recipe System</a></li><li><a class="tocitem" href="../observables/">Observables.jl</a></li><li><a class="tocitem" href="../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Gallery</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Gallery</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaJSXGraph/JSXGraph.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaJSXGraph/JSXGraph.jl/blob/main/docs/src/gallery.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Gallery"><a class="docs-heading-anchor" href="#Gallery">Gallery</a><a id="Gallery-1"></a><a class="docs-heading-anchor-permalink" href="#Gallery" title="Permalink"></a></h1><p>A comprehensive collection of JSXGraph.jl examples organized by category. Each example is a self-contained code block that produces an interactive board.</p><h2 id="Basic-Geometry"><a class="docs-heading-anchor" href="#Basic-Geometry">Basic Geometry</a><a id="Basic-Geometry-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Geometry" title="Permalink"></a></h2><h3 id="1.-Points-and-Labels"><a class="docs-heading-anchor" href="#1.-Points-and-Labels">1. Points and Labels</a><a id="1.-Points-and-Labels-1"></a><a class="docs-heading-anchor-permalink" href="#1.-Points-and-Labels" title="Permalink"></a></h3><pre><code class="language-julia hljs">using JSXGraph
+b = board(&quot;pt_labels&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    push!(b, point(0, 0; name=&quot;O&quot;, size=4))
+    push!(b, point(3, 4; name=&quot;A&quot;, color=&quot;red&quot;))
+    push!(b, point(-2, 1; name=&quot;B&quot;, color=&quot;blue&quot;, size=6))
+    push!(b, point(4, -3; name=&quot;C&quot;, color=&quot;green&quot;))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_cvofndfiQ6uM" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_cvofndfiQ6uM = JXG.JSXGraph.initBoard(\'jxg_cvofndfiQ6uM\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_cvofndfiQ6uM.create(\'point\', [0,0], {"name":"O","size":4});\nvar el_002 = board_jxg_cvofndfiQ6uM.create(\'point\', [3,4], {"name":"A","strokeColor":"red"});\nvar el_003 = board_jxg_cvofndfiQ6uM.create(\'point\', [-2,1], {"name":"B","size":6,"strokeColor":"blue"});\nvar el_004 = board_jxg_cvofndfiQ6uM.create(\'point\', [4,-3], {"name":"C","strokeColor":"green"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="2.-Line-Through-Two-Points"><a class="docs-heading-anchor" href="#2.-Line-Through-Two-Points">2. Line Through Two Points</a><a id="2.-Line-Through-Two-Points-1"></a><a class="docs-heading-anchor-permalink" href="#2.-Line-Through-Two-Points" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;line_basic&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    p1 = point(-3, -2; name=&quot;P₁&quot;)
+    p2 = point(3, 2; name=&quot;P₂&quot;)
+    push!(b, p1)
+    push!(b, p2)
+    push!(b, line(p1, p2; strokeColor=&quot;navy&quot;, strokeWidth=2))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_jjCdI5CyboeE" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_jjCdI5CyboeE = JXG.JSXGraph.initBoard(\'jxg_jjCdI5CyboeE\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_jjCdI5CyboeE.create(\'point\', [-3,-2], {"name":"P₁"});\nvar el_002 = board_jxg_jjCdI5CyboeE.create(\'point\', [3,2], {"name":"P₂"});\nvar el_003 = board_jxg_jjCdI5CyboeE.create(\'line\', [el_001,el_002], {"strokeColor":"navy","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="3.-Line-Segment-and-Arrow"><a class="docs-heading-anchor" href="#3.-Line-Segment-and-Arrow">3. Line Segment and Arrow</a><a id="3.-Line-Segment-and-Arrow-1"></a><a class="docs-heading-anchor-permalink" href="#3.-Line-Segment-and-Arrow" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;seg_arrow&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    a = point(-4, 0; name=&quot;A&quot;)
+    bp = point(0, 3; name=&quot;B&quot;)
+    c = point(4, 0; name=&quot;C&quot;)
+    push!(b, a); push!(b, bp); push!(b, c)
+    push!(b, segment(a, bp; strokeColor=&quot;blue&quot;, strokeWidth=2))
+    push!(b, arrow(bp, c; strokeColor=&quot;red&quot;, strokeWidth=2))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_uXAHt4CNBHrx" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_uXAHt4CNBHrx = JXG.JSXGraph.initBoard(\'jxg_uXAHt4CNBHrx\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_uXAHt4CNBHrx.create(\'point\', [-4,0], {"name":"A"});\nvar el_002 = board_jxg_uXAHt4CNBHrx.create(\'point\', [0,3], {"name":"B"});\nvar el_003 = board_jxg_uXAHt4CNBHrx.create(\'point\', [4,0], {"name":"C"});\nvar el_004 = board_jxg_uXAHt4CNBHrx.create(\'segment\', [el_001,el_002], {"strokeColor":"blue","strokeWidth":2});\nvar el_005 = board_jxg_uXAHt4CNBHrx.create(\'arrow\', [el_002,el_003], {"strokeColor":"red","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="4.-Circle"><a class="docs-heading-anchor" href="#4.-Circle">4. Circle</a><a id="4.-Circle-1"></a><a class="docs-heading-anchor-permalink" href="#4.-Circle" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;circle_ex&quot;, xlim=(-6, 6), ylim=(-6, 6)) do b
+    o = point(0, 0; name=&quot;Center&quot;)
+    push!(b, o)
+    push!(b, circle(o, 4; strokeColor=&quot;purple&quot;, strokeWidth=2))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_eh7rrFoYD196" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_eh7rrFoYD196 = JXG.JSXGraph.initBoard(\'jxg_eh7rrFoYD196\', {"axis":true,"boundingbox":[-6,6,6,-6],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_eh7rrFoYD196.create(\'point\', [0,0], {"name":"Center"});\nvar el_002 = board_jxg_eh7rrFoYD196.create(\'circle\', [el_001,4], {"strokeColor":"purple","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="5.-Two-Concentric-Circles"><a class="docs-heading-anchor" href="#5.-Two-Concentric-Circles">5. Two Concentric Circles</a><a id="5.-Two-Concentric-Circles-1"></a><a class="docs-heading-anchor-permalink" href="#5.-Two-Concentric-Circles" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;circles_2&quot;, xlim=(-6, 6), ylim=(-6, 6)) do b
+    o = point(0, 0; name=&quot;O&quot;, color=&quot;red&quot;)
+    push!(b, o)
+    push!(b, circle(o, 2; strokeColor=&quot;darkgreen&quot;, strokeWidth=2))
+    push!(b, circle(o, 4; strokeColor=&quot;blue&quot;, strokeWidth=2))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_zrU7zeXZdPkN" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_zrU7zeXZdPkN = JXG.JSXGraph.initBoard(\'jxg_zrU7zeXZdPkN\', {"axis":true,"boundingbox":[-6,6,6,-6],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_zrU7zeXZdPkN.create(\'point\', [0,0], {"name":"O","strokeColor":"red"});\nvar el_002 = board_jxg_zrU7zeXZdPkN.create(\'circle\', [el_001,2], {"strokeColor":"darkgreen","strokeWidth":2});\nvar el_003 = board_jxg_zrU7zeXZdPkN.create(\'circle\', [el_001,4], {"strokeColor":"blue","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="6.-Triangle"><a class="docs-heading-anchor" href="#6.-Triangle">6. Triangle</a><a id="6.-Triangle-1"></a><a class="docs-heading-anchor-permalink" href="#6.-Triangle" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;triangle&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    a = point(-3, -2; name=&quot;A&quot;)
+    bp = point(3, -2; name=&quot;B&quot;)
+    c = point(0, 3; name=&quot;C&quot;)
+    push!(b, a); push!(b, bp); push!(b, c)
+    push!(b, polygon(a, bp, c; fillColor=&quot;lightyellow&quot;, fillOpacity=0.5,
+            strokeColor=&quot;darkblue&quot;, strokeWidth=2))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_7PN08vkvQShg" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_7PN08vkvQShg = JXG.JSXGraph.initBoard(\'jxg_7PN08vkvQShg\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_7PN08vkvQShg.create(\'point\', [-3,-2], {"name":"A"});\nvar el_002 = board_jxg_7PN08vkvQShg.create(\'point\', [3,-2], {"name":"B"});\nvar el_003 = board_jxg_7PN08vkvQShg.create(\'point\', [0,3], {"name":"C"});\nvar el_004 = board_jxg_7PN08vkvQShg.create(\'polygon\', [el_001,el_002,el_003], {"fillColor":"lightyellow","fillOpacity":0.5,"strokeColor":"darkblue","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="7.-Regular-Polygon"><a class="docs-heading-anchor" href="#7.-Regular-Polygon">7. Regular Polygon</a><a id="7.-Regular-Polygon-1"></a><a class="docs-heading-anchor-permalink" href="#7.-Regular-Polygon" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;regpoly&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    p1 = point(-2, -2; name=&quot;A&quot;)
+    p2 = point(2, -2; name=&quot;B&quot;)
+    push!(b, p1); push!(b, p2)
+    push!(b, regularpolygon(p1, p2, 6; fillColor=&quot;lightcyan&quot;, fillOpacity=0.4,
+                   strokeColor=&quot;teal&quot;))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_2xIwsmDkhwGc" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_2xIwsmDkhwGc = JXG.JSXGraph.initBoard(\'jxg_2xIwsmDkhwGc\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_2xIwsmDkhwGc.create(\'point\', [-2,-2], {"name":"A"});\nvar el_002 = board_jxg_2xIwsmDkhwGc.create(\'point\', [2,-2], {"name":"B"});\nvar el_003 = board_jxg_2xIwsmDkhwGc.create(\'regularpolygon\', [el_001,el_002,6], {"fillColor":"lightcyan","fillOpacity":0.4,"strokeColor":"teal"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="8.-Arc-and-Sector"><a class="docs-heading-anchor" href="#8.-Arc-and-Sector">8. Arc and Sector</a><a id="8.-Arc-and-Sector-1"></a><a class="docs-heading-anchor-permalink" href="#8.-Arc-and-Sector" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;arc_sector&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    o = point(0, 0; name=&quot;O&quot;)
+    a = point(3, 0; name=&quot;A&quot;)
+    bp = point(0, 3; name=&quot;B&quot;)
+    push!(b, o); push!(b, a); push!(b, bp)
+    push!(b, arc(o, a, bp; strokeColor=&quot;crimson&quot;, strokeWidth=3))
+    push!(b, sector(o, a, bp; fillColor=&quot;lightsalmon&quot;, fillOpacity=0.3))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_c63WSYuU5BZz" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_c63WSYuU5BZz = JXG.JSXGraph.initBoard(\'jxg_c63WSYuU5BZz\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_c63WSYuU5BZz.create(\'point\', [0,0], {"name":"O"});\nvar el_002 = board_jxg_c63WSYuU5BZz.create(\'point\', [3,0], {"name":"A"});\nvar el_003 = board_jxg_c63WSYuU5BZz.create(\'point\', [0,3], {"name":"B"});\nvar el_004 = board_jxg_c63WSYuU5BZz.create(\'arc\', [el_001,el_002,el_003], {"strokeColor":"crimson","strokeWidth":3});\nvar el_005 = board_jxg_c63WSYuU5BZz.create(\'sector\', [el_001,el_002,el_003], {"fillColor":"lightsalmon","fillOpacity":0.3});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="9.-Angle-Marker"><a class="docs-heading-anchor" href="#9.-Angle-Marker">9. Angle Marker</a><a id="9.-Angle-Marker-1"></a><a class="docs-heading-anchor-permalink" href="#9.-Angle-Marker" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;angle_ex&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    a = point(3, 0; name=&quot;A&quot;)
+    bp = point(0, 0; name=&quot;B&quot;)
+    c = point(0, 3; name=&quot;C&quot;)
+    push!(b, a); push!(b, bp); push!(b, c)
+    push!(b, segment(bp, a; strokeColor=&quot;gray&quot;))
+    push!(b, segment(bp, c; strokeColor=&quot;gray&quot;))
+    push!(b, JSXGraph.angle(a, bp, c; radius=1.5, fillColor=&quot;lightblue&quot;, fillOpacity=0.5,
+          name=&quot;α&quot;))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_qrCFQPtycBDc" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_qrCFQPtycBDc = JXG.JSXGraph.initBoard(\'jxg_qrCFQPtycBDc\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_qrCFQPtycBDc.create(\'point\', [3,0], {"name":"A"});\nvar el_002 = board_jxg_qrCFQPtycBDc.create(\'point\', [0,0], {"name":"B"});\nvar el_003 = board_jxg_qrCFQPtycBDc.create(\'point\', [0,3], {"name":"C"});\nvar el_004 = board_jxg_qrCFQPtycBDc.create(\'segment\', [el_002,el_001], {"strokeColor":"gray"});\nvar el_005 = board_jxg_qrCFQPtycBDc.create(\'segment\', [el_002,el_003], {"strokeColor":"gray"});\nvar el_006 = board_jxg_qrCFQPtycBDc.create(\'angle\', [el_001,el_002,el_003], {"fillColor":"lightblue","fillOpacity":0.5,"name":"α","radius":1.5});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="10.-Ellipse"><a class="docs-heading-anchor" href="#10.-Ellipse">10. Ellipse</a><a id="10.-Ellipse-1"></a><a class="docs-heading-anchor-permalink" href="#10.-Ellipse" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;ellipse_ex&quot;, xlim=(-6, 6), ylim=(-4, 4)) do b
+    f1 = point(-2, 0; name=&quot;F₁&quot;, color=&quot;red&quot;)
+    f2 = point(2, 0; name=&quot;F₂&quot;, color=&quot;red&quot;)
+    p = point(4, 0; name=&quot;P&quot;, visible=false)
+    push!(b, f1); push!(b, f2); push!(b, p)
+    push!(b, ellipse(f1, f2, p; strokeColor=&quot;indigo&quot;, strokeWidth=2))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_EV4gsnEy8lGb" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_EV4gsnEy8lGb = JXG.JSXGraph.initBoard(\'jxg_EV4gsnEy8lGb\', {"axis":true,"boundingbox":[-6,4,6,-4],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_EV4gsnEy8lGb.create(\'point\', [-2,0], {"name":"F₁","strokeColor":"red"});\nvar el_002 = board_jxg_EV4gsnEy8lGb.create(\'point\', [2,0], {"name":"F₂","strokeColor":"red"});\nvar el_003 = board_jxg_EV4gsnEy8lGb.create(\'point\', [4,0], {"name":"P","visible":false});\nvar el_004 = board_jxg_EV4gsnEy8lGb.create(\'ellipse\', [el_001,el_002,el_003], {"strokeColor":"indigo","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h2 id="Function-Graphs"><a class="docs-heading-anchor" href="#Function-Graphs">Function Graphs</a><a id="Function-Graphs-1"></a><a class="docs-heading-anchor-permalink" href="#Function-Graphs" title="Permalink"></a></h2><h3 id="11.-Sine-Function"><a class="docs-heading-anchor" href="#11.-Sine-Function">11. Sine Function</a><a id="11.-Sine-Function-1"></a><a class="docs-heading-anchor-permalink" href="#11.-Sine-Function" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;sine&quot;, xlim=(-7, 7), ylim=(-2, 2))
+push!(b, functiongraph(&quot;Math.sin(x)&quot;; strokeColor=&quot;blue&quot;, strokeWidth=2))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_rmQkFtAseBLG" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_rmQkFtAseBLG = JXG.JSXGraph.initBoard(\'jxg_rmQkFtAseBLG\', {"axis":true,"boundingbox":[-7,2,7,-2],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_rmQkFtAseBLG.create(\'functiongraph\', [function(x){return Math.sin(x);}], {"strokeColor":"blue","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="12.-Multiple-Functions"><a class="docs-heading-anchor" href="#12.-Multiple-Functions">12. Multiple Functions</a><a id="12.-Multiple-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#12.-Multiple-Functions" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;multi_func&quot;, xlim=(-5, 5), ylim=(-3, 3))
+push!(b, functiongraph(&quot;Math.sin(x)&quot;; strokeColor=&quot;blue&quot;, strokeWidth=2, name=&quot;sin&quot;))
+push!(b, functiongraph(&quot;Math.cos(x)&quot;; strokeColor=&quot;red&quot;, strokeWidth=2, name=&quot;cos&quot;))
+push!(b, functiongraph(&quot;Math.sin(x) + Math.cos(x)&quot;; strokeColor=&quot;green&quot;,
+          strokeWidth=2, name=&quot;sin+cos&quot;, dash=2))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_XfUVmFlR83dC" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_XfUVmFlR83dC = JXG.JSXGraph.initBoard(\'jxg_XfUVmFlR83dC\', {"axis":true,"boundingbox":[-5,3,5,-3],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_XfUVmFlR83dC.create(\'functiongraph\', [function(x){return Math.sin(x);}], {"name":"sin","strokeColor":"blue","strokeWidth":2});\nvar el_002 = board_jxg_XfUVmFlR83dC.create(\'functiongraph\', [function(x){return Math.cos(x);}], {"name":"cos","strokeColor":"red","strokeWidth":2});\nvar el_003 = board_jxg_XfUVmFlR83dC.create(\'functiongraph\', [function(x){return Math.sin(x) + Math.cos(x);}], {"dash":2,"name":"sin+cos","strokeColor":"green","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="13.-Polynomial"><a class="docs-heading-anchor" href="#13.-Polynomial">13. Polynomial</a><a id="13.-Polynomial-1"></a><a class="docs-heading-anchor-permalink" href="#13.-Polynomial" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;poly_func&quot;, xlim=(-4, 4), ylim=(-10, 10))
+push!(b, functiongraph(&quot;x*x*x - 3*x&quot;; strokeColor=&quot;darkred&quot;, strokeWidth=2))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_iUZQwWIQ4tfn" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_iUZQwWIQ4tfn = JXG.JSXGraph.initBoard(\'jxg_iUZQwWIQ4tfn\', {"axis":true,"boundingbox":[-4,10,4,-10],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_iUZQwWIQ4tfn.create(\'functiongraph\', [function(x){return x*x*x - 3*x;}], {"strokeColor":"darkred","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="14.-Parametric-Curve-(Lissajous)"><a class="docs-heading-anchor" href="#14.-Parametric-Curve-(Lissajous)">14. Parametric Curve (Lissajous)</a><a id="14.-Parametric-Curve-(Lissajous)-1"></a><a class="docs-heading-anchor-permalink" href="#14.-Parametric-Curve-(Lissajous)" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = parametric(
+    @jsf(t -&gt; sin(3t)),
+    @jsf(t -&gt; cos(2t)),
+    (0, 2π);
+    xlim=(-1.5, 1.5), ylim=(-1.5, 1.5),
+    strokeColor=&quot;purple&quot;, strokeWidth=2
+)
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_hn10ycpXSiYs" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_hn10ycpXSiYs = JXG.JSXGraph.initBoard(\'jxg_hn10ycpXSiYs\', {"axis":true,"boundingbox":[-1.5,1.5,1.5,-1.5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_hn10ycpXSiYs.create(\'curve\', [function(t){return Math.sin(3 * t);},function(t){return Math.cos(2 * t);},0,6.283185307179586], {"strokeColor":"purple","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="15.-Polar-Curve-(Rose)"><a class="docs-heading-anchor" href="#15.-Polar-Curve-(Rose)">15. Polar Curve (Rose)</a><a id="15.-Polar-Curve-(Rose)-1"></a><a class="docs-heading-anchor-permalink" href="#15.-Polar-Curve-(Rose)" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = polar(
+    @jsf(θ -&gt; cos(3θ)),
+    (0, 2π);
+    xlim=(-1.5, 1.5), ylim=(-1.5, 1.5),
+    strokeColor=&quot;crimson&quot;, strokeWidth=2
+)
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_UE4Ux86VVnnp" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_UE4Ux86VVnnp = JXG.JSXGraph.initBoard(\'jxg_UE4Ux86VVnnp\', {"axis":true,"boundingbox":[-1.5,1.5,1.5,-1.5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_UE4Ux86VVnnp.create(\'curve\', [function(t){return (function(θ){return Math.cos(3 * θ);})(t) * Math.cos(t);},function(t){return (function(θ){return Math.cos(3 * θ);})(t) * Math.sin(t);},0,6.283185307179586], {"strokeColor":"crimson","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="16.-Implicit-Curve"><a class="docs-heading-anchor" href="#16.-Implicit-Curve">16. Implicit Curve</a><a id="16.-Implicit-Curve-1"></a><a class="docs-heading-anchor-permalink" href="#16.-Implicit-Curve" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = implicit(
+    @jsf((x, y) -&gt; x^2 + y^2 - 9);
+    xlim=(-5, 5), ylim=(-5, 5),
+    strokeColor=&quot;darkorange&quot;, strokeWidth=2
+)
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_7ysJQZZ8EFVJ" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_7ysJQZZ8EFVJ = JXG.JSXGraph.initBoard(\'jxg_7ysJQZZ8EFVJ\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_7ysJQZZ8EFVJ.create(\'implicitcurve\', [function(x, y){return Math.pow(x, 2) + Math.pow(y, 2) - 9;}], {"strokeColor":"darkorange","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="17.-Derivative-Visualization"><a class="docs-heading-anchor" href="#17.-Derivative-Visualization">17. Derivative Visualization</a><a id="17.-Derivative-Visualization-1"></a><a class="docs-heading-anchor-permalink" href="#17.-Derivative-Visualization" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;deriv&quot;, xlim=(-5, 5), ylim=(-3, 3))
+f = functiongraph(&quot;Math.sin(x)&quot;; strokeColor=&quot;blue&quot;, strokeWidth=2, name=&quot;f&quot;)
+push!(b, f)
+push!(b, derivative(f; strokeColor=&quot;red&quot;, strokeWidth=2, dash=2, name=&quot;f&#39;&quot;))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_VMifZnN9EYoY" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_VMifZnN9EYoY = JXG.JSXGraph.initBoard(\'jxg_VMifZnN9EYoY\', {"axis":true,"boundingbox":[-5,3,5,-3],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_VMifZnN9EYoY.create(\'functiongraph\', [function(x){return Math.sin(x);}], {"name":"f","strokeColor":"blue","strokeWidth":2});\nvar el_002 = board_jxg_VMifZnN9EYoY.create(\'derivative\', [el_001], {"dash":2,"name":"f\'","strokeColor":"red","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="18.-Integral-(Riemann-Sum)"><a class="docs-heading-anchor" href="#18.-Integral-(Riemann-Sum)">18. Integral (Riemann Sum)</a><a id="18.-Integral-(Riemann-Sum)-1"></a><a class="docs-heading-anchor-permalink" href="#18.-Integral-(Riemann-Sum)" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;riemann&quot;, xlim=(-1, 7), ylim=(-1, 3))
+f = functiongraph(&quot;Math.sin(x)*0.5 + 1&quot;; strokeColor=&quot;blue&quot;, strokeWidth=2)
+push!(b, f)
+push!(b, riemannsum(f, 12, &quot;left&quot;; a=0, b=6, fillColor=&quot;lightblue&quot;, fillOpacity=0.5))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_eqEUF9rfuV0B" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_eqEUF9rfuV0B = JXG.JSXGraph.initBoard(\'jxg_eqEUF9rfuV0B\', {"axis":true,"boundingbox":[-1,3,7,-1],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_eqEUF9rfuV0B.create(\'functiongraph\', [function(x){return Math.sin(x)*0.5 + 1;}], {"strokeColor":"blue","strokeWidth":2});\nvar el_002 = board_jxg_eqEUF9rfuV0B.create(\'riemannsum\', [function(x){return Math.sin(x)*0.5 + 1;},12,"left",0,6], {"fillColor":"lightblue","fillOpacity":0.5});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="19.-Tangent-and-Normal-Lines"><a class="docs-heading-anchor" href="#19.-Tangent-and-Normal-Lines">19. Tangent and Normal Lines</a><a id="19.-Tangent-and-Normal-Lines-1"></a><a class="docs-heading-anchor-permalink" href="#19.-Tangent-and-Normal-Lines" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;tan_norm&quot;, xlim=(-5, 5), ylim=(-3, 5))
+f = functiongraph(&quot;x*x/4&quot;; strokeColor=&quot;black&quot;, strokeWidth=2)
+g = glider(2, 1, f; name=&quot;P&quot;, size=4, color=&quot;red&quot;)
+push!(b, f)
+push!(b, g)
+push!(b, tangent(g; strokeColor=&quot;green&quot;, strokeWidth=2, name=&quot;tangent&quot;))
+push!(b, normal(g; strokeColor=&quot;orange&quot;, strokeWidth=2, name=&quot;normal&quot;))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_NjBBRvc4xIBE" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_NjBBRvc4xIBE = JXG.JSXGraph.initBoard(\'jxg_NjBBRvc4xIBE\', {"axis":true,"boundingbox":[-5,5,5,-3],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_NjBBRvc4xIBE.create(\'functiongraph\', [function(x){return x*x/4;}], {"strokeColor":"black","strokeWidth":2});\nvar el_002 = board_jxg_NjBBRvc4xIBE.create(\'glider\', [2,1,el_001], {"name":"P","size":4,"strokeColor":"red"});\nvar el_003 = board_jxg_NjBBRvc4xIBE.create(\'tangent\', [el_002], {"name":"tangent","strokeColor":"green","strokeWidth":2});\nvar el_004 = board_jxg_NjBBRvc4xIBE.create(\'normal\', [el_002], {"name":"normal","strokeColor":"orange","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h2 id="Interactive-Elements"><a class="docs-heading-anchor" href="#Interactive-Elements">Interactive Elements</a><a id="Interactive-Elements-1"></a><a class="docs-heading-anchor-permalink" href="#Interactive-Elements" title="Permalink"></a></h2><h3 id="20.-Slider-Control"><a class="docs-heading-anchor" href="#20.-Slider-Control">20. Slider Control</a><a id="20.-Slider-Control-1"></a><a class="docs-heading-anchor-permalink" href="#20.-Slider-Control" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;slider_ex&quot;, xlim=(-5, 5), ylim=(-5, 5))
+s = slider([-4, 4], [0, 4], [1, 3, 5]; name=&quot;radius&quot;)
+o = point(0, 0; name=&quot;O&quot;)
+push!(b, s)
+push!(b, o)
+push!(b, circle(o, s; strokeColor=&quot;blue&quot;, strokeWidth=2))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_yhWOWCIMKixI" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_yhWOWCIMKixI = JXG.JSXGraph.initBoard(\'jxg_yhWOWCIMKixI\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_yhWOWCIMKixI.create(\'slider\', [[-4,4],[0,4],[1,3,5]], {"name":"radius"});\nvar el_002 = board_jxg_yhWOWCIMKixI.create(\'point\', [0,0], {"name":"O"});\nvar el_003 = board_jxg_yhWOWCIMKixI.create(\'circle\', [el_002,el_001], {"strokeColor":"blue","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="21.-Slider-Controlled-Circle-and-Point"><a class="docs-heading-anchor" href="#21.-Slider-Controlled-Circle-and-Point">21. Slider-Controlled Circle and Point</a><a id="21.-Slider-Controlled-Circle-and-Point-1"></a><a class="docs-heading-anchor-permalink" href="#21.-Slider-Controlled-Circle-and-Point" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;slider_circle&quot;, xlim=(-6, 6), ylim=(-6, 6))
+r = slider([-5, 5], [1, 5], [1, 3, 5]; name=&quot;r&quot;)
+o = point(0, 0; name=&quot;O&quot;, size=3)
+c = circle(o, r; strokeColor=&quot;steelblue&quot;, strokeWidth=2, fillColor=&quot;steelblue&quot;, fillOpacity=0.1)
+g = glider(3, 0, c; name=&quot;P&quot;, size=4, color=&quot;red&quot;)
+push!(b, r); push!(b, o); push!(b, c); push!(b, g)
+push!(b, segment(o, g; strokeColor=&quot;gray&quot;, dash=2))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_bZGsJO9z7phX" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_bZGsJO9z7phX = JXG.JSXGraph.initBoard(\'jxg_bZGsJO9z7phX\', {"axis":true,"boundingbox":[-6,6,6,-6],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_bZGsJO9z7phX.create(\'slider\', [[-5,5],[1,5],[1,3,5]], {"name":"r"});\nvar el_002 = board_jxg_bZGsJO9z7phX.create(\'point\', [0,0], {"name":"O","size":3});\nvar el_003 = board_jxg_bZGsJO9z7phX.create(\'circle\', [el_002,el_001], {"fillColor":"steelblue","fillOpacity":0.1,"strokeColor":"steelblue","strokeWidth":2});\nvar el_004 = board_jxg_bZGsJO9z7phX.create(\'glider\', [3,0,el_003], {"name":"P","size":4,"strokeColor":"red"});\nvar el_005 = board_jxg_bZGsJO9z7phX.create(\'segment\', [el_002,el_004], {"dash":2,"strokeColor":"gray"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="22.-Regular-Polygon-with-Slider-Sides"><a class="docs-heading-anchor" href="#22.-Regular-Polygon-with-Slider-Sides">22. Regular Polygon with Slider Sides</a><a id="22.-Regular-Polygon-with-Slider-Sides-1"></a><a class="docs-heading-anchor-permalink" href="#22.-Regular-Polygon-with-Slider-Sides" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;slider_polygon&quot;, xlim=(-5, 5), ylim=(-5, 5))
+n = slider([-4, 4], [0, 4], [3, 5, 12]; name=&quot;n&quot;, snapWidth=1)
+p1 = point(-1, 0; visible=false)
+p2 = point(1, 0; visible=false)
+push!(b, n); push!(b, p1); push!(b, p2)
+push!(b, regularpolygon(p1, p2, n;
+    fillColor=&quot;lightblue&quot;, fillOpacity=0.3, strokeColor=&quot;navy&quot;
+))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_732pM5jL8wJP" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_732pM5jL8wJP = JXG.JSXGraph.initBoard(\'jxg_732pM5jL8wJP\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_732pM5jL8wJP.create(\'slider\', [[-4,4],[0,4],[3,5,12]], {"name":"n","snapWidth":1});\nvar el_002 = board_jxg_732pM5jL8wJP.create(\'point\', [-1,0], {"visible":false});\nvar el_003 = board_jxg_732pM5jL8wJP.create(\'point\', [1,0], {"visible":false});\nvar el_004 = board_jxg_732pM5jL8wJP.create(\'regularpolygon\', [el_002,el_003,el_001], {"fillColor":"lightblue","fillOpacity":0.3,"strokeColor":"navy"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="23.-Draggable-Points"><a class="docs-heading-anchor" href="#23.-Draggable-Points">23. Draggable Points</a><a id="23.-Draggable-Points-1"></a><a class="docs-heading-anchor-permalink" href="#23.-Draggable-Points" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;drag&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    a = point(-2, 0; name=&quot;A&quot;, size=5, color=&quot;red&quot;)
+    bp = point(2, 0; name=&quot;B&quot;, size=5, color=&quot;blue&quot;)
+    push!(b, a); push!(b, bp)
+    push!(b, segment(a, bp; strokeColor=&quot;gray&quot;, strokeWidth=2))
+    push!(b, text(-4, -4, &quot;Drag the points!&quot;))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_HDfK5iFtMhw1" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_HDfK5iFtMhw1 = JXG.JSXGraph.initBoard(\'jxg_HDfK5iFtMhw1\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_HDfK5iFtMhw1.create(\'point\', [-2,0], {"name":"A","size":5,"strokeColor":"red"});\nvar el_002 = board_jxg_HDfK5iFtMhw1.create(\'point\', [2,0], {"name":"B","size":5,"strokeColor":"blue"});\nvar el_003 = board_jxg_HDfK5iFtMhw1.create(\'segment\', [el_001,el_002], {"strokeColor":"gray","strokeWidth":2});\nvar el_004 = board_jxg_HDfK5iFtMhw1.create(\'text\', [-4,-4,"Drag the points!"], {});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="24.-Glider-on-Curve"><a class="docs-heading-anchor" href="#24.-Glider-on-Curve">24. Glider on Curve</a><a id="24.-Glider-on-Curve-1"></a><a class="docs-heading-anchor-permalink" href="#24.-Glider-on-Curve" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;glider_ex&quot;, xlim=(-5, 5), ylim=(-5, 5))
+o = point(0, 0; name=&quot;O&quot;, visible=false)
+c = circle(o, 3; strokeColor=&quot;gray&quot;)
+g = glider(3, 0, c; name=&quot;G&quot;, size=5, color=&quot;orange&quot;)
+push!(b, o)
+push!(b, c)
+push!(b, g)
+push!(b, segment(o, g; strokeColor=&quot;orange&quot;, dash=2))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_zsFq4x1970Ht" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_zsFq4x1970Ht = JXG.JSXGraph.initBoard(\'jxg_zsFq4x1970Ht\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_zsFq4x1970Ht.create(\'point\', [0,0], {"name":"O","visible":false});\nvar el_002 = board_jxg_zsFq4x1970Ht.create(\'circle\', [el_001,3], {"strokeColor":"gray"});\nvar el_003 = board_jxg_zsFq4x1970Ht.create(\'glider\', [3,0,el_002], {"name":"G","size":5,"strokeColor":"orange"});\nvar el_004 = board_jxg_zsFq4x1970Ht.create(\'segment\', [el_001,el_003], {"dash":2,"strokeColor":"orange"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="25.-Text-Annotation"><a class="docs-heading-anchor" href="#25.-Text-Annotation">25. Text Annotation</a><a id="25.-Text-Annotation-1"></a><a class="docs-heading-anchor-permalink" href="#25.-Text-Annotation" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;text_ex&quot;, xlim=(-5, 5), ylim=(-5, 5))
+push!(b, text(-4, 4, &quot;Hello JSXGraph!&quot;))
+push!(b, text(-4, 2, &quot;&lt;b&gt;Bold&lt;/b&gt; and &lt;i&gt;italic&lt;/i&gt;&quot;))
+push!(b, point(0, 0; name=&quot;Origin&quot;, color=&quot;red&quot;))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_DN6mEBT0ZbJl" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_DN6mEBT0ZbJl = JXG.JSXGraph.initBoard(\'jxg_DN6mEBT0ZbJl\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_DN6mEBT0ZbJl.create(\'text\', [-4,4,"Hello JSXGraph!"], {});\nvar el_002 = board_jxg_DN6mEBT0ZbJl.create(\'text\', [-4,2,"<b>Bold</b> and <i>italic</i>"], {});\nvar el_003 = board_jxg_DN6mEBT0ZbJl.create(\'point\', [0,0], {"name":"Origin","strokeColor":"red"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="26.-Image-on-Board"><a class="docs-heading-anchor" href="#26.-Image-on-Board">26. Image on Board</a><a id="26.-Image-on-Board-1"></a><a class="docs-heading-anchor-permalink" href="#26.-Image-on-Board" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;image_ex&quot;, xlim=(-5, 5), ylim=(-5, 5))
+# Original image is 1441×378 px → ratio ≈ 3.81:1
+push!(b, image(&quot;assets/logo_jsxgraph.png&quot;,
+          [-4, 4], [8, 2.1]))
+push!(b, text(-2, -3, &quot;JSXGraph logo&quot;))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_nIrBM7rsLhRS" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_nIrBM7rsLhRS = JXG.JSXGraph.initBoard(\'jxg_nIrBM7rsLhRS\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_nIrBM7rsLhRS.create(\'image\', ["assets/logo_jsxgraph.png",[-4,4],[8.0,2.1]], {});\nvar el_002 = board_jxg_nIrBM7rsLhRS.create(\'text\', [-2,-3,"JSXGraph logo"], {});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h2 id="Data-Visualization"><a class="docs-heading-anchor" href="#Data-Visualization">Data Visualization</a><a id="Data-Visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Data-Visualization" title="Permalink"></a></h2><h3 id="27.-Scatter-Plot"><a class="docs-heading-anchor" href="#27.-Scatter-Plot">27. Scatter Plot</a><a id="27.-Scatter-Plot-1"></a><a class="docs-heading-anchor-permalink" href="#27.-Scatter-Plot" title="Permalink"></a></h3><pre><code class="language-julia hljs">x = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
+y = [2.1, 3.9, 6.2, 7.8, 10.1, 12.3, 13.8, 16.1]
+b = scatter(x, y; color=&quot;steelblue&quot;, size=4)
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_FSw8vSdU5bZb" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_FSw8vSdU5bZb = JXG.JSXGraph.initBoard(\'jxg_FSw8vSdU5bZb\', {"axis":true,"boundingbox":[0.29999999999999993,17.5,8.7,0.6999999999999997],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_FSw8vSdU5bZb.create(\'point\', [1.0,2.1], {"size":4,"strokeColor":"steelblue"});\nvar el_002 = board_jxg_FSw8vSdU5bZb.create(\'point\', [2.0,3.9], {"size":4,"strokeColor":"steelblue"});\nvar el_003 = board_jxg_FSw8vSdU5bZb.create(\'point\', [3.0,6.2], {"size":4,"strokeColor":"steelblue"});\nvar el_004 = board_jxg_FSw8vSdU5bZb.create(\'point\', [4.0,7.8], {"size":4,"strokeColor":"steelblue"});\nvar el_005 = board_jxg_FSw8vSdU5bZb.create(\'point\', [5.0,10.1], {"size":4,"strokeColor":"steelblue"});\nvar el_006 = board_jxg_FSw8vSdU5bZb.create(\'point\', [6.0,12.3], {"size":4,"strokeColor":"steelblue"});\nvar el_007 = board_jxg_FSw8vSdU5bZb.create(\'point\', [7.0,13.8], {"size":4,"strokeColor":"steelblue"});\nvar el_008 = board_jxg_FSw8vSdU5bZb.create(\'point\', [8.0,16.1], {"size":4,"strokeColor":"steelblue"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="28.-Function-Plot-with-Domain"><a class="docs-heading-anchor" href="#28.-Function-Plot-with-Domain">28. Function Plot with Domain</a><a id="28.-Function-Plot-with-Domain-1"></a><a class="docs-heading-anchor-permalink" href="#28.-Function-Plot-with-Domain" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = plot(@jsf(x -&gt; x^2 - 4), (-4, 4); strokeColor=&quot;darkgreen&quot;, strokeWidth=2)
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_Rvc2UgSGny95" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_Rvc2UgSGny95 = JXG.JSXGraph.initBoard(\'jxg_Rvc2UgSGny95\', {"axis":true,"boundingbox":[-4,5,4,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_Rvc2UgSGny95.create(\'functiongraph\', [function(x){return Math.pow(x, 2) - 4;}], {"strokeColor":"darkgreen","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="29.-Multiple-Data-Series"><a class="docs-heading-anchor" href="#29.-Multiple-Data-Series">29. Multiple Data Series</a><a id="29.-Multiple-Data-Series-1"></a><a class="docs-heading-anchor-permalink" href="#29.-Multiple-Data-Series" title="Permalink"></a></h3><pre><code class="language-julia hljs">x = collect(0.0:0.5:6.0)
+y1 = sin.(x)
+y2 = cos.(x)
+b = scatter(x, y1; color=&quot;blue&quot;, size=3, xlim=(-1, 7), ylim=(-1.5, 1.5))
+for (xi, yi) in zip(x, y2)
+    push!(b, point(xi, yi; color=&quot;red&quot;, size=3, name=&quot;&quot;))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_6OJqLlNlUVKs" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_6OJqLlNlUVKs = JXG.JSXGraph.initBoard(\'jxg_6OJqLlNlUVKs\', {"axis":true,"boundingbox":[-1.0,1.5,7.0,-1.5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_6OJqLlNlUVKs.create(\'point\', [0.0,0.0], {"size":3,"strokeColor":"blue"});\nvar el_002 = board_jxg_6OJqLlNlUVKs.create(\'point\', [0.5,0.479425538604203], {"size":3,"strokeColor":"blue"});\nvar el_003 = board_jxg_6OJqLlNlUVKs.create(\'point\', [1.0,0.8414709848078965], {"size":3,"strokeColor":"blue"});\nvar el_004 = board_jxg_6OJqLlNlUVKs.create(\'point\', [1.5,0.9974949866040544], {"size":3,"strokeColor":"blue"});\nvar el_005 = board_jxg_6OJqLlNlUVKs.create(\'point\', [2.0,0.9092974268256817], {"size":3,"strokeColor":"blue"});\nvar el_006 = board_jxg_6OJqLlNlUVKs.create(\'point\', [2.5,0.5984721441039564], {"size":3,"strokeColor":"blue"});\nvar el_007 = board_jxg_6OJqLlNlUVKs.create(\'point\', [3.0,0.1411200080598672], {"size":3,"strokeColor":"blue"});\nvar el_008 = board_jxg_6OJqLlNlUVKs.create(\'point\', [3.5,-0.35078322768961984], {"size":3,"strokeColor":"blue"});\nvar el_009 = board_jxg_6OJqLlNlUVKs.create(\'point\', [4.0,-0.7568024953079282], {"size":3,"strokeColor":"blue"});\nvar el_010 = board_jxg_6OJqLlNlUVKs.create(\'point\', [4.5,-0.977530117665097], {"size":3,"strokeColor":"blue"});\nvar el_011 = board_jxg_6OJqLlNlUVKs.create(\'point\', [5.0,-0.9589242746631385], {"size":3,"strokeColor":"blue"});\nvar el_012 = board_jxg_6OJqLlNlUVKs.create(\'point\', [5.5,-0.7055403255703919], {"size":3,"strokeColor":"blue"});\nvar el_013 = board_jxg_6OJqLlNlUVKs.create(\'point\', [6.0,-0.27941549819892586], {"size":3,"strokeColor":"blue"});\nvar el_014 = board_jxg_6OJqLlNlUVKs.create(\'point\', [0.0,1.0], {"name":"","size":3,"strokeColor":"red"});\nvar el_015 = board_jxg_6OJqLlNlUVKs.create(\'point\', [0.5,0.8775825618903728], {"name":"","size":3,"strokeColor":"red"});\nvar el_016 = board_jxg_6OJqLlNlUVKs.create(\'point\', [1.0,0.5403023058681398], {"name":"","size":3,"strokeColor":"red"});\nvar el_017 = board_jxg_6OJqLlNlUVKs.create(\'point\', [1.5,0.0707372016677029], {"name":"","size":3,"strokeColor":"red"});\nvar el_018 = board_jxg_6OJqLlNlUVKs.create(\'point\', [2.0,-0.4161468365471424], {"name":"","size":3,"strokeColor":"red"});\nvar el_019 = board_jxg_6OJqLlNlUVKs.create(\'point\', [2.5,-0.8011436155469337], {"name":"","size":3,"strokeColor":"red"});\nvar el_020 = board_jxg_6OJqLlNlUVKs.create(\'point\', [3.0,-0.9899924966004454], {"name":"","size":3,"strokeColor":"red"});\nvar el_021 = board_jxg_6OJqLlNlUVKs.create(\'point\', [3.5,-0.9364566872907963], {"name":"","size":3,"strokeColor":"red"});\nvar el_022 = board_jxg_6OJqLlNlUVKs.create(\'point\', [4.0,-0.6536436208636119], {"name":"","size":3,"strokeColor":"red"});\nvar el_023 = board_jxg_6OJqLlNlUVKs.create(\'point\', [4.5,-0.2107957994307797], {"name":"","size":3,"strokeColor":"red"});\nvar el_024 = board_jxg_6OJqLlNlUVKs.create(\'point\', [5.0,0.28366218546322625], {"name":"","size":3,"strokeColor":"red"});\nvar el_025 = board_jxg_6OJqLlNlUVKs.create(\'point\', [5.5,0.70866977429126], {"name":"","size":3,"strokeColor":"red"});\nvar el_026 = board_jxg_6OJqLlNlUVKs.create(\'point\', [6.0,0.960170286650366], {"name":"","size":3,"strokeColor":"red"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h2 id="Composition-and-Transforms"><a class="docs-heading-anchor" href="#Composition-and-Transforms">Composition &amp; Transforms</a><a id="Composition-and-Transforms-1"></a><a class="docs-heading-anchor-permalink" href="#Composition-and-Transforms" title="Permalink"></a></h2><h3 id="30.-Do-Block-Syntax"><a class="docs-heading-anchor" href="#30.-Do-Block-Syntax">30. Do-Block Syntax</a><a id="30.-Do-Block-Syntax-1"></a><a class="docs-heading-anchor-permalink" href="#30.-Do-Block-Syntax" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = board(&quot;doblock&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+    a = point(-3, 0; name=&quot;A&quot;, color=&quot;crimson&quot;)
+    bp = point(3, 0; name=&quot;B&quot;, color=&quot;navy&quot;)
+    c = point(0, 4; name=&quot;C&quot;, color=&quot;forestgreen&quot;)
+    push!(b, a); push!(b, bp); push!(b, c)
+    push!(b, polygon(a, bp, c; fillColor=&quot;#ffe0e0&quot;, fillOpacity=0.5))
+    push!(b, segment(a, bp; strokeColor=&quot;gray&quot;, dash=2))
+    push!(b, segment(bp, c; strokeColor=&quot;gray&quot;, dash=2))
+    push!(b, segment(c, a; strokeColor=&quot;gray&quot;, dash=2))
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_tWxK6zb5IgnD" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_tWxK6zb5IgnD = JXG.JSXGraph.initBoard(\'jxg_tWxK6zb5IgnD\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_tWxK6zb5IgnD.create(\'point\', [-3,0], {"name":"A","strokeColor":"crimson"});\nvar el_002 = board_jxg_tWxK6zb5IgnD.create(\'point\', [3,0], {"name":"B","strokeColor":"navy"});\nvar el_003 = board_jxg_tWxK6zb5IgnD.create(\'point\', [0,4], {"name":"C","strokeColor":"forestgreen"});\nvar el_004 = board_jxg_tWxK6zb5IgnD.create(\'polygon\', [el_001,el_002,el_003], {"fillColor":"#ffe0e0","fillOpacity":0.5});\nvar el_005 = board_jxg_tWxK6zb5IgnD.create(\'segment\', [el_001,el_002], {"dash":2,"strokeColor":"gray"});\nvar el_006 = board_jxg_tWxK6zb5IgnD.create(\'segment\', [el_002,el_003], {"dash":2,"strokeColor":"gray"});\nvar el_007 = board_jxg_tWxK6zb5IgnD.create(\'segment\', [el_003,el_001], {"dash":2,"strokeColor":"gray"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="31.-Board-Composition-with"><a class="docs-heading-anchor" href="#31.-Board-Composition-with">31. Board Composition with <code>+</code></a><a id="31.-Board-Composition-with-1"></a><a class="docs-heading-anchor-permalink" href="#31.-Board-Composition-with" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;compose&quot;, xlim=(-5, 5), ylim=(-5, 5))
+p = point(0, 0; name=&quot;O&quot;)
+b = b + p + circle(p, 3; strokeColor=&quot;blue&quot;) + functiongraph(&quot;Math.sin(x)&quot;; strokeColor=&quot;red&quot;)
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_TX2RmjRFER9Z" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_TX2RmjRFER9Z = JXG.JSXGraph.initBoard(\'jxg_TX2RmjRFER9Z\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_TX2RmjRFER9Z.create(\'point\', [0,0], {"name":"O"});\nvar el_002 = board_jxg_TX2RmjRFER9Z.create(\'circle\', [el_001,3], {"strokeColor":"blue"});\nvar el_003 = board_jxg_TX2RmjRFER9Z.create(\'functiongraph\', [function(x){return Math.sin(x);}], {"strokeColor":"red"});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="32.-Grid-and-Axes"><a class="docs-heading-anchor" href="#32.-Grid-and-Axes">32. Grid and Axes</a><a id="32.-Grid-and-Axes-1"></a><a class="docs-heading-anchor-permalink" href="#32.-Grid-and-Axes" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;grid_axes&quot;, xlim=(-5, 5), ylim=(-5, 5))
+o = point(0, 0); px = point(1, 0); py = point(0, 1)
+push!(b, o); push!(b, px); push!(b, py)
+push!(b, axis(o, px; name=&quot;x&quot;))
+push!(b, axis(o, py; name=&quot;y&quot;))
+push!(b, grid())
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_c3qbvH0Vs6zX" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_c3qbvH0Vs6zX = JXG.JSXGraph.initBoard(\'jxg_c3qbvH0Vs6zX\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_c3qbvH0Vs6zX.create(\'point\', [0,0], {});\nvar el_002 = board_jxg_c3qbvH0Vs6zX.create(\'point\', [1,0], {});\nvar el_003 = board_jxg_c3qbvH0Vs6zX.create(\'point\', [0,1], {});\nvar el_004 = board_jxg_c3qbvH0Vs6zX.create(\'axis\', [el_001,el_002], {"name":"x"});\nvar el_005 = board_jxg_c3qbvH0Vs6zX.create(\'axis\', [el_001,el_003], {"name":"y"});\nvar el_006 = board_jxg_c3qbvH0Vs6zX.create(\'grid\', [], {});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h2 id="Theming"><a class="docs-heading-anchor" href="#Theming">Theming</a><a id="Theming-1"></a><a class="docs-heading-anchor-permalink" href="#Theming" title="Permalink"></a></h2><h3 id="33.-Dark-Theme"><a class="docs-heading-anchor" href="#33.-Dark-Theme">33. Dark Theme</a><a id="33.-Dark-Theme-1"></a><a class="docs-heading-anchor-permalink" href="#33.-Dark-Theme" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = with_theme(THEME_DARK) do
+    board(&quot;dark_ex&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+        push!(b, point(0, 0; name=&quot;O&quot;))
+        push!(b, functiongraph(&quot;Math.sin(x)&quot;; strokeColor=&quot;#ff6688&quot;))
+    end
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_88rV8yiXRJQd" class="jxgbox" style="width:500px;height:500px;background:#2d2d2d"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_88rV8yiXRJQd = JXG.JSXGraph.initBoard(\'jxg_88rV8yiXRJQd\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_88rV8yiXRJQd.create(\'point\', [0,0], {"fillColor":"#ff6b6b","name":"O","strokeColor":"#ff6b6b"});\nvar el_002 = board_jxg_88rV8yiXRJQd.create(\'functiongraph\', [function(x){return Math.sin(x);}], {"strokeColor":"#ff6688","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="34.-Publication-Theme"><a class="docs-heading-anchor" href="#34.-Publication-Theme">34. Publication Theme</a><a id="34.-Publication-Theme-1"></a><a class="docs-heading-anchor-permalink" href="#34.-Publication-Theme" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = with_theme(THEME_PUBLICATION) do
+    board(&quot;pub_ex&quot;, xlim=(-5, 5), ylim=(-5, 5)) do b
+        push!(b, functiongraph(&quot;x*x/5 - 2&quot;; strokeWidth=2, name=&quot;f(x) = x²/5 − 2&quot;))
+        push!(b, point(0, -2; name=&quot;vertex&quot;))
+    end
+end
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_iVb5f0jPfMfb" class="jxgbox" style="width:500px;height:500px;background:#ffffff"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_iVb5f0jPfMfb = JXG.JSXGraph.initBoard(\'jxg_iVb5f0jPfMfb\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_iVb5f0jPfMfb.create(\'functiongraph\', [function(x){return x*x/5 - 2;}], {"name":"f(x) = x²/5 − 2","strokeColor":"#000000","strokeWidth":2});\nvar el_002 = board_jxg_iVb5f0jPfMfb.create(\'point\', [0,-2], {"fillColor":"#000000","name":"vertex","size":2,"strokeColor":"#000000","strokeWidth":1.5});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h2 id="Advanced-Examples"><a class="docs-heading-anchor" href="#Advanced-Examples">Advanced Examples</a><a id="Advanced-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced-Examples" title="Permalink"></a></h2><h3 id="35.-Slope-Field"><a class="docs-heading-anchor" href="#35.-Slope-Field">35. Slope Field</a><a id="35.-Slope-Field-1"></a><a class="docs-heading-anchor-permalink" href="#35.-Slope-Field" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;slope&quot;, xlim=(-5, 5), ylim=(-5, 5))
+push!(b, slopefield(&quot;x - y&quot;; strokeColor=&quot;lightblue&quot;))
+push!(b, functiongraph(&quot;x - 1 + Math.exp(-x)&quot;; strokeColor=&quot;red&quot;, strokeWidth=2))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_oIdzjzpikQeE" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_oIdzjzpikQeE = JXG.JSXGraph.initBoard(\'jxg_oIdzjzpikQeE\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_oIdzjzpikQeE.create(\'slopefield\', [function(x,y){return x - y;},[-5,1,5],[-5,1,5]], {"strokeColor":"lightblue"});\nvar el_002 = board_jxg_oIdzjzpikQeE.create(\'functiongraph\', [function(x){return x - 1 + Math.exp(-x);}], {"strokeColor":"red","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="36.-Inequality-Region"><a class="docs-heading-anchor" href="#36.-Inequality-Region">36. Inequality Region</a><a id="36.-Inequality-Region-1"></a><a class="docs-heading-anchor-permalink" href="#36.-Inequality-Region" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;ineq&quot;, xlim=(-5, 5), ylim=(-5, 5))
+f = functiongraph(&quot;Math.sin(x)*2&quot;; strokeColor=&quot;blue&quot;, strokeWidth=2)
+push!(b, f)
+push!(b, inequality(f; fillColor=&quot;lightblue&quot;, fillOpacity=0.3, inverse=false))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_qpiE1FUC4QqH" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_qpiE1FUC4QqH = JXG.JSXGraph.initBoard(\'jxg_qpiE1FUC4QqH\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_qpiE1FUC4QqH.create(\'functiongraph\', [function(x){return Math.sin(x)*2;}], {"strokeColor":"blue","strokeWidth":2});\nvar el_002 = board_jxg_qpiE1FUC4QqH.create(\'inequality\', [el_001], {"fillColor":"lightblue","fillOpacity":0.3,"inverse":false});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+<h3 id="37.-JavaScript-Function-Bridge"><a class="docs-heading-anchor" href="#37.-JavaScript-Function-Bridge">37. JavaScript Function Bridge</a><a id="37.-JavaScript-Function-Bridge-1"></a><a class="docs-heading-anchor-permalink" href="#37.-JavaScript-Function-Bridge" title="Permalink"></a></h3><pre><code class="language-julia hljs">b = Board(&quot;jsf_ex&quot;, xlim=(-5, 5), ylim=(-5, 5))
+push!(b, functiongraph(@jsf(x -&gt; sin(x) * cos(2x)); strokeColor=&quot;purple&quot;, strokeWidth=2))
+b</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
+<div id="jxg_FpKt620jTjyr" class="jxgbox" style="width:500px;height:500px"></div>
+<script>
+(function() {
+  var boardCode = 'var board_jxg_FpKt620jTjyr = JXG.JSXGraph.initBoard(\'jxg_FpKt620jTjyr\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_FpKt620jTjyr.create(\'functiongraph\', [function(x){return Math.sin(x) * Math.cos(2 * x);}], {"strokeColor":"purple","strokeWidth":2});\n';
+  function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
+  if (typeof JXG !== 'undefined') {
+    runBoard();
+  } else if (typeof requirejs !== 'undefined' && typeof require.config === 'function') {
+    require.config({paths:{'jsxgraph':'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.min'}});
+    require(['jsxgraph'], function(JXG) { window.JXG = JXG; runBoard(); });
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+    s.onload = runBoard;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+</article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tutorial/">« Getting Started</a><a class="docs-footer-nextpage" href="../gallery3d/">3D Gallery »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Tuesday 7 April 2026 13:42">Tuesday 7 April 2026</span>. Using Julia version 1.12.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
