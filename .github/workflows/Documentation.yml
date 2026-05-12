@@ -35,4 +35,5 @@ jobs:
       - name: Build and deploy documentation
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUILD_PLUTO_NOTEBOOKS: "true"
         run: julia --project=docs --color=yes -e 'include("docs/make.jl")'
