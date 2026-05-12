@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.23
+# v0.20.25
 
 using Markdown
 using InteractiveUtils
@@ -8,6 +8,13 @@ using InteractiveUtils
 begin
 	using Pkg
 	#Pkg.add(PackageSpec(url="https://github.com/JuliaJSXGraph/JSXGraph.jl"))
+	# Pluto auto-adds `JSXGraph` from the General registry, which currently
+	# resolves to a different UUID than the local checkout. Remove that
+	# auto-added entry (if present) before developing the local path.
+	try
+		Pkg.rm("JSXGraph")
+	catch
+	end
 	Pkg.develop(PackageSpec(path="../.."))
 	using JSXGraph
 end
@@ -28,7 +35,7 @@ end
 # ╔═╡ 654abbe2-43d9-44fb-8d95-204aaa3bd2d0
 begin
 	function plot_surface_plot_sine_wave()
-		b = board("sine_surface", xlim=(-8, 8), ylim=(-8, 8)) do b
+		b = board("sine_surface", xlim=(-8, 8), ylim=(-8, 8), axis=false) do b
 		    v = view3d([-6, -3], [8, 8], [[-5, 5], [-5, 5], [-2, 2]]) do v
 		        push!(v, functiongraph3d("Math.sin(x)*Math.cos(y)";
 		            strokeWidth=0.5,

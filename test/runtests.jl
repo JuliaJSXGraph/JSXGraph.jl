@@ -26,5 +26,6 @@ using HTTP
     include("test_snapshots.jl")
     include("test_svg_export.jl")
     include("test_websocket.jl")
+    include("test_pluto_bind.jl")
 end
 

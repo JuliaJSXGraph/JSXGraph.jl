@@ -37,6 +37,9 @@ export MATHJS_VERSION, MATHJS_CDN_JS
 # WebSocket interactivity
 export LiveBoard, serve, stop_server!, on, off, update!
 
+# Pluto @bind integration
+export points_xy, points_xyz
+
 # Theming
 export Theme, THEME_DEFAULT, THEME_DARK, THEME_PUBLICATION
 export set_theme!, reset_theme!, with_theme, current_theme
@@ -89,6 +92,7 @@ include("composition.jl")
 include("assets.jl")
 include("options.jl")
 include("html.jl")
+include("bind.jl")
 include("svg_export.jl")
 include("display.jl")
 include("recipes.jl")

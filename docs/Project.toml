@@ -5,3 +5,8 @@ JSXGraphRecipesBase = "bd634f59-a37b-43f6-973f-3a9fc2996b03"
 
 [compat]
 Documenter = "1"
+
+# To embed the Pluto notebook example into the Pluto Integration page,
+# add `Pluto` and `PlutoStaticHTML` here (using a compatible pair —
+# PlutoStaticHTML 7.x with Pluto 0.20.6+ on Julia 1.10+ is the current
+# combination) and build the docs with `BUILD_PLUTO_NOTEBOOKS=true`.

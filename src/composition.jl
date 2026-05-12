@@ -7,6 +7,7 @@ Add one or more elements to a board (mutating). Returns the board.
 """
 function Base.push!(board::Board, elem::AbstractJSXElement)
     push!(board.elements, elem)
+    _validate_bindable_names!(board)
     return board
 end
 
@@ -14,6 +15,7 @@ function Base.push!(board::Board, elems::AbstractJSXElement...)
     for elem in elems
         push!(board.elements, elem)
     end
+    _validate_bindable_names!(board)
     return board
 end
 
@@ -80,6 +82,7 @@ end
 function board(f::Function, id::String=""; kwargs...)
     b = Board(id; kwargs...)
     f(b)
+    _validate_bindable_names!(b)
     return b
 end
 

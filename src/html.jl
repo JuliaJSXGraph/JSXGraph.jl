@@ -40,6 +40,35 @@ function render_assets(io::IO; mode::Symbol=:inline, css_only::Bool=false)
 end
 
 """
+Mutable hook for the seed-data publisher. `nothing` means use the
+default JSON-inline emission. `JSXGraphAbstractPlutoDingetjesExt`
+registers a callable here in its `__init__` so seed data flows through
+Pluto's `published_to_js` channel when supported.
+
+This Ref-of-Any pattern avoids method overwrites between the main
+package and the extension, which Julia ≥ 1.12 rejects at precompile time.
+"""
+const _SEED_PUBLISHER = Ref{Any}(nothing)
+
+"""
+$(SIGNATURES)
+
+Emit `data` as a JavaScript expression on `io`. Default is a JSON
+literal (e.g. `["A","B","k"]`). When `AbstractPlutoDingetjes` is loaded
+and supports the current IO context, the registered publisher routes
+through `Display.published_to_js` for efficiency.
+"""
+function _publish_seed_data(io::IO, data)
+    pub = _SEED_PUBLISHER[]
+    if pub === nothing
+        JSON.print(io, data)
+    else
+        pub(io, data)
+    end
+    return nothing
+end
+
+"""
 Resolve child element parents, injecting view ranges for `functiongraph3d`
 elements that don't specify their own x/y ranges.
 """
@@ -50,6 +79,93 @@ function _resolve_child_parents(child::AbstractJSXElement, view::View3D)
         return Any[child.parents[1], ranges[1], ranges[2]]
     end
     return child.parents
+end
+
+"""
+$(SIGNATURES)
+
+True when the board is opted into Pluto `@bind` integration.
+"""
+_bindable(board::Board) = get(board.options, "bindable", false) === true
+
+"""
+$(SIGNATURES)
+
+Write the JS state-publishing block for a bindable board to `io`.
+Emits nothing when the board is not bindable.
+
+`elem_ids` is the mapping from element `objectid` to JS variable name
+built by [`render_board_js`](@ref).
+"""
+function _emit_bind_script(io::IO, board::Board, board_var::String,
+                           elem_ids::Dict{UInt64,String})
+    _bindable(board) || return nothing
+
+    refs = _interactive_elements(board)
+    isempty(refs) && return nothing
+
+    # Build the seed-order array and the JS ELEMENTS lookup.
+    order_keys = String[r.name for r in refs]
+
+    print(io, "(function(){\n")
+    print(io, "  const span = document.getElementById('$(board.id)').parentElement;\n")
+    print(io, "  const order = ")
+    _publish_seed_data(io, order_keys)
+    print(io, ";\n")
+    print(io, "  const ELEMENTS = {\n")
+    for r in refs
+        var_name = get(elem_ids, objectid(r.elem), "")
+        isempty(var_name) && continue
+        kind_str = string(r.kind)
+        # Escape the key (allow only safe characters; element names come from
+        # user input, so JSON.print handles quoting correctly).
+        key_json = sprint(JSON.print, r.name)
+        print(io, "    ", key_json, ": { kind: \"", kind_str, "\", ref: ", var_name, " },\n")
+    end
+    print(io, "  };\n")
+    print(io, """
+  function snapshot() {
+    const out = {};
+    for (const k of order) {
+      const e = ELEMENTS[k];
+      if (!e) continue;
+      if (e.kind === "point")        out[k] = { x: e.ref.X(), y: e.ref.Y() };
+      else if (e.kind === "point3d") out[k] = { x: e.ref.X(), y: e.ref.Y(), z: e.ref.Z() };
+      else if (e.kind === "slider")  out[k] = e.ref.Value();
+    }
+    return out;
+  }
+  function publish() {
+    span.value = snapshot();
+    span.dispatchEvent(new CustomEvent("input", { bubbles: true }));
+  }
+  let lastFire = 0;
+  let trailingTimer = null;
+  function publishThrottled() {
+    const now = (typeof performance !== "undefined" ? performance.now() : Date.now());
+    if (now - lastFire >= 33) {
+      lastFire = now;
+      if (trailingTimer) { clearTimeout(trailingTimer); trailingTimer = null; }
+      publish();
+    } else if (!trailingTimer) {
+      trailingTimer = setTimeout(function () {
+        trailingTimer = null;
+        lastFire = (typeof performance !== "undefined" ? performance.now() : Date.now());
+        publish();
+      }, 33 - (now - lastFire));
+    }
+  }
+""")
+    print(io, "  board_$(board_var).on('update', publishThrottled);\n")
+    print(io, """
+  const finalPublish = function () { publish(); };
+  span.addEventListener('mouseup',   finalPublish);
+  span.addEventListener('pointerup', finalPublish);
+  span.addEventListener('touchend',  finalPublish);
+  publish();
+})();
+""")
+    return nothing
 end
 
 """
@@ -111,6 +227,8 @@ function render_board_js(io::IO, board::Board)
             )
         end
     end
+    # Pluto @bind integration — opt-in via `bindable=true` keyword.
+    _emit_bind_script(io, board, board_var, elem_ids)
 end
 
 """
@@ -134,6 +252,8 @@ globally).
 function render_board_html(
     io::IO, board::Board; full_page::Bool=true, asset_mode::Symbol=:inline
 )
+    _validate_bindable_names!(board)
+
     css_opts = extract_css_options(board.options)
     w = css_opts["width"]
     h = css_opts["height"]
@@ -142,22 +262,31 @@ function render_board_html(
         push!(style_parts, "background:$(css_opts["background"])")
     end
     style_str = join(style_parts, ";")
+    bindable = _bindable(board)
 
     if full_page
         # Full page: we control the <head>, no RequireJS conflict.
+        bind_open  = bindable ? "<span class=\"jxg-bindable\" style=\"display:inline-block;\">" : ""
+        bind_close = bindable ? "</span>" : ""
         print(io, "<!DOCTYPE html>\n")
         print(io, "<html>\n<head>\n")
         print(io, "<meta charset=\"UTF-8\">\n")
         print(io, "<title>JSXGraph Board</title>\n")
         render_assets(io; mode=asset_mode)
         print(io, "</head>\n<body>\n")
-        print(io, "<div id=\"$(board.id)\" class=\"jxgbox\" style=\"$(style_str)\"></div>\n")
+        print(io, bind_open, "<div id=\"$(board.id)\" class=\"jxgbox\" style=\"$(style_str)\"></div>", bind_close, "\n")
         print(io, "<script>\n")
         render_board_js(io, board)
         print(io, "</script>\n")
         print(io, "</body>\n</html>\n")
     else
         # Fragment mode.
+        # When `bindable`, wrap the *entire* fragment in
+        # `<span class="jxg-bindable">` so Pluto's `<bond>` sees a single
+        # root element whose `.value` we set from JS. Without this, the
+        # CSS <link> would be the outermost child and Pluto would read
+        # `undefined` from it.
+        bindable && print(io, "<span class=\"jxg-bindable\" style=\"display:inline-block;\">\n")
         # Emit CSS only — JS is loaded dynamically to avoid conflicts with
         # RequireJS (e.g. Documenter.jl), which causes JSXGraph's UMD wrapper
         # to register as an AMD module instead of setting JXG globally.
@@ -238,6 +367,7 @@ function render_board_html(
 """)
             end
         end
+        bindable && print(io, "</span>\n")
     end
 end
 

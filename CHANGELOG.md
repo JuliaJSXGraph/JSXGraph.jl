@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Pluto `@bind` integration via `bindable=true` keyword on `board(...)`. The bound state exposes draggable points (2D + 3D) and sliders by name; helpers `points_xy` and `points_xyz` project to parallel coordinate vectors for spline / regression / array workflows. New optional weak dependency on `AbstractPlutoDingetjes` (loaded automatically by Pluto) routes seed coordinates through Pluto's `published_to_js` channel for efficiency; outside Pluto a JSON-inline fallback keeps the feature working with zero new dependencies. Duplicate element names on a bindable board raise `ArgumentError` at construction. Docs include a runnable Pluto example notebook (`docs/notebooks/pluto_bind_demo.jl`) downloadable from the new **Pluto Integration** page; the page can also embed the rendered notebook via `PlutoStaticHTML.jl` when the docs are built with `BUILD_PLUTO_NOTEBOOKS=true`. Fixes #12.
 - 3D viewport support via `View3D` container type with `do`-block syntax (REQ-3D-001)
 - 3D element constructors: `point3d`, `line3d`, `curve3d`, `functiongraph3d`, `parametricsurface3d` (REQ-3D-002 to REQ-3D-005)
 - `view3d` constructor with keyword arguments (`xlim`, `ylim`, `zlim`) and positional form

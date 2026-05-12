@@ -43,6 +43,11 @@ Auto-generates a unique `id` if an empty string is provided.
 - `grid`: show grid (default: `false`)
 - `width`: board width in pixels (default: `500`)
 - `height`: board height in pixels (default: `500`)
+- `bindable`: opt in to Pluto `@bind` integration (default: `false`). When
+  `true`, the renderer wraps the board in a Pluto-`@bind`-compatible
+  element and publishes the live state of draggable points and sliders.
+  Outside Pluto the wrapper is inert. Duplicate element names raise
+  `ArgumentError` on a bindable board.
 - Additional keyword arguments are stored directly in `options`
 """
 function Board(
@@ -53,6 +58,7 @@ function Board(
     grid::Bool=false,
     width::Int=500,
     height::Int=500,
+    bindable::Bool=false,
     kwargs...,
 )
     # Auto-generate id if empty
@@ -61,6 +67,10 @@ function Board(
     end
 
     options = Dict{String,Any}("axis" => axis, "width" => width, "height" => height)
+
+    if bindable
+        options["bindable"] = true
+    end
 
     if grid
         options["grid"] = true
