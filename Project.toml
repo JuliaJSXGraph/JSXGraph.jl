@@ -1,6 +1,6 @@
 name = "JSXGraph"
 uuid = "97e4c2e4-f0cb-461e-a268-312dec255b76"
-version = "0.5.2"
+version = "0.5.3"
 authors = ["JuliaJSXGraph maintainers"]
 
 [deps]

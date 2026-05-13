@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.3] - 2026-05-13
+
+### Added
+
+- `@jsf` now transpiles Julia property-access expressions (`obj.prop`) and method-call syntax (`obj.prop()`) to their JS equivalents. Combined with the v0.5.2 element-ref capture, this enables the classic JSXGraph wiki idiom of using a draggable point's live coordinate inside a function expression, e.g. `@jsf x -> α.X()^x` where `α` is a `point`.
+- `line(c::Real, b::Real, a::Real; kwargs...)` — three-argument constructor accepting JSXGraph's homogeneous-coordinate line form `c + b·x + a·y = 0`. Convenient as the boundary parent of an `inequality` element.
+- New documentation page **Wiki Examples** (`docs/src/wiki_examples.md`) reproducing the first batch of slider-driven examples from the JSXGraph upstream wiki: draggable-exponential function (`A.Y()^(x/A.X())` with point on the curve by construction), Lituus polar spiral with `k` slider, P-Norm unit ball, slider-driven quartic polynomial, Taylor approximations of `sin` with truncation-order slider via raw `JSFunction`, three-slider (`n`, start, end) Riemann sum, and linear half-plane inequalities. Tracks the wishlist from #6.
+
+### Changed
+
+- `_call_to_js` now routes non-`Symbol` call heads (e.g. an `Expr(:.)` for `point.X()`) through `julia_to_js`, fixing syntactically-invalid JS that was previously emitted as a Julia-style `repr(::Expr)`. Bare `Symbol` call heads (math functions, `named_jsf` references, JS builtins) keep their existing fast path.
+
 ## [0.5.2] - 2026-05-13
 
 ### Fixed

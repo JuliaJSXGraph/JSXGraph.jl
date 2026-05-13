@@ -10,30 +10,48 @@ This page tracks the wishlist from
 
 ## 1. Draggable exponential function
 
-Vary the base `a` of `f(x) = aˣ` with a slider.
+A draggable anchor point `A` whose coordinates `(A.X(), A.Y())` parameterize
+an exponential `f(x) = A.Y()^(x / A.X())`. The clever bit: at `x = A.X()` the
+formula collapses to `A.Y()^1 = A.Y()`, so **`A` always lies on the curve** by
+construction — drag it anywhere and the curve follows.
 
 [JSXGraph wiki source](https://jsxgraph.org/wiki/index.php/Draggable_exponential_function)
 
 ```@example wiki_examples
 using JSXGraph
 
-board("wiki_exp", xlim=(-5, 5), ylim=(-2, 10)) do brd
-    a = slider([-4, -1], [4, -1], [0.1, 2.0, 5.0]; name="a")
-    push!(brd, a)
-    push!(brd, functiongraph(@jsf x -> a^x; strokeColor="blue", strokeWidth=2))
+board("wiki_exp", xlim=(-3, 3), ylim=(-1, 10)) do brd
+    A = point(1.0, exp(1); name="A", color="red", size=4)
+    push!(brd, A)
+    push!(brd, functiongraph(@jsf x -> A.Y()^(x / A.X()); strokeColor="blue", strokeWidth=2))
 end
 ```
 
 ## 2. Lituus
 
-The Lituus is the polar curve `r(θ) = 1/√θ`.
+The Lituus is the polar spiral `r(φ) = √(k/φ)` with `k` controlled by a
+slider. As `k` grows the spiral widens; as `k → 0` it collapses onto the
+origin.
+
+The standalone [`polar`](@ref) constructor creates its own board, which keeps
+us from putting a slider alongside it. Instead we build the polar curve
+manually as a parametric one — `x(t) = r(t)·cos(t)`, `y(t) = r(t)·sin(t)` —
+so the slider captured inside `@jsf` flows through both component functions
+at render time.
 
 [JSXGraph wiki source](https://jsxgraph.org/wiki/index.php/Lituus)
 
 ```@example wiki_examples
-polar(@jsf(θ -> 1 / sqrt(θ)), (0.1, 8π);
-      xlim=(-3, 3), ylim=(-3, 3),
-      strokeColor="purple", strokeWidth=2)
+board("wiki_lituus", xlim=(-3, 5), ylim=(-3, 9)) do brd
+    k = slider([1, 8], [5, 8], [0, 1, 4]; name="k")
+    push!(brd, k)
+    push!(brd, curve(
+        @jsf(t -> sqrt(k / t) * cos(t)),
+        @jsf(t -> sqrt(k / t) * sin(t)),
+        0.0001, 8π;
+        strokeColor="purple", strokeWidth=1,
+    ))
+end
 ```
 
 ## 3. P-Norm unit ball
@@ -75,59 +93,116 @@ end
 
 ## 5. Power series for sine
 
-Compare `sin(x)` (black) with successive Taylor approximations of order 1, 3,
-5, 7, 9. The approximation hugs the reference closer to the origin and
-diverges further out as the order grows.
+A slider `N` controls the truncation order of the Taylor series for `sin(t)`.
+Drag `N` from 0 upward and watch the polynomial approximation extend its
+agreement with `sin(t)` further from the origin.
+
+`@jsf` does not transpile Julia `for` / `while` loops to JavaScript (they live
+in [`UNSUPPORTED_EXPR_HEADS`](https://github.com/JuliaJSXGraph/JSXGraph.jl/blob/main/src/jsfunction.jl)),
+so the truncated-series body is written as a raw `JSXGraph.JSFunction`. The
+placeholder marker `__JSF_REF_s__` is substituted at render time to the slider's
+JS variable (with `.Value()` auto-appended for sliders), the same mechanism the
+`@jsf` macro uses internally for captured element references.
 
 [JSXGraph wiki source](https://jsxgraph.org/wiki/index.php/Power_Series_for_sine)
 
 ```@example wiki_examples
 board("wiki_taylor", xlim=(-10, 10), ylim=(-3, 3)) do brd
-    push!(brd, functiongraph(@jsf x -> sin(x); strokeColor="black", strokeWidth=2))
-    push!(brd, functiongraph(@jsf x -> x;                                                   strokeColor="red"))
-    push!(brd, functiongraph(@jsf x -> x - x^3 / 6;                                         strokeColor="orange"))
-    push!(brd, functiongraph(@jsf x -> x - x^3 / 6 + x^5 / 120;                             strokeColor="green"))
-    push!(brd, functiongraph(@jsf x -> x - x^3 / 6 + x^5 / 120 - x^7 / 5040;                strokeColor="blue"))
-    push!(brd, functiongraph(@jsf x -> x - x^3 / 6 + x^5 / 120 - x^7 / 5040 + x^9 / 362880; strokeColor="purple"))
+    # Reference sin(t) in light gray
+    push!(brd, functiongraph(@jsf t -> sin(t); strokeColor="#cccccc", strokeWidth=2))
+
+    # Slider for truncation order N ∈ [0, 10]
+    s = slider([-9, -2.5], [9, -2.5], [0, 1, 10]; name="N", snapWidth=1)
+    push!(brd, s)
+
+    # Truncated Taylor sum: sum_{k=0}^{N} (-1)^k · t^(2k+1) / (2k+1)!
+    # Written as raw JS because @jsf cannot transpile for-loops.
+    code = """function(t){
+        var v = 0, k, sv = __JSF_REF_s__ + 1, a;
+        for (k = 0; k < sv; k++) {
+            a = 1;
+            for (var j = 1; j <= 2*k + 1; j++) a *= j;
+            v += Math.pow(-1, k) * Math.pow(t, 2*k + 1) / a;
+        }
+        return v;
+    }"""
+    fn = JSXGraph.JSFunction(code, "", JSXGraph.JSFunction[], Dict{String,Any}("__JSF_REF_s__" => s))
+    push!(brd, functiongraph(fn; strokeColor="blue", strokeWidth=2))
 end
 ```
 
-A fully-dynamic version (single slider `n` driving an arbitrary truncation) is
-tracked separately — it requires emitting a hand-written JS loop because the
-`@jsf` macro does not yet support `for`/`while`.
+## 6. Riemann sums (n, start, end sliders)
 
-## 6. Riemann sum (variable n)
+Three sliders drive the left-endpoint Riemann sum approximating
+`∫ₐᵇ sin(x) dx`:
 
-A slider over the number of subintervals `n` controls the left-endpoint Riemann
-approximation of `∫₀^π sin(x) dx`. Drag the slider and watch the sum converge
-toward the exact value (`2.0`).
+- `n` — number of subintervals
+- `start` — lower bound `a`
+- `end` — upper bound `b`
+
+The shaded curve segment between `a` and `b` (drawn with `functiongraph`)
+updates together with the rectangles as the bounds slide.
+
+JSXGraph's `functiongraph` and `riemannsum` expect their range parents
+(`xmin`, `xmax`, `n`) to be either a literal number or a **function returning
+a number**, not a slider element reference. We wrap each slider in a tiny
+no-arg lambda — `@jsf () -> a_slider` — which transpiles to
+`function(){return el_xxx.Value();}` thanks to the slider-auto-deref in
+JSXGraph.jl. This matches the JSXGraph wiki idiom verbatim.
+
+The functiongraph's 3-parent form (`f, xmin, xmax`) isn't exposed in the
+public API yet, so the example reaches for the internal
+`JSXGraph._create_element("functiongraph", (f, xmin, xmax), …)`.
 
 [JSXGraph wiki source](https://jsxgraph.org/wiki/index.php/Riemann_sums)
 
 ```@example wiki_examples
-board("wiki_riemann", xlim=(-1, 5), ylim=(-1.5, 1.5)) do brd
-    n = slider([0, 1.3], [4, 1.3], [1, 10, 50]; name="n", snapWidth=1)
-    push!(brd, n)
-    fg = functiongraph(@jsf(x -> sin(x)); strokeColor="blue", strokeWidth=2)
-    push!(brd, fg)
-    push!(brd, riemannsum(@jsf(x -> sin(x)), n, "left";
-                           a=0, b=π, fillColor="yellow", fillOpacity=0.4))
+board("wiki_riemann", xlim=(-8, 8), ylim=(-4, 4)) do brd
+    n = slider([1, 3], [5, 3], [1, 10, 50]; name="n",     snapWidth=1)
+    a = slider([1, 2], [5, 2], [-10, -3, 0]; name="start")
+    b = slider([1, 1], [5, 1], [0, π, 10];   name="end")
+    push!(brd, n, a, b)
+
+    f      = @jsf x -> sin(x)
+    get_a  = @jsf () -> a
+    get_b  = @jsf () -> b
+    get_n  = @jsf () -> n
+
+    # functiongraph plotted only between the slider-driven bounds
+    push!(brd, JSXGraph._create_element("functiongraph", (f, get_a, get_b),
+                                        Dict(:strokeColor => "blue",
+                                             :strokeWidth => 2)))
+
+    # left-endpoint Riemann sum with bounds and subdivision count driven
+    # by the same sliders
+    push!(brd, riemannsum(f, get_n, "left";
+                           a=get_a, b=get_b,
+                           fillColor="yellow", fillOpacity=0.4))
 end
 ```
 
-## 7. Inequality region with slider
+## 7. Linear inequalities (half-planes)
 
-Shade the region `y ≤ sin(a·x)` where `a` is controlled by a slider, illustrating
-how the frequency parameter reshapes the inequality region.
+The wiki page demonstrates the `inequality` element on **linear** boundaries,
+specifying each line in its homogeneous-coordinate form `c + b·x + a·y = 0`.
+The shaded side is the `… ≤ 0` half-plane by default; `inverse=true` flips it
+to `… ≥ 0`.
+
+The 3-coefficient `line(c, b, a)` constructor (added in v0.5.3) accepts this
+form directly.
 
 [JSXGraph wiki source](https://jsxgraph.org/wiki/index.php/Inequalities)
 
 ```@example wiki_examples
 board("wiki_ineq", xlim=(-5, 5), ylim=(-5, 5)) do brd
-    a = slider([-4, 4], [4, 4], [-3, 1, 3]; name="a")
-    push!(brd, a)
-    f = functiongraph(@jsf x -> sin(a * x); strokeColor="blue", strokeWidth=2)
-    push!(brd, f)
-    push!(brd, inequality(f; fillColor="lightblue", fillOpacity=0.3))
+    # Line `2x - y + 3 = 0`  (i.e. y = 2x + 3); shade `2x - y + 3 ≤ 0`
+    l1 = line(3, 2, -1)
+    push!(brd, l1)
+    push!(brd, inequality(l1; fillColor="yellow"))
+
+    # Line `x - 3 = 0`  (i.e. x = 3); shade `x ≥ 3` via `inverse=true`
+    l2 = line(-3, 1, 0; strokeColor="black")
+    push!(brd, l2)
+    push!(brd, inequality(l2; fillColor="red", inverse=true))
 end
 ```

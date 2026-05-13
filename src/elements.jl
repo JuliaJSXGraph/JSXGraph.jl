@@ -171,6 +171,22 @@ Create a line through two points or defined by other parents.
 line(a, b; kwargs...) = _create_element("line", (a, b), kwargs)
 
 """
+    line(c::Real, b::Real, a::Real; kwargs...)
+
+Create a line from its homogeneous-coordinate equation `c + b·x + a·y = 0`,
+mirroring JSXGraph's `board.create('line', [c, b, a])` form. Useful as the
+parent of an `inequality` (the line separates the half-plane being shaded).
+
+# Example
+
+```julia
+# y = 2x + 3, i.e. 2x - y + 3 = 0 → coefficients (c, b, a) = (3, 2, -1)
+push!(b, line(3, 2, -1))
+```
+"""
+line(c::Real, b::Real, a::Real; kwargs...) = _create_element("line", (c, b, a), kwargs)
+
+"""
 $(SIGNATURES)
 
 Create a line segment between two points.

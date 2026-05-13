@@ -256,3 +256,42 @@ end
     push!(b6, functiongraph(forward))
     @test_throws ErrorException html_string(b6)
 end
+
+@testset "@jsf property access (point.X / point.Y)" begin
+    # Draggable point as exponent base — JSXGraph wiki idiom
+    b = board("pt_x", xlim=(-3, 8), ylim=(-1, 8)) do b
+        α = point(-2.0, 4.0; name="α")
+        push!(b, α)
+        push!(b, functiongraph(@jsf x -> α.X()^x))
+    end
+    h = html_string(b)
+    @test occursin("Math.pow(el_001.X(), x)", h)
+
+    # point.Y() in arithmetic
+    b2 = board("pt_y", xlim=(-5, 5), ylim=(-5, 5)) do b
+        p = point(1.0, 2.0; name="p")
+        push!(b, p)
+        push!(b, functiongraph(@jsf x -> p.Y() * x + p.X()))
+    end
+    h2 = html_string(b2)
+    @test occursin("el_001.Y() * x + el_001.X()", h2)
+
+    # Mixed: slider auto-deref + point property access in the same expression
+    b3 = board("mixed", xlim=(-5, 5), ylim=(-5, 5)) do b
+        s = slider([0, -4], [4, -4], [0, 1, 2]; name="s")
+        p = point(1.0, 0.0; name="p")
+        push!(b, s, p)
+        push!(b, functiongraph(@jsf x -> s * p.X() * x))
+    end
+    h3 = html_string(b3)
+    @test occursin("el_001.Value() * el_002.X() * x", h3)
+
+    # named_jsf (call head as Symbol) is unaffected by the new branch
+    @named_jsf double(x) = 2 * x
+    f = @jsf x -> double(x) + 1
+    @test occursin("double(x)", f.code)
+    @test isempty(f.refs)
+
+    # Bare julia_to_js handles `Expr(:.)` directly for tests outside @jsf
+    @test JSXGraph.julia_to_js(:(α.X())) == "α.X()"
+end

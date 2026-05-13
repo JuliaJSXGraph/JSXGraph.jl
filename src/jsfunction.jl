@@ -178,6 +178,15 @@ function julia_to_js(expr::Expr)
         # Strip LineNumberNodes, convert last expression
         exprs = filter(e -> !(e isa LineNumberNode), expr.args)
         return julia_to_js(exprs[end])
+    elseif expr.head == :.
+        # Property access: `obj.prop` → `<obj_js>.<prop>`. The RHS is a
+        # QuoteNode carrying the property name and is emitted as a literal
+        # JS identifier; only the LHS is recursively transpiled (and is
+        # therefore the only side that can hold a Julia binding).
+        lhs = julia_to_js(expr.args[1])
+        propname = expr.args[2]
+        prop_str = propname isa QuoteNode ? string(propname.value) : string(propname)
+        return "$(lhs).$(prop_str)"
     else
         return string(expr)
     end
@@ -252,9 +261,13 @@ function _call_to_js(expr::Expr)
         return "$(js_func)($(join(args_js, ", ")))"
     end
 
-    # Generic function call
+    # Generic function call. Route non-Symbol call heads (e.g. `point.X`,
+    # i.e. an `:.` expression) through `julia_to_js` so the JS emission is
+    # syntactically correct; bare Symbols are stringified directly to preserve
+    # legacy behavior (named_jsf dependencies and free user-named JS helpers).
+    func_str = func isa Symbol ? string(func) : julia_to_js(func)
     args_js = [julia_to_js(a) for a in expr.args[2:end]]
-    return "$(func)($(join(args_js, ", ")))"
+    return "$(func_str)($(join(args_js, ", ")))"
 end
 
 function _lambda_to_js(expr::Expr)
@@ -385,11 +398,22 @@ function _jsf_collect_free!(free::Set{Symbol}, expr::Expr, bound::Set{Symbol})
         inner = union(bound, Set(params))
         _jsf_collect_free!(free, expr.args[2], inner)
     elseif expr.head === :call
-        # The call head is always a JS identifier (math function, named_jsf
-        # dependency, JS builtin, …) — never a Julia binding to capture.
+        # The call head is *usually* a JS identifier (math function, named_jsf
+        # dependency, JS builtin, …) — never captured.
+        # Special case: a property-access call like `point.X()` — the call
+        # head is itself `Expr(:., :point, QuoteNode(:X))`; recurse into it so
+        # the LHS (`point`) gets captured.
+        head = expr.args[1]
+        if head isa Expr && head.head === :.
+            _jsf_collect_free!(free, head, bound)
+        end
         for a in expr.args[2:end]
             _jsf_collect_free!(free, a, bound)
         end
+    elseif expr.head === :.
+        # Property access `obj.prop`: capture only the LHS.
+        _jsf_collect_free!(free, expr.args[1], bound)
+        # expr.args[2] is QuoteNode(:prop) — never a Julia binding.
     elseif expr.head === :block
         for a in expr.args
             _jsf_collect_free!(free, a, bound)
@@ -419,9 +443,17 @@ function _jsf_rewrite(expr::Expr, mapping::Dict{Symbol,Symbol}, bound::Set{Symbo
         new_body = _jsf_rewrite(expr.args[2], mapping, inner)
         return Expr(:->, expr.args[1], new_body)
     elseif expr.head === :call
-        # Mirror `_jsf_collect_free!`: don't rewrite the call head.
+        # Mirror `_jsf_collect_free!`: rewrite a property-access call head
+        # (so `point.X()` becomes `<placeholder>.X()`), but leave bare-symbol
+        # call heads untouched (math fn, named_jsf, …).
+        head = expr.args[1]
+        new_head = (head isa Expr && head.head === :.) ?
+            _jsf_rewrite(head, mapping, bound) : head
         new_args = Any[_jsf_rewrite(a, mapping, bound) for a in expr.args[2:end]]
-        return Expr(:call, expr.args[1], new_args...)
+        return Expr(:call, new_head, new_args...)
+    elseif expr.head === :.
+        new_lhs = _jsf_rewrite(expr.args[1], mapping, bound)
+        return Expr(:., new_lhs, expr.args[2])
     else
         new_args = Any[_jsf_rewrite(a, mapping, bound) for a in expr.args]
         return Expr(expr.head, new_args...)
