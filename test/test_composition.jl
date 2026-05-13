@@ -112,6 +112,16 @@ end
     # HTML output contains points
     html = html_string(scatter([0, 1], [0, 1]))
     @test occursin("create('point'", html)
+
+    # NaN values in data must not poison the auto-computed boundingbox
+    b5 = scatter([1.0, NaN, 3.0], [2.0, NaN, 4.0])
+    bb5 = b5.options["boundingbox"]
+    @test all(isfinite, bb5)
+
+    # All-NaN falls back to a safe default range (not NaN)
+    b6 = scatter([NaN, NaN], [NaN, NaN])
+    bb6 = b6.options["boundingbox"]
+    @test all(isfinite, bb6)
 end
 
 @testset "parametric" begin

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-05-13
+
+### Fixed
+
+- `scatter(x, y)` and `plot(table, :x, :y)` (Tables.jl extension) no longer produce an invalid `(NaN, NaN, NaN, NaN)` bounding box when the data contains `NaN` or `Inf`. Non-finite values are filtered before computing the auto-padded axis range, with a safe `(-1.0, 1.0)` fallback when no finite values remain. This unblocks the classic JSXGraph scatter-via-curve idiom (`[x, x, NaN, ...]`) when using the auto-axis path.
+
+## [0.5.0] - 2026-05-13
+
 ### Added
 
 - Pluto `@bind` integration via `bindable=true` keyword on `board(...)`. The bound state exposes draggable points (2D + 3D) and sliders by name; helpers `points_xy` and `points_xyz` project to parallel coordinate vectors for spline / regression / array workflows. New optional weak dependency on `AbstractPlutoDingetjes` (loaded automatically by Pluto) routes seed coordinates through Pluto's `published_to_js` channel for efficiency; outside Pluto a JSON-inline fallback keeps the feature working with zero new dependencies. Duplicate element names on a bindable board raise `ArgumentError` at construction. Docs include a runnable Pluto example notebook (`docs/notebooks/pluto_bind_demo.jl`) downloadable from the new **Pluto Integration** page; the page can also embed the rendered notebook via `PlutoStaticHTML.jl` when the docs are built with `BUILD_PLUTO_NOTEBOOKS=true`. Fixes #12.

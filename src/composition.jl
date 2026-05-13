@@ -134,6 +134,16 @@ end
 
 # --- Convenience functions (REQ-API-002) ---
 
+# Compute padded (min, max) ignoring non-finite values (NaN, Inf).
+# Returns (-1.0, 1.0) when no finite values remain.
+function _padded_extrema(v::AbstractVector{<:Real})
+    finite = filter(isfinite, v)
+    isempty(finite) && return (-1.0, 1.0)
+    vmin, vmax = extrema(finite)
+    pad = vmin == vmax ? 1.0 : 0.1 * (vmax - vmin)
+    return (vmin - pad, vmax + pad)
+end
+
 """
 $(SIGNATURES)
 
@@ -163,17 +173,8 @@ function scatter(x::AbstractVector{<:Real}, y::AbstractVector{<:Real};
         throw(ArgumentError("x and y must not be empty"))
     end
 
-    # Auto-compute axis limits with 10% padding
-    if xlim === nothing
-        xmin, xmax = extrema(x)
-        pad = xmin == xmax ? 1.0 : 0.1 * (xmax - xmin)
-        xlim = (xmin - pad, xmax + pad)
-    end
-    if ylim === nothing
-        ymin, ymax = extrema(y)
-        pad = ymin == ymax ? 1.0 : 0.1 * (ymax - ymin)
-        ylim = (ymin - pad, ymax + pad)
-    end
+    xlim = xlim === nothing ? _padded_extrema(x) : xlim
+    ylim = ylim === nothing ? _padded_extrema(y) : ylim
 
     board = Board(""; xlim=xlim, ylim=ylim)
     for (xi, yi) in zip(x, y)

@@ -74,6 +74,13 @@ using Tables
         @test occursin("create('curve'", html)
         # Data arrays appear in JS
         @test occursin("[1.0,2.0,3.0,4.0]", html)
+
+        # NaN-separated data (e.g. JSXGraph scatter trick using a curve)
+        # must not poison the auto-computed boundingbox.
+        nan_data = (x=[1.0, 1.0, NaN, 2.0, 2.0, NaN, 3.0, 3.0, NaN],
+                    y=[1.0, 1.0, NaN, 2.0, 2.0, NaN, 3.0, 3.0, NaN])
+        b6 = plot(nan_data, :x, :y; strokeWidth=3)
+        @test all(isfinite, b6.options["boundingbox"])
     end
 
     @testset "table edge cases" begin

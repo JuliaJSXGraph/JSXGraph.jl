@@ -117,17 +117,8 @@ function JSXGraph.plot(table, xcol::Symbol, ycol::Symbol;
         throw(ArgumentError("Table columns must not be empty"))
     end
 
-    # Auto-compute axis limits with 10% padding
-    if xlim === nothing
-        xmin, xmax = extrema(x)
-        pad = xmin == xmax ? 1.0 : 0.1 * (xmax - xmin)
-        xlim = (xmin - pad, xmax + pad)
-    end
-    if ylim === nothing
-        ymin, ymax = extrema(y)
-        pad = ymin == ymax ? 1.0 : 0.1 * (ymax - ymin)
-        ylim = (ymin - pad, ymax + pad)
-    end
+    xlim = xlim === nothing ? JSXGraph._padded_extrema(x) : xlim
+    ylim = ylim === nothing ? JSXGraph._padded_extrema(y) : ylim
 
     b = Board(""; xlim=xlim, ylim=ylim)
     # Use curve element with data arrays for a connected line plot
