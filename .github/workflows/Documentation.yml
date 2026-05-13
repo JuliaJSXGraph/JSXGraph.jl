@@ -25,12 +25,7 @@ jobs:
         shell: julia --project=docs --color=yes {0}
         run: |
           using Pkg
-          # Develop both together so Pkg can resolve cross-dependencies
-          # Remove JSXGraphRecipesBase URL once it is in General registry
-          Pkg.develop([
-              PackageSpec(path=pwd()),
-              PackageSpec(url="https://github.com/s-celles/JSXGraphRecipesBase.jl")
-          ])
+          Pkg.develop(PackageSpec(path=pwd()))
           Pkg.instantiate()
       - name: Build and deploy documentation
         env:
