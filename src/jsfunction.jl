@@ -329,6 +329,105 @@ function _validate_jsf(expr)
     return nothing
 end
 
+# --- Free-symbol detection for @jsf (REQ-JSF-004) ---
+
+"""
+JS-side names that already exist in the runtime scope and must NOT be captured
+as Julia bindings by the `@jsf` macro. Sourced from `PREAMBLE` in `board.jl`
+plus a handful of JS literals.
+"""
+const _JSF_JS_GLOBALS = Set{Symbol}((
+    :val, :valx, :valy, :setxy, :setx, :sety,
+    :Math, :null, :undefined, :NaN, :Infinity,
+    :ifelse,
+))
+
+function _jsf_is_known(s::Symbol)
+    return s in _JSF_JS_GLOBALS ||
+           haskey(MATH_CONSTANTS, s) ||
+           haskey(MATH_FUNCTIONS, s) ||
+           haskey(MATHJS_FUNCTIONS, s) ||
+           s in INFIX_OPS ||
+           s === :^
+end
+
+_jsf_placeholder(s::Symbol) = Symbol("__JSF_REF_", s, "__")
+_jsf_placeholder_str(s::Symbol) = string("__JSF_REF_", s, "__")
+
+function _jsf_lambda_params(params)
+    if params isa Symbol
+        return Symbol[params]
+    elseif params isa Expr && params.head === :tuple
+        return Symbol[p for p in params.args if p isa Symbol]
+    end
+    return Symbol[]
+end
+
+"""
+Walk `expr` and collect Julia symbols that should be captured as runtime refs.
+
+`bound` accumulates lambda parameter names introduced by enclosing `->`
+expressions. Function call heads (e.g., `sin` in `sin(x)`) that resolve to
+known JS globals or math functions are skipped.
+"""
+function _jsf_collect_free!(free::Set{Symbol}, expr::Symbol, bound::Set{Symbol})
+    if !(expr in bound) && !_jsf_is_known(expr)
+        push!(free, expr)
+    end
+    return free
+end
+
+_jsf_collect_free!(free::Set{Symbol}, ::Any, ::Set{Symbol}) = free
+
+function _jsf_collect_free!(free::Set{Symbol}, expr::Expr, bound::Set{Symbol})
+    if expr.head === :->
+        params = _jsf_lambda_params(expr.args[1])
+        inner = union(bound, Set(params))
+        _jsf_collect_free!(free, expr.args[2], inner)
+    elseif expr.head === :call
+        # The call head is always a JS identifier (math function, named_jsf
+        # dependency, JS builtin, …) — never a Julia binding to capture.
+        for a in expr.args[2:end]
+            _jsf_collect_free!(free, a, bound)
+        end
+    elseif expr.head === :block
+        for a in expr.args
+            _jsf_collect_free!(free, a, bound)
+        end
+    else
+        for a in expr.args
+            _jsf_collect_free!(free, a, bound)
+        end
+    end
+    return free
+end
+
+"""
+Return a new expression where every free symbol from `mapping` is replaced by
+its placeholder Symbol. Lambda parameters are protected by descending with a
+copy-on-write `bound` set, mirroring `_jsf_collect_free!`.
+"""
+_jsf_rewrite(s::Symbol, mapping::Dict{Symbol,Symbol}, bound::Set{Symbol}) =
+    (s in bound) ? s : get(mapping, s, s)
+
+_jsf_rewrite(x, ::Dict{Symbol,Symbol}, ::Set{Symbol}) = x
+
+function _jsf_rewrite(expr::Expr, mapping::Dict{Symbol,Symbol}, bound::Set{Symbol})
+    if expr.head === :->
+        params = _jsf_lambda_params(expr.args[1])
+        inner = union(bound, Set(params))
+        new_body = _jsf_rewrite(expr.args[2], mapping, inner)
+        return Expr(:->, expr.args[1], new_body)
+    elseif expr.head === :call
+        # Mirror `_jsf_collect_free!`: don't rewrite the call head.
+        new_args = Any[_jsf_rewrite(a, mapping, bound) for a in expr.args[2:end]]
+        return Expr(:call, expr.args[1], new_args...)
+    else
+        new_args = Any[_jsf_rewrite(a, mapping, bound) for a in expr.args]
+        return Expr(expr.head, new_args...)
+    end
+end
+
 # --- @jsf macro (REQ-JSF-001) ---
 
 """
@@ -358,8 +457,27 @@ If the expression contains unsupported Julia constructs (e.g., `try/catch`,
 """
 macro jsf(expr)
     _validate_jsf(expr)
-    quoted = QuoteNode(expr)
-    return :(JSFunction(julia_to_js($quoted)))
+    # Only lambda expressions have an explicit parameter list; for bare
+    # expressions (e.g. `@jsf sin(x) + cos(x)`) the loose `x` is a JS-side
+    # implicit parameter, not a Julia binding to capture. Keep the legacy path.
+    is_lambda = expr isa Expr && expr.head === :->
+    if !is_lambda
+        quoted = QuoteNode(expr)
+        return :(JSFunction(julia_to_js($quoted)))
+    end
+    free = collect(_jsf_collect_free!(Set{Symbol}(), expr, Set{Symbol}()))
+    if isempty(free)
+        quoted = QuoteNode(expr)
+        return :(JSFunction(julia_to_js($quoted)))
+    end
+    mapping = Dict{Symbol,Symbol}(s => _jsf_placeholder(s) for s in free)
+    rewritten = _jsf_rewrite(expr, mapping, Set{Symbol}())
+    quoted = QuoteNode(rewritten)
+    refs_expr = Expr(:call, GlobalRef(Base, :Dict))
+    for s in free
+        push!(refs_expr.args, Expr(:call, :(=>), _jsf_placeholder_str(s), esc(s)))
+    end
+    return :(JSFunction(julia_to_js($quoted), "", JSFunction[], $refs_expr))
 end
 
 # --- Named JSFunctions and transitive dependency resolution (REQ-GEO-012) ---

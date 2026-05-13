@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-05-13
+
+### Fixed
+
+- `@jsf` now resolves free Julia symbols that reference `JSXElement` values (typically sliders) to their JS variable. Previously `@jsf x -> s * x^2` emitted an undefined `s` identifier in the rendered JavaScript and the dependent element silently failed to render. Slider references auto-append `.Value()`, so the documented `s * x^2` idiom from the tutorial works as-is.
+
+### Added
+
+- Free symbols in `@jsf` lambdas that resolve to `Real`, `Bool`, or `AbstractString` Julia bindings are inlined as JS literals (e.g. `@jsf x -> x + k` with `k = 3.14` emits `x + 3.14`).
+- `JSFunction` gains an internal `refs::Dict{String,Any}` field that records captured Julia bindings for placeholder substitution at render time. Backward-compatible constructors are preserved.
+
+### Changed
+
+- The JS `val`, `valx`, `valy` helpers in `board.jl`'s `PREAMBLE` are now idempotent on numbers (`typeof x === "number" ? x : x.Value()`), making `val(s)` safe to use alongside the new auto-deref.
+
 ## [0.5.1] - 2026-05-13
 
 ### Fixed

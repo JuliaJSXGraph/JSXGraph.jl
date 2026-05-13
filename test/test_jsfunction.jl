@@ -190,4 +190,69 @@ end
     @test jsf_old.code == "function(x){return x;}"
     @test jsf_old.name == ""
     @test isempty(jsf_old.deps)
+    @test isempty(jsf_old.refs)
+end
+
+@testset "@jsf resolves JSXElement refs" begin
+    # Single slider — auto-deref via .Value()
+    b = board("ref1", xlim=(-5, 5), ylim=(-5, 5)) do b
+        s = slider([0, -4], [4, -4], [0.5, 1, 3]; name="s")
+        push!(b, s)
+        push!(b, functiongraph(@jsf x -> s * x^2))
+    end
+    h = html_string(b)
+    @test occursin("el_001.Value() * Math.pow(x, 2)", h)
+    @test !occursin("__JSF_REF_", h)
+
+    # Multiple sliders + constant capture
+    k = 3.14
+    b2 = board("ref2", xlim=(-5, 5), ylim=(-5, 5)) do b
+        a = slider([0, -4], [4, -4], [0, 1, 2]; name="a")
+        bs = slider([0, -3], [4, -3], [0, 1, 2]; name="b")
+        push!(b, a, bs)
+        push!(b, functiongraph(@jsf x -> a * x^2 + bs * x + k))
+    end
+    h2 = html_string(b2)
+    @test occursin("el_001.Value()", h2)
+    @test occursin("el_002.Value()", h2)
+    @test occursin("3.14", h2)
+    @test !occursin("__JSF_REF_", h2)
+
+    # Multi-arg lambda — params remain JS identifiers
+    b3 = board("ref3", xlim=(-5, 5), ylim=(-5, 5)) do b
+        a = slider([0, -4], [4, -4], [0, 1, 2]; name="a")
+        push!(b, a)
+        push!(b, functiongraph(@jsf (x, y) -> a * x + y))
+    end
+    h3 = html_string(b3)
+    @test occursin("function(x, y){return el_001.Value() * x + y;}", h3)
+
+    # `val(s)` call wraps an already-deref-ed value: the placeholder substitution
+    # rewrites the inner reference even when nested inside a function call head.
+    b4 = board("ref4", xlim=(-5, 5), ylim=(-5, 5)) do b
+        s = slider([0, -4], [4, -4], [0, 1, 2]; name="s")
+        push!(b, s)
+        push!(b, functiongraph(@jsf x -> val(s) * x^2))
+    end
+    h4 = html_string(b4)
+    @test occursin("val(el_001.Value())", h4)
+
+    # String constant capture
+    b5 = board("ref5", xlim=(-5, 5), ylim=(-5, 5)) do b
+        flag = "test"
+        push!(b, functiongraph(@jsf x -> x + 0; name=flag))
+    end
+    @test b5 isa Board
+
+    # Bare @jsf expression (no lambda) — implicit x stays as JS identifier
+    f6 = @jsf sin(x) + cos(x)
+    @test f6.code == "Math.sin(x) + Math.cos(x)"
+    @test isempty(f6.refs)
+
+    # Forward reference (element not pushed) errors at render time
+    s_orphan = slider([0, -4], [4, -4], [0, 1, 2]; name="o")
+    forward = @jsf x -> s_orphan * x
+    b6 = Board("orphan"; xlim=(-1, 1), ylim=(-1, 1))
+    push!(b6, functiongraph(forward))
+    @test_throws ErrorException html_string(b6)
 end

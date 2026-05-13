@@ -20,11 +20,24 @@ struct JSFunction
     name::String
     "Other named JSFunction objects this function depends on"
     deps::Vector{JSFunction}
+    """
+    Captured Julia bindings keyed by their placeholder marker (`__JSF_REF_<name>__`).
+
+    Populated by the `@jsf` macro for free symbols in the transpiled expression.
+    Substituted at render time by `parent_to_js(::JSFunction, elem_ids)`: an
+    `AbstractJSXElement` value becomes the element's JS variable name (with an
+    automatic `.Value()` suffix for sliders), and a numeric / string / boolean
+    value is inlined as a JS literal.
+    """
+    refs::Dict{String,Any}
 end
 
 # Backward-compatible constructors
-JSFunction(code::String) = JSFunction(code, "", JSFunction[])
-JSFunction(code::String, name::String) = JSFunction(code, name, JSFunction[])
+JSFunction(code::String) = JSFunction(code, "", JSFunction[], Dict{String,Any}())
+JSFunction(code::String, name::String) =
+    JSFunction(code, name, JSFunction[], Dict{String,Any}())
+JSFunction(code::String, name::String, deps::Vector{JSFunction}) =
+    JSFunction(code, name, deps, Dict{String,Any}())
 
 """
 $(TYPEDEF)
@@ -93,7 +106,36 @@ function parent_to_js(x::JSXElement, elem_ids::Dict)
 end
 
 function parent_to_js(x::JSFunction, elem_ids::Dict)
-    return x.code
+    isempty(x.refs) && return x.code
+    code = x.code
+    for (placeholder, value) in x.refs
+        code = replace(code, placeholder => _jsf_resolve_ref(value, elem_ids, placeholder))
+    end
+    return code
+end
+
+function _jsf_resolve_ref(value::AbstractJSXElement, elem_ids::Dict, placeholder::AbstractString)
+    id = objectid(value)
+    haskey(elem_ids, id) || error(
+        "@jsf references element `$(placeholder)` that is not on the board. " *
+        "Make sure the element is `push!`-ed before any element that depends on it.",
+    )
+    ref = elem_ids[id]
+    return value isa JSXElement && value.type_name == "slider" ? ref * ".Value()" : ref
+end
+
+_jsf_resolve_ref(value::Real, ::Dict, ::AbstractString) = string(value)
+_jsf_resolve_ref(value::Bool, ::Dict, ::AbstractString) = value ? "true" : "false"
+_jsf_resolve_ref(value::AbstractString, ::Dict, ::AbstractString) = JSON.json(value)
+
+# Fallback for Observable-wrapped values and similar.
+function _jsf_resolve_ref(value, elem_ids::Dict, placeholder::AbstractString)
+    resolved = resolve_value(value)
+    if resolved === value
+        error("@jsf cannot inline reference `$(placeholder)` of type $(typeof(value)). " *
+              "Supported: AbstractJSXElement, Real, Bool, AbstractString.")
+    end
+    return _jsf_resolve_ref(resolved, elem_ids, placeholder)
 end
 
 # Fallback: unwrap via resolve_value and re-dispatch (enables Observable support)

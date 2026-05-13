@@ -93,9 +93,9 @@ Base.empty!(b::Board) = (empty!(b.functions); empty!(b.objects); b)
 
 # ---------------------------------------------------------------------------
 
-const PREAMBLE = "function val(x){return x.Value();};" *
-    "function valx(p){return p.X();};" *
-    "function valy(p){return p.Y();};" *
+const PREAMBLE = "function val(x){return typeof x===\"number\"?x:x.Value();};" *
+    "function valx(p){return typeof p===\"number\"?p:p.X();};" *
+    "function valy(p){return typeof p===\"number\"?p:p.Y();};" *
     "function setxy(o,x,y){o.moveTo([x,y]);};" *
     "function setx(o,x){setxy(o,x,o.Y());};" *
     "function sety(o,y){setxy(o,o.X(),y);};" * prod(
