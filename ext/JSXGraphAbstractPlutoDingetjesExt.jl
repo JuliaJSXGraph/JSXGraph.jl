@@ -15,7 +15,9 @@ function __init__()
 end
 
 function _pluto_publish(io::IO, data)
-    if AbstractPlutoDingetjes.is_supported_by_display(io, AbstractPlutoDingetjes.Display.published_to_js)
+    if AbstractPlutoDingetjes.is_supported_by_display(
+        io, AbstractPlutoDingetjes.Display.published_to_js
+    )
         pub = AbstractPlutoDingetjes.Display.published_to_js(data)
         show(io, MIME("text/javascript"), pub)
     else

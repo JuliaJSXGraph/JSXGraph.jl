@@ -14,7 +14,7 @@ using JSXGraph
 using HTTP  # triggers the WebSocket extension
 
 # Build the board with a draggable point at the origin
-b = Board("random_walk", xlim=(-10, 10), ylim=(-10, 10))
+b = Board("random_walk"; xlim=(-10, 10), ylim=(-10, 10))
 p = point(0, 0; name="Walker", size=4, strokeColor="blue", fillColor="blue")
 push!(b, p)
 

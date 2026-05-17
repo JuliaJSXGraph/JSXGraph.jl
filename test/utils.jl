@@ -5,7 +5,6 @@
 end
 
 @testset "isdef" begin
-
     b = board(name="b")
     b ++ @jsf foo(x) = 5x
     b ++ @jsf bar(x) = 7x

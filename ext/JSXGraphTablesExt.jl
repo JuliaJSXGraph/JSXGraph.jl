@@ -57,8 +57,9 @@ b = scatter(data)              # uses first two columns
 b = scatter(data; x=:x, y=:y) # explicit column names
 ```
 """
-function JSXGraph.scatter(table; x::Union{Nothing,Symbol}=nothing,
-                          y::Union{Nothing,Symbol}=nothing, kwargs...)
+function JSXGraph.scatter(
+    table; x::Union{Nothing,Symbol}=nothing, y::Union{Nothing,Symbol}=nothing, kwargs...
+)
     if !Tables.istable(table)
         # Fall through — not a table, let Julia dispatch handle it
         throw(MethodError(JSXGraph.scatter, (table,)))
@@ -68,7 +69,9 @@ function JSXGraph.scatter(table; x::Union{Nothing,Symbol}=nothing,
     colnames_vec = collect(colnames)
 
     if length(colnames_vec) < 2
-        throw(ArgumentError("Table must have at least 2 columns, got $(length(colnames_vec))"))
+        throw(
+            ArgumentError("Table must have at least 2 columns, got $(length(colnames_vec))")
+        )
     end
 
     xcol = x === nothing ? colnames_vec[1] : x
@@ -102,10 +105,14 @@ b = plot(df, :t, :val)
 b = plot(df, :t, :val; color="blue", strokeWidth=3)
 ```
 """
-function JSXGraph.plot(table, xcol::Symbol, ycol::Symbol;
-                       xlim::Union{Nothing,Tuple{Real,Real}}=nothing,
-                       ylim::Union{Nothing,Tuple{Real,Real}}=nothing,
-                       kwargs...)
+function JSXGraph.plot(
+    table,
+    xcol::Symbol,
+    ycol::Symbol;
+    xlim::Union{Nothing,Tuple{Real,Real}}=nothing,
+    ylim::Union{Nothing,Tuple{Real,Real}}=nothing,
+    kwargs...,
+)
     if !Tables.istable(table)
         throw(ArgumentError("First argument must be a Tables.jl-compatible object"))
     end
@@ -143,8 +150,9 @@ b = plot(data)
 b = plot(data; x=:x, y=:y)
 ```
 """
-function JSXGraph.plot(table; x::Union{Nothing,Symbol}=nothing,
-                       y::Union{Nothing,Symbol}=nothing, kwargs...)
+function JSXGraph.plot(
+    table; x::Union{Nothing,Symbol}=nothing, y::Union{Nothing,Symbol}=nothing, kwargs...
+)
     if !Tables.istable(table)
         throw(MethodError(JSXGraph.plot, (table,)))
     end
@@ -153,7 +161,9 @@ function JSXGraph.plot(table; x::Union{Nothing,Symbol}=nothing,
     colnames_vec = collect(colnames)
 
     if length(colnames_vec) < 2
-        throw(ArgumentError("Table must have at least 2 columns, got $(length(colnames_vec))"))
+        throw(
+            ArgumentError("Table must have at least 2 columns, got $(length(colnames_vec))")
+        )
     end
 
     xcol = x === nothing ? colnames_vec[1] : x

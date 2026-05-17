@@ -55,14 +55,14 @@ facilitate the use of functions in plots etc. If a board is given, we first
 check whether the given function has already been defined or not.
 """
 function strf(f::JSFun, n::String="FN", b=nothing)
-    fn   = String(f.name)
+    fn = String(f.name)
     jsfn = JSString(fn)
-    jsn  = JSString("INSERT_$n")
-    fs   = str(f, b)
-    fss  = js"function(t){return $jsn(t);}"
+    jsn = JSString("INSERT_$n")
+    fs = str(f, b)
+    fss = js"function(t){return $jsn(t);}"
     return fs, fss, "INSERT_$n" => fn
 end
-function strf(x::Union{Real,AbstractArray{<:Real}}, ::String="", b=nothing)
+function strf(x::Union{Real,AbstractArray{<:Real}}, (::String)="", b=nothing)
     fss = JSString("$x")
     return "", fss, nothing
 end

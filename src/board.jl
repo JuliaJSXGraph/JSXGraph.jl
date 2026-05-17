@@ -17,19 +17,25 @@ mutable struct Board
     # --- other board options --- jsxgraph.org/docs/symbols/JXG.Board.html
     opts::Option{LittleDict{Symbol,Any}}
 end
-function Board(name, funs, objs;
-               xlim=[-10,10], ylim=[-10,10], axis=false,
-               showcopyright=false, shownavigation=false,
-               style="width:300px; height:300px;", kw...)
-    d = dict(;kw...)
-    b = Board(name, funs, objs, xlim, ylim, axis,
-              showcopyright, shownavigation,
-              style, d)
+function Board(
+    name,
+    funs,
+    objs;
+    xlim=[-10, 10],
+    ylim=[-10, 10],
+    axis=false,
+    showcopyright=false,
+    shownavigation=false,
+    style="width:300px; height:300px;",
+    kw...,
+)
+    d = dict(; kw...)
+    b = Board(name, funs, objs, xlim, ylim, axis, showcopyright, shownavigation, style, d)
     if !isnothing(d) && :boundingbox ∈ keys(d)
         bb = d[:boundingbox]
         @assert length(bb) == 4 "Bounding box must have 4 elements."
-        b.xlim = bb[1,3]
-        b.ylim = bb[4,2]
+        b.xlim = bb[1, 3]
+        b.ylim = bb[4, 2]
     end
     return b
 end
@@ -57,13 +63,15 @@ board(name="brd_"*randstring(3); kw...) = Board(name, JSFun[], Object[]; kw...)
 
 # ---------------------------------------------------------------------------
 
-get_opts(b::Board) = (
-    boundingbox = [b.xlim[1], b.ylim[2], b.xlim[2], b.ylim[1]],
-    axis = b.axis,
-    showcopyright = b.showcopyright,
-    shownavigation = b.shownavigation,
-    (isnothing(b.opts) ? () : (;b.opts...))...
+function get_opts(b::Board)
+    (
+        boundingbox=[b.xlim[1], b.ylim[2], b.xlim[2], b.ylim[1]],
+        axis=b.axis,
+        showcopyright=b.showcopyright,
+        shownavigation=b.shownavigation,
+        (isnothing(b.opts) ? () : (; b.opts...))...,
     )
+end
 
 """
     o |> board
@@ -72,7 +80,7 @@ get_opts(b::Board) = (
 
 Add object(s) to board `board`.
 """
-(b::Board)(j::JSFun)  = push!(b.functions, j)
+(b::Board)(j::JSFun) = push!(b.functions, j)
 (b::Board)(o::Object) = push!(b.objects, o)
 (b::Board)(o) = (b.(o); b)
 
@@ -93,17 +101,45 @@ Base.empty!(b::Board) = (empty!(b.functions); empty!(b.objects); b)
 
 # ---------------------------------------------------------------------------
 
-const PREAMBLE = "function val(x){return typeof x===\"number\"?x:x.Value();};" *
+const PREAMBLE =
+    "function val(x){return typeof x===\"number\"?x:x.Value();};" *
     "function valx(p){return typeof p===\"number\"?p:p.X();};" *
     "function valy(p){return typeof p===\"number\"?p:p.Y();};" *
     "function setxy(o,x,y){o.moveTo([x,y]);};" *
     "function setx(o,x){setxy(o,x,o.Y());};" *
-    "function sety(o,y){setxy(o,o.X(),y);};" * prod(
-        "function $f(x){return Math.$f(x);};"
-        for f in (:abs, :acos, :acosh, :asin, :asinh, :atan, :atanh, :ceil,
-                  :cos, :cosh, :exp, :expm1, :floor, :hypot, :log, :log1p,
-                  :log10, :log2, :max, :min, :round, :sign, :sin, :sinh,
-                  :sqrt, :tan, :tanh, :trunc)) *
+    "function sety(o,y){setxy(o,o.X(),y);};" *
+    prod(
+        "function $f(x){return Math.$f(x);};" for f in (
+            :abs,
+            :acos,
+            :acosh,
+            :asin,
+            :asinh,
+            :atan,
+            :atanh,
+            :ceil,
+            :cos,
+            :cosh,
+            :exp,
+            :expm1,
+            :floor,
+            :hypot,
+            :log,
+            :log1p,
+            :log10,
+            :log2,
+            :max,
+            :min,
+            :round,
+            :sign,
+            :sin,
+            :sinh,
+            :sqrt,
+            :tan,
+            :tanh,
+            :trunc,
+        )
+    ) *
     "function rand(){return Math.random();};" *
     "const π=Math.PI;const ℯ=Math.E;const pi=Math.PI;"
 

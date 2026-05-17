@@ -22,13 +22,11 @@ Create a new slider, add it to the current board.
 """
 function slider(name, vals; kw...)
     @assert length(vals) == 3 "`slider`::expected three subarrays in `vals`."
-    @assert length(vals[1]) == 2 && length(vals[2]) == 2 &&
-            length(vals[3]) == 3 "`slider`::subvector dims should be 2,2,3."
-    s = Slider(name, vals, dict(;kw...))
+    @assert length(vals[1]) == 2 && length(vals[2]) == 2 && length(vals[3]) == 3 "`slider`::subvector dims should be 2,2,3."
+    s = Slider(name, vals, dict(; kw...))
     return s
 end
 slider(name, a, b, v; kw...) = slider(name, [a, b, v]; kw...)
-
 
 mutable struct Button{X<:FR,Y<:FR,F<:JSFun} <: Object
     name::String
@@ -43,7 +41,7 @@ end
     button(name, label, x, y, f; opts...)
     button(label, x, y, f; opts)
 """
-button(n, l, x, y, f; kw...) = Button(n, l, x, y, f, dict(;kw...))
+button(n, l, x, y, f; kw...) = Button(n, l, x, y, f, dict(; kw...))
 button(l, x, y, f; kw...) = button("button_"*randstring(3), l, x, y, f; kw...)
 
 # ---------------------------------------------------------------------------

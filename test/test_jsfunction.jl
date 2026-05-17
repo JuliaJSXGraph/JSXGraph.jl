@@ -153,8 +153,7 @@ end
     # Transitive: A → B → C
     @named_jsf dep_c(x) = x + 1
     dep_b = with_deps(
-        JSFunction("function(x){return dep_c(x) * 2;}", "dep_b", JSFunction[]),
-        dep_c,
+        JSFunction("function(x){return dep_c(x) * 2;}", "dep_b", JSFunction[]), dep_c
     )
     dep_a = with_deps(@jsf(x -> dep_b(x) + dep_c(x)), dep_b, dep_c)
     fg2 = functiongraph(dep_a)

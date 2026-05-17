@@ -31,7 +31,7 @@ function _ensure_npm_package(pkg::String)
     # Handle scoped packages (@scope/pkg → @scope/pkg under node_modules)
     pkg_dir = joinpath(deps_dir, "node_modules", pkg)
     if isdir(pkg_dir)
-        return  # already installed
+        return nothing  # already installed
     end
     mkpath(deps_dir)
     @info "Installing $pkg for export (one-time setup)..."
@@ -40,9 +40,11 @@ function _ensure_npm_package(pkg::String)
     proc = run(pipeline(cmd; stdout=devnull, stderr=err_buf); wait=true)
     if !isdir(pkg_dir)
         stderr_output = String(take!(err_buf))
-        error("Failed to install $pkg via npm (exit code $(proc.exitcode)).\n" *
-              "stderr: $stderr_output\n" *
-              "Try manually: `cd $deps_dir && npm install $pkg`")
+        error(
+            "Failed to install $pkg via npm (exit code $(proc.exitcode)).\n" *
+            "stderr: $stderr_output\n" *
+            "Try manually: `cd $deps_dir && npm install $pkg`",
+        )
     end
     @info "$pkg installed successfully."
 end

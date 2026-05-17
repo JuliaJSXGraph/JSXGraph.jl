@@ -11,7 +11,10 @@
     brd = board("brd")
     sfg = J.str(fg, brd)
     @test occursin("function foo(t){return (Math.pow(t,2)+(2*t)+1)};", sfg)
-    @test occursin("""brd.create('functiongraph', [function(t){return foo(t);}, 1, 5], {"strokeColor":"blue"});""", sfg)
+    @test occursin(
+        """brd.create('functiongraph', [function(t){return foo(t);}, 1, 5], {"strokeColor":"blue"});""",
+        sfg,
+    )
 end
 
 @testset "ParamCurve" begin
@@ -24,7 +27,7 @@ end
     @test pc.a isa Real
     @test pc.b isa Real
     @test pc.opts[:dash] == 2
-    pc2 = pcurve(f1,f2)
+    pc2 = pcurve(f1, f2)
     @test isnothing(pc2.opts)
     @test pc2.a == -10
     @test pc2.b == 10
@@ -32,19 +35,23 @@ end
     # str
     b = board("b")
     spc = J.str(pc, b)
-    @test occursin("function f1(t){return (t-sin(t))};function f2(t){return (1-cos(t))};", spc)
-    @test occursin("""b.create('curve', [function(t){return f1(t);}, function(t){return f2(t);}, 0, 10], {"dash":2});""", spc)
+    @test occursin(
+        "function f1(t){return (t-sin(t))};function f2(t){return (1-cos(t))};", spc
+    )
+    @test occursin(
+        """b.create('curve', [function(t){return f1(t);}, function(t){return f2(t);}, 0, 10], {"dash":2});""",
+        spc,
+    )
 end
 
-
 @testset "DataPlot" begin
-    x = [1,2,3]
-    y = [1,2,3]
+    x = [1, 2, 3]
+    y = [1, 2, 3]
     dp = dataplot(x, y)
-    @test dp.x == [1,2,3]
-    @test dp.y == [1,2,3]
+    @test dp.x == [1, 2, 3]
+    @test dp.y == [1, 2, 3]
     @test isnothing(dp.opts)
-    x = [1,2]
+    x = [1, 2]
     @test_throws DimensionMismatch dataplot(x, y)
 
     # str
@@ -58,9 +65,12 @@ end
     @jsf f1(t) = t - sin(t)
     p = plot(f1; strokeColor="blue")
     @test p isa J.FunctionGraph
-    sp = J.str(p, board("b", xlim=[-5,5]))
+    sp = J.str(p, board("b", xlim=[-5, 5]))
     @test occursin("function f1(t){return (t-sin(t))};", sp)
-    @test occursin("""b.create('functiongraph', [function(t){return f1(t);}, -5, 5], {"strokeColor":"blue"});""", sp)
+    @test occursin(
+        """b.create('functiongraph', [function(t){return f1(t);}, -5, 5], {"strokeColor":"blue"});""",
+        sp,
+    )
 
     # plot fun, fun
     @jsf f2(t) = cos(t)

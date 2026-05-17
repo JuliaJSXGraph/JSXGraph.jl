@@ -86,9 +86,7 @@ using Unitful
     end
 
     @testset "Board with Unitful limits" begin
-        b = Board("unitful_test",
-                  (0u"m", 10u"m"),
-                  (0u"s", 5u"s"))
+        b = Board("unitful_test", (0u"m", 10u"m"), (0u"s", 5u"s"))
         @test b isa Board
         @test b.id == "unitful_test"
 
@@ -105,10 +103,9 @@ using Unitful
         @test occursin("s", da["y"]["name"])
 
         # Custom axis names
-        b2 = Board("test2",
-                   (0u"km", 100u"km"),
-                   (0u"kg", 50u"kg");
-                   xlabel="distance", ylabel="mass")
+        b2 = Board(
+            "test2", (0u"km", 100u"km"), (0u"kg", 50u"kg"); xlabel="distance", ylabel="mass"
+        )
         da2 = b2.options["defaultAxes"]
         @test da2["x"]["name"] == "distance (km)"
         @test da2["y"]["name"] == "mass (kg)"

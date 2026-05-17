@@ -33,9 +33,9 @@ end
 
 _kind_of(elem::AbstractJSXElement) = :other
 function _kind_of(elem::JSXElement)
-    elem.type_name == "point"   && return :point
+    elem.type_name == "point" && return :point
     elem.type_name == "point3d" && return :point3d
-    elem.type_name == "slider"  && return :slider
+    elem.type_name == "slider" && return :slider
     return :other
 end
 
@@ -67,7 +67,10 @@ function _interactive_elements(board::Board)::Vector{_InteractiveRef}
         if elem isa View3D
             for child in elem.elements
                 if child isa JSXElement && _is_bindable_kind(child)
-                    push!(refs, _InteractiveRef(_bind_key(child, counters), _kind_of(child), child))
+                    push!(
+                        refs,
+                        _InteractiveRef(_bind_key(child, counters), _kind_of(child), child),
+                    )
                 end
             end
         elseif elem isa JSXElement && _is_bindable_kind(elem)
@@ -89,10 +92,13 @@ function _initial_bound_state(board::Board)::Dict{String,Any}
     for r in _interactive_elements(board)
         p = r.elem.parents
         if r.kind === :point && length(p) >= 2
-            state[r.name] = (x = Float64(p[1]), y = Float64(p[2]))
+            state[r.name] = (x=Float64(p[1]), y=Float64(p[2]))
         elseif r.kind === :point3d && length(p) >= 3
-            state[r.name] = (x = Float64(p[1]), y = Float64(p[2]), z = Float64(p[3]))
-        elseif r.kind === :slider && length(p) >= 3 && p[3] isa AbstractVector && length(p[3]) >= 2
+            state[r.name] = (x=Float64(p[1]), y=Float64(p[2]), z=Float64(p[3]))
+        elseif r.kind === :slider &&
+            length(p) >= 3 &&
+            p[3] isa AbstractVector &&
+            length(p[3]) >= 2
             state[r.name] = Float64(p[3][2])
         end
     end
@@ -110,13 +116,24 @@ function _validate_bindable_names!(board::Board)
     for r in _interactive_elements(board)
         if haskey(seen, r.name)
             prev = seen[r.name]
-            kinds = prev == r.kind ? "two $(r.kind) elements" :
-                                     "elements of kind $(prev) and $(r.kind)"
-            throw(ArgumentError(string(
-                "Bindable board \"", board.id, "\" has duplicate element name \"",
-                r.name, "\" used by ", kinds,
-                ". Rename one of them, or set bindable=false.",
-            )))
+            kinds = if prev == r.kind
+                "two $(r.kind) elements"
+            else
+                "elements of kind $(prev) and $(r.kind)"
+            end
+            throw(
+                ArgumentError(
+                    string(
+                        "Bindable board \"",
+                        board.id,
+                        "\" has duplicate element name \"",
+                        r.name,
+                        "\" used by ",
+                        kinds,
+                        ". Rename one of them, or set bindable=false.",
+                    ),
+                ),
+            )
         end
         seen[r.name] = r.kind
     end

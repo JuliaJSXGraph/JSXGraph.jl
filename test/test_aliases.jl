@@ -150,8 +150,9 @@ end
     @test !haskey(fg.attributes, "surfacecolor")
 
     # surfaceopacity → fillOpacity
-    ps = parametricsurface3d("cos(u)*cos(v)", "sin(u)*cos(v)", "sin(v)", [0, 6.28], [0, 3.14];
-        surfaceopacity=0.5)
+    ps = parametricsurface3d(
+        "cos(u)*cos(v)", "sin(u)*cos(v)", "sin(v)", [0, 6.28], [0, 3.14]; surfaceopacity=0.5
+    )
     @test ps.attributes["fillOpacity"] == 0.5
 
     # wireframecolor → strokeColor

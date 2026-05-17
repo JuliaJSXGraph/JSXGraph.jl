@@ -319,19 +319,23 @@ is found (e.g., try/catch, loops, comprehensions, multiple dispatch).
 function _validate_jsf(expr)
     if expr isa Expr
         if expr.head in UNSUPPORTED_EXPR_HEADS
-            throw(ArgumentError(
-                "Unsupported Julia construct `$(expr.head)` cannot be transpiled to JavaScript. " *
-                "@jsf supports: arithmetic, math functions, comparisons, ifelse, and lambdas."
-            ))
+            throw(
+                ArgumentError(
+                    "Unsupported Julia construct `$(expr.head)` cannot be transpiled to JavaScript. " *
+                    "@jsf supports: arithmetic, math functions, comparisons, ifelse, and lambdas.",
+                ),
+            )
         end
         # Check for multi-line function bodies (multiple statements)
         if expr.head == :block
             stmts = filter(e -> !(e isa LineNumberNode), expr.args)
             if length(stmts) > 1
-                throw(ArgumentError(
-                    "Multi-statement function bodies are not supported by @jsf. " *
-                    "Use a single expression instead."
-                ))
+                throw(
+                    ArgumentError(
+                        "Multi-statement function bodies are not supported by @jsf. " *
+                        "Use a single expression instead.",
+                    ),
+                )
             end
         end
         # Recurse into children
@@ -350,8 +354,17 @@ as Julia bindings by the `@jsf` macro. Sourced from `PREAMBLE` in `board.jl`
 plus a handful of JS literals.
 """
 const _JSF_JS_GLOBALS = Set{Symbol}((
-    :val, :valx, :valy, :setxy, :setx, :sety,
-    :Math, :null, :undefined, :NaN, :Infinity,
+    :val,
+    :valx,
+    :valy,
+    :setxy,
+    :setx,
+    :sety,
+    :Math,
+    :null,
+    :undefined,
+    :NaN,
+    :Infinity,
     :ifelse,
 ))
 
@@ -431,8 +444,9 @@ Return a new expression where every free symbol from `mapping` is replaced by
 its placeholder Symbol. Lambda parameters are protected by descending with a
 copy-on-write `bound` set, mirroring `_jsf_collect_free!`.
 """
-_jsf_rewrite(s::Symbol, mapping::Dict{Symbol,Symbol}, bound::Set{Symbol}) =
+function _jsf_rewrite(s::Symbol, mapping::Dict{Symbol,Symbol}, bound::Set{Symbol})
     (s in bound) ? s : get(mapping, s, s)
+end
 
 _jsf_rewrite(x, ::Dict{Symbol,Symbol}, ::Set{Symbol}) = x
 
@@ -447,8 +461,8 @@ function _jsf_rewrite(expr::Expr, mapping::Dict{Symbol,Symbol}, bound::Set{Symbo
         # (so `point.X()` becomes `<placeholder>.X()`), but leave bare-symbol
         # call heads untouched (math fn, named_jsf, …).
         head = expr.args[1]
-        new_head = (head isa Expr && head.head === :.) ?
-            _jsf_rewrite(head, mapping, bound) : head
+        new_head =
+            (head isa Expr && head.head === :.) ? _jsf_rewrite(head, mapping, bound) : head
         new_args = Any[_jsf_rewrite(a, mapping, bound) for a in expr.args[2:end]]
         return Expr(:call, new_head, new_args...)
     elseif expr.head === :.
@@ -563,11 +577,13 @@ Equivalent to `name = named_jsf(:name, @jsf(args -> body))`.
 ```
 """
 macro named_jsf(expr)
-    if !(expr isa Expr && expr.head == :(=) &&
-         expr.args[1] isa Expr && expr.args[1].head == :call)
-        throw(ArgumentError(
-            "@named_jsf expects syntax: @named_jsf name(args...) = body"
-        ))
+    if !(
+        expr isa Expr &&
+        expr.head == :(=) &&
+        expr.args[1] isa Expr &&
+        expr.args[1].head == :call
+    )
+        throw(ArgumentError("@named_jsf expects syntax: @named_jsf name(args...) = body"))
     end
 
     call_expr = expr.args[1]
@@ -646,4 +662,3 @@ function _collect_deps_recursive!(result, visited, f::JSFunction)
         end
     end
 end
-

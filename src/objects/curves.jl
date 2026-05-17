@@ -19,7 +19,7 @@ end
 * `b` - optionall set the maximum value of `x`
 """
 function functiongraph(f::JSFun; a=nothing, b=nothing, kw...)
-    return FunctionGraph(f, a, b, dict(;kw...))
+    return FunctionGraph(f, a, b, dict(; kw...))
 end
 
 # ---------------------------------------------------------------------------
@@ -45,9 +45,8 @@ mutable struct ParametricCurve{X<:FR,Y<:FR,A<:FR,B<:FR} <: Curve{X,Y,A,B}
     # -- opts -- jsxgraph.org/docs/symbols/Curve.html
     opts::Option{LittleDict{Symbol,Any}}
 end
-function parametriccurve(f::FR, g::FR; a::Option{FR}=nothing,
-                         b::Option{FR}=nothing, kw...)
-    return ParametricCurve(f, g, a, b, dict(;kw...))
+function parametriccurve(f::FR, g::FR; a::Option{FR}=nothing, b::Option{FR}=nothing, kw...)
+    return ParametricCurve(f, g, a, b, dict(; kw...))
 end
 
 mutable struct DataPlot{X<:AR,Y<:AFR} <: Curve{X,Y,Nothing,Nothing}
@@ -56,8 +55,8 @@ mutable struct DataPlot{X<:AR,Y<:AFR} <: Curve{X,Y,Nothing,Nothing}
     # -- opts -- jsxgraph.org/docs/symbols/Curve.html
     opts::Option{LittleDict{Symbol,Any}}
 end
-dataplot(x::AR, y::JSFun; kw...) = DataPlot(x, y, dict(;kw...))
-dataplot(x::AR, y::AR; kw...) = (check_dims(x, y); DataPlot(x, y, dict(;kw...)))
+dataplot(x::AR, y::JSFun; kw...) = DataPlot(x, y, dict(; kw...))
+dataplot(x::AR, y::AR; kw...) = (check_dims(x, y); DataPlot(x, y, dict(; kw...)))
 
 mutable struct PolarCurve{R<:JSFun,O<:AFR,A<:FR,B<:FR} <: Curve{R,O,A,B}
     r::R
@@ -67,9 +66,10 @@ mutable struct PolarCurve{R<:JSFun,O<:AFR,A<:FR,B<:FR} <: Curve{R,O,A,B}
     # -- opts -- jsxgraph.org/docs/symbols/Curve.html
     opts::Option{LittleDict{Symbol,Any}}
 end
-function polarcurve(r::JSFun, o::AFR=[0,0]; a::Option{FR}=nothing,
-                    b::Option{FR}=nothing, kw...)
-    return PolarCurve(r, o, a, b, dict(;kw...))
+function polarcurve(
+    r::JSFun, o::AFR=[0, 0]; a::Option{FR}=nothing, b::Option{FR}=nothing, kw...
+)
+    return PolarCurve(r, o, a, b, dict(; kw...))
 end
 
 # ---------------------------------------------------------------------------

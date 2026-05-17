@@ -80,10 +80,7 @@
     end
 
     @testset "parametricsurface3d" begin
-        ps = parametricsurface3d(
-            "u*Math.cos(v)", "u*Math.sin(v)", "v",
-            [0, 2], [0, 6.28],
-        )
+        ps = parametricsurface3d("u*Math.cos(v)", "u*Math.sin(v)", "v", [0, 2], [0, 6.28])
         @test ps isa JSXElement
         @test ps.type_name == "parametricsurface3d"
         @test length(ps.parents) == 5
@@ -97,7 +94,8 @@
             "Math.sin(u)*Math.cos(v)",
             "Math.sin(u)*Math.sin(v)",
             "Math.cos(u)",
-            [0, 3.14], [0, 6.28],
+            [0, 3.14],
+            [0, 6.28],
         )
         @test contains(ps.parents[1].code, "function(u,v)")
         @test contains(ps.parents[1].code, "Math.sin(u)*Math.cos(v)")
@@ -204,8 +202,7 @@
 
     @testset "vectorfield3d" begin
         vf = vectorfield3d(
-            "Math.cos(y)", "Math.sin(x)", "z",
-            [-2, 5, 2], [-2, 5, 2], [-2, 5, 2],
+            "Math.cos(y)", "Math.sin(x)", "z", [-2, 5, 2], [-2, 5, 2], [-2, 5, 2]
         )
         @test vf isa JSXElement
         @test vf.type_name == "vectorfield3d"
@@ -220,8 +217,7 @@
 
     @testset "vectorfield3d uses x,y,z parameters" begin
         vf = vectorfield3d(
-            "Math.cos(y)", "Math.sin(x)", "z",
-            [-2, 5, 2], [-2, 5, 2], [-2, 5, 2],
+            "Math.cos(y)", "Math.sin(x)", "z", [-2, 5, 2], [-2, 5, 2], [-2, 5, 2]
         )
         @test contains(vf.parents[1][1].code, "function(x,y,z)")
         @test contains(vf.parents[1][1].code, "Math.cos(y)")
@@ -233,11 +229,18 @@
     @testset "View3D with vectorfield3d rendering" begin
         b = Board("test3d_vf"; xlim=(-8, 8), ylim=(-8, 8))
         v = view3d(xlim=(-3, 3), ylim=(-3, 3), zlim=(-3, 3)) do v
-            push!(v, vectorfield3d(
-                "Math.cos(y)", "Math.sin(x)", "z",
-                [-2, 5, 2], [-2, 5, 2], [-2, 5, 2];
-                strokeColor="red",
-            ))
+            push!(
+                v,
+                vectorfield3d(
+                    "Math.cos(y)",
+                    "Math.sin(x)",
+                    "z",
+                    [-2, 5, 2],
+                    [-2, 5, 2],
+                    [-2, 5, 2];
+                    strokeColor="red",
+                ),
+            )
         end
         push!(b, v)
         html = html_string(b)
@@ -249,12 +252,16 @@
     @testset "View3D with parametricsurface3d rendering" begin
         b = Board("test3d_parsurf"; xlim=(-8, 8), ylim=(-8, 8))
         v = view3d(xlim=(-5, 5), ylim=(-5, 5), zlim=(-5, 5)) do v
-            push!(v, parametricsurface3d(
-                "Math.sin(u)*Math.cos(v)",
-                "Math.sin(u)*Math.sin(v)",
-                "Math.cos(u)",
-                [0, 3.14], [0, 6.28],
-            ))
+            push!(
+                v,
+                parametricsurface3d(
+                    "Math.sin(u)*Math.cos(v)",
+                    "Math.sin(u)*Math.sin(v)",
+                    "Math.cos(u)",
+                    [0, 3.14],
+                    [0, 6.28],
+                ),
+            )
         end
         push!(b, v)
         html = html_string(b)
@@ -378,8 +385,18 @@
         v = view3d(xlim=(-5, 5), ylim=(-5, 5), zlim=(-5, 5)) do v
             p = point3d(0, 0, 0)
             push!(v, p)
-            push!(v, plane3d(p, [1, 0, 0], [0, 1, 0]; range_u=(-2, 2), range_v=(-2, 2),
-                fillColor="blue", fillOpacity=0.2))
+            push!(
+                v,
+                plane3d(
+                    p,
+                    [1, 0, 0],
+                    [0, 1, 0];
+                    range_u=(-2, 2),
+                    range_v=(-2, 2),
+                    fillColor="blue",
+                    fillOpacity=0.2,
+                ),
+            )
         end
         push!(b, v)
         html = html_string(b)
@@ -473,16 +490,33 @@
     end
 
     @testset "mesh3d with attributes" begin
-        m = mesh3d([0, 0, 0], [1, 0, 0], [0, 1, 0], [-2, 2], [-2, 2];
-            stepWidthU=0.5, stepWidthV=0.5)
+        m = mesh3d(
+            [0, 0, 0],
+            [1, 0, 0],
+            [0, 1, 0],
+            [-2, 2],
+            [-2, 2];
+            stepWidthU=0.5,
+            stepWidthV=0.5,
+        )
         @test m.attributes["stepWidthU"] == 0.5
     end
 
     @testset "mesh3d rendering" begin
         b = Board("test3d_mesh"; xlim=(-8, 8), ylim=(-8, 8))
         v = view3d(xlim=(-5, 5), ylim=(-5, 5), zlim=(-5, 5)) do v
-            push!(v, mesh3d([0, 0, 0], [1, 0, 0], [0, 1, 0], [-3, 3], [-3, 3];
-                stepWidthU=1, stepWidthV=1))
+            push!(
+                v,
+                mesh3d(
+                    [0, 0, 0],
+                    [1, 0, 0],
+                    [0, 1, 0],
+                    [-3, 3],
+                    [-3, 3];
+                    stepWidthU=1,
+                    stepWidthV=1,
+                ),
+            )
         end
         push!(b, v)
         html = html_string(b)

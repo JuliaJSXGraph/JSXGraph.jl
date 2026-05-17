@@ -26,8 +26,10 @@ function _realize_one(spec::ElementSpec, spec_map::Dict{UInt,JSXElement})
             if haskey(spec_map, id)
                 return spec_map[id]
             else
-                error("ElementSpec referenced as parent has not been realised yet. " *
-                      "Ensure parent specs appear before dependent specs in the recipe output.")
+                error(
+                    "ElementSpec referenced as parent has not been realised yet. " *
+                    "Ensure parent specs appear before dependent specs in the recipe output.",
+                )
             end
         end
         return p
@@ -90,10 +92,12 @@ plot!(b, Triangle((0,0), (3,0), (1.5,2.5)); color="red")
 """
 function plot!(board::Board, obj; kwargs...)
     if !has_recipe(obj)
-        throw(ArgumentError(
-            "No JSXGraph recipe defined for $(typeof(obj)). " *
-            "Define one with @jsxrecipe from JSXGraphRecipesBase."
-        ))
+        throw(
+            ArgumentError(
+                "No JSXGraph recipe defined for $(typeof(obj)). " *
+                "Define one with @jsxrecipe from JSXGraphRecipesBase.",
+            ),
+        )
     end
     specs = apply_recipe(obj; kwargs...)
     elements = realize_specs(specs)
@@ -146,8 +150,10 @@ function Base.:+(board::Board, obj)
     if has_recipe(obj)
         return plot(board, obj)
     end
-    throw(ArgumentError(
-        "Cannot add $(typeof(obj)) to a Board. " *
-        "Define a recipe with @jsxrecipe or use a JSXElement."
-    ))
+    throw(
+        ArgumentError(
+            "Cannot add $(typeof(obj)) to a Board. " *
+            "Define a recipe with @jsxrecipe or use a JSXElement.",
+        ),
+    )
 end

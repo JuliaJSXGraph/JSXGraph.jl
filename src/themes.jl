@@ -73,9 +73,8 @@ Publication-quality theme: black/white with clean lines for academic papers.
 const THEME_PUBLICATION = Theme(
     "board" => Dict{String,Any}("background" => "#ffffff"),
     "global" => Dict{String,Any}("strokeColor" => "#000000", "strokeWidth" => 1.5),
-    "point" => Dict{String,Any}(
-        "strokeColor" => "#000000", "fillColor" => "#000000", "size" => 2
-    ),
+    "point" =>
+        Dict{String,Any}("strokeColor" => "#000000", "fillColor" => "#000000", "size" => 2),
     "line" => Dict{String,Any}("strokeColor" => "#000000", "strokeWidth" => 1.5),
     "segment" => Dict{String,Any}("strokeColor" => "#000000"),
     "arrow" => Dict{String,Any}("strokeColor" => "#000000"),
@@ -91,9 +90,8 @@ const THEME_PUBLICATION = Theme(
     "axis" => Dict{String,Any}("strokeColor" => "#000000"),
     "grid" => Dict{String,Any}("strokeColor" => "#cccccc", "strokeOpacity" => 0.5),
     # 3D elements
-    "point3d" => Dict{String,Any}(
-        "strokeColor" => "#000000", "fillColor" => "#000000", "size" => 2
-    ),
+    "point3d" =>
+        Dict{String,Any}("strokeColor" => "#000000", "fillColor" => "#000000", "size" => 2),
     "line3d" => Dict{String,Any}("strokeColor" => "#000000", "strokeWidth" => 1.5),
     "curve3d" => Dict{String,Any}("strokeColor" => "#000000", "strokeWidth" => 2),
     "functiongraph3d" => Dict{String,Any}(

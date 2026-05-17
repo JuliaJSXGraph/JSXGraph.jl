@@ -86,9 +86,13 @@ y = [0.5, 1.0, 1.5, 2.0]u"s"
 b = scatter(x, y)  # axes labeled "x (m)" and "y (s)"
 ```
 """
-function JSXGraph.scatter(x::AbstractVector{<:Quantity}, y::AbstractVector{<:Quantity};
-                          xlabel::String="x", ylabel::String="y",
-                          kwargs...)
+function JSXGraph.scatter(
+    x::AbstractVector{<:Quantity},
+    y::AbstractVector{<:Quantity};
+    xlabel::String="x",
+    ylabel::String="y",
+    kwargs...,
+)
     # Extract units from first element
     xu = unit(first(x))
     yu = unit(first(y))
@@ -119,9 +123,9 @@ using JSXGraph, Unitful
 b = plot(sin, (-5u"m", 5u"m"); xlabel="distance")
 ```
 """
-function JSXGraph.plot(f, domain::Tuple{Quantity,Quantity};
-                       xlabel::String="x", ylabel::String="y",
-                       kwargs...)
+function JSXGraph.plot(
+    f, domain::Tuple{Quantity,Quantity}; xlabel::String="x", ylabel::String="y", kwargs...
+)
     xu = unit(domain[1])
 
     xmin = ustrip(xu, domain[1])
@@ -146,11 +150,14 @@ using JSXGraph, Unitful
 b = Board(""; xlim=(0u"m", 10u"m"), ylim=(0u"s", 5u"s"))
 ```
 """
-function JSXGraph.Board(id::String,
-                        xlim::Tuple{Quantity,Quantity},
-                        ylim::Tuple{Quantity,Quantity};
-                        xlabel::String="x", ylabel::String="y",
-                        kwargs...)
+function JSXGraph.Board(
+    id::String,
+    xlim::Tuple{Quantity,Quantity},
+    ylim::Tuple{Quantity,Quantity};
+    xlabel::String="x",
+    ylabel::String="y",
+    kwargs...,
+)
     xu = unit(xlim[1])
     yu = unit(ylim[1])
 

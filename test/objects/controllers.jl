@@ -1,10 +1,10 @@
 @testset "Slider" begin
-    s = slider("a", [0,0], [3,0], [0,1.5,3])
+    s = slider("a", [0, 0], [3, 0], [0, 1.5, 3])
     @test s.name == "a"
-    @test s.vals == [[0,0], [3,0], [0,1.5,3]]
+    @test s.vals == [[0, 0], [3, 0], [0, 1.5, 3]]
 
     @test_throws AssertionError slider("a", [0, 1])
-    @test_throws AssertionError slider("a", [[1,2], [2,3,4], [1,2]])
+    @test_throws AssertionError slider("a", [[1, 2], [2, 3, 4], [1, 2]])
 
     # midpoint
     @test val(s) == 1.5

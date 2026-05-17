@@ -20,7 +20,10 @@ function render_assets(io::IO; mode::Symbol=:inline, css_only::Bool=false)
             print(io, jsxgraph_js())
             print(io, "\n</script>\n")
             if _MATHJS_ENABLED[]
-                print(io, "<script type=\"text/javascript\" src=\"$(MATHJS_CDN_JS)\"></script>\n")
+                print(
+                    io,
+                    "<script type=\"text/javascript\" src=\"$(MATHJS_CDN_JS)\"></script>\n",
+                )
             end
         end
     elseif mode == :cdn
@@ -29,9 +32,15 @@ function render_assets(io::IO; mode::Symbol=:inline, css_only::Bool=false)
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"$(JSXGRAPH_CDN_CSS)\" />\n",
         )
         if !css_only
-            print(io, "<script type=\"text/javascript\" src=\"$(JSXGRAPH_CDN_JS)\"></script>\n")
+            print(
+                io,
+                "<script type=\"text/javascript\" src=\"$(JSXGRAPH_CDN_JS)\"></script>\n",
+            )
             if _MATHJS_ENABLED[]
-                print(io, "<script type=\"text/javascript\" src=\"$(MATHJS_CDN_JS)\"></script>\n")
+                print(
+                    io,
+                    "<script type=\"text/javascript\" src=\"$(MATHJS_CDN_JS)\"></script>\n",
+                )
             end
         end
     else
@@ -97,8 +106,9 @@ Emits nothing when the board is not bindable.
 `elem_ids` is the mapping from element `objectid` to JS variable name
 built by [`render_board_js`](@ref).
 """
-function _emit_bind_script(io::IO, board::Board, board_var::String,
-                           elem_ids::Dict{UInt64,String})
+function _emit_bind_script(
+    io::IO, board::Board, board_var::String, elem_ids::Dict{UInt64,String}
+)
     _bindable(board) || return nothing
 
     refs = _interactive_elements(board)
@@ -120,10 +130,14 @@ function _emit_bind_script(io::IO, board::Board, board_var::String,
         # Escape the key (allow only safe characters; element names come from
         # user input, so JSON.print handles quoting correctly).
         key_json = sprint(JSON.print, r.name)
-        print(io, "    ", key_json, ": { kind: \"", kind_str, "\", ref: ", var_name, " },\n")
+        print(
+            io, "    ", key_json, ": { kind: \"", kind_str, "\", ref: ", var_name, " },\n"
+        )
     end
     print(io, "  };\n")
-    print(io, """
+    print(
+        io,
+        """
   function snapshot() {
     const out = {};
     for (const k of order) {
@@ -155,16 +169,20 @@ function _emit_bind_script(io::IO, board::Board, board_var::String,
       }, 33 - (now - lastFire));
     }
   }
-""")
+""",
+    )
     print(io, "  board_$(board_var).on('update', publishThrottled);\n")
-    print(io, """
+    print(
+        io,
+        """
   const finalPublish = function () { publish(); };
   span.addEventListener('mouseup',   finalPublish);
   span.addEventListener('pointerup', finalPublish);
   span.addEventListener('touchend',  finalPublish);
   publish();
 })();
-""")
+""",
+    )
     return nothing
 end
 
@@ -213,7 +231,9 @@ function render_board_js(io::IO, board::Board)
             for (j, child) in enumerate(elem.elements)
                 child_var = var_name * "_" * lpad(j, 3, '0')
                 child_parents = _resolve_child_parents(child, elem)
-                child_parents_js = join([parent_to_js(p, elem_ids) for p in child_parents], ",")
+                child_parents_js = join(
+                    [parent_to_js(p, elem_ids) for p in child_parents], ","
+                )
                 child_attrs_js = attrs_to_js(child.attributes)
                 print(
                     io,
@@ -266,7 +286,8 @@ function render_board_html(
 
     if full_page
         # Full page: we control the <head>, no RequireJS conflict.
-        bind_open  = bindable ? "<span class=\"jxg-bindable\" style=\"display:inline-block;\">" : ""
+        bind_open =
+            bindable ? "<span class=\"jxg-bindable\" style=\"display:inline-block;\">" : ""
         bind_close = bindable ? "</span>" : ""
         print(io, "<!DOCTYPE html>\n")
         print(io, "<html>\n<head>\n")
@@ -274,7 +295,13 @@ function render_board_html(
         print(io, "<title>JSXGraph Board</title>\n")
         render_assets(io; mode=asset_mode)
         print(io, "</head>\n<body>\n")
-        print(io, bind_open, "<div id=\"$(board.id)\" class=\"jxgbox\" style=\"$(style_str)\"></div>", bind_close, "\n")
+        print(
+            io,
+            bind_open,
+            "<div id=\"$(board.id)\" class=\"jxgbox\" style=\"$(style_str)\"></div>",
+            bind_close,
+            "\n",
+        )
         print(io, "<script>\n")
         render_board_js(io, board)
         print(io, "</script>\n")
@@ -286,12 +313,15 @@ function render_board_html(
         # root element whose `.value` we set from JS. Without this, the
         # CSS <link> would be the outermost child and Pluto would read
         # `undefined` from it.
-        bindable && print(io, "<span class=\"jxg-bindable\" style=\"display:inline-block;\">\n")
+        bindable &&
+            print(io, "<span class=\"jxg-bindable\" style=\"display:inline-block;\">\n")
         # Emit CSS only — JS is loaded dynamically to avoid conflicts with
         # RequireJS (e.g. Documenter.jl), which causes JSXGraph's UMD wrapper
         # to register as an AMD module instead of setting JXG globally.
         render_assets(io; mode=asset_mode, css_only=true)
-        print(io, "<div id=\"$(board.id)\" class=\"jxgbox\" style=\"$(style_str)\"></div>\n")
+        print(
+            io, "<div id=\"$(board.id)\" class=\"jxgbox\" style=\"$(style_str)\"></div>\n"
+        )
 
         board_js = sprint(render_board_js, board)
         escaped_js = replace(board_js, "\\" => "\\\\", "'" => "\\'", "\n" => "\\n")
@@ -309,7 +339,10 @@ function render_board_html(
             print(io, "})();\n")
             print(io, "</script>\n")
             if _MATHJS_ENABLED[]
-                print(io, "<script type=\"text/javascript\" src=\"$(MATHJS_CDN_JS)\"></script>\n")
+                print(
+                    io,
+                    "<script type=\"text/javascript\" src=\"$(MATHJS_CDN_JS)\"></script>\n",
+                )
             end
             print(io, "<script>\n")
             render_board_js(io, board)
@@ -320,7 +353,9 @@ function render_board_html(
             # 2. RequireJS present (Documenter.jl) → load via require()
             # 3. Neither → create a <script> tag dynamically
             if _MATHJS_ENABLED[]
-                print(io, """<script>
+                print(
+                    io,
+                    """<script>
 (function() {
   var boardCode = '$(escaped_js)';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
@@ -345,9 +380,12 @@ function render_board_html(
   }
 })();
 </script>
-""")
+""",
+                )
             else
-                print(io, """<script>
+                print(
+                    io,
+                    """<script>
 (function() {
   var boardCode = '$(escaped_js)';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
@@ -364,7 +402,8 @@ function render_board_html(
   }
 })();
 </script>
-""")
+""",
+                )
             end
         end
         bindable && print(io, "</span>\n")
@@ -468,7 +507,7 @@ function save(filename::String, board::Board; asset_mode::Symbol=:inline, scale:
     else
         error(
             "Unsupported file extension '$ext'. " *
-            "Supported formats: .html, .svg, .png, .pdf"
+            "Supported formats: .html, .svg, .png, .pdf",
         )
     end
 end
@@ -479,12 +518,12 @@ $(SIGNATURES)
 Check that the NodeJS extension is loaded. Throws an informative error if not.
 """
 function _require_nodejs_ext(format::String)
-    if !hasmethod(save_svg, Tuple{String, Board})
+    if !hasmethod(save_svg, Tuple{String,Board})
         error(
             "$(format) export requires the NodeJS_22_jll package.\n" *
             "Install and load it with:\n" *
             "  using Pkg; Pkg.add(\"NodeJS_22_jll\")\n" *
-            "  using NodeJS_22_jll"
+            "  using NodeJS_22_jll",
         )
     end
 end
@@ -506,7 +545,8 @@ $(SIGNATURES)
 Estimate the byte size of the inlined JSXGraph library assets (JS + CSS + wrapper tags).
 """
 function _asset_overhead()::Int
-    return length(jsxgraph_js()) + length(jsxgraph_css()) +
+    return length(jsxgraph_js()) +
+           length(jsxgraph_css()) +
            length("<style>\n\n</style>\n<script>\n\n</script>\n")
 end
 
@@ -526,8 +566,8 @@ function _check_html_size(html::String, board::Board, asset_mode::Symbol)
         size_mb = round(content_size / 1_048_576; digits=2)
         @warn(
             "Generated HTML content is $(size_mb) MB (excluding library assets), " *
-            "which exceeds the 1 MB threshold. Consider reducing the number of elements " *
-            "or switching to CDN-based asset loading (asset_mode=:cdn).",
+                "which exceeds the 1 MB threshold. Consider reducing the number of elements " *
+                "or switching to CDN-based asset loading (asset_mode=:cdn).",
             board_id = board.id,
             element_count = length(board.elements),
         )

@@ -4,7 +4,7 @@ mutable struct Point{X<:FR,Y<:FR} <: Object
     opts::Option{LittleDict{Symbol,Any}}
 end
 
-point(x::FR, y::FR; kw...) = Point(x, y, dict(;kw...))
+point(x::FR, y::FR; kw...) = Point(x, y, dict(; kw...))
 point(x::FR, y::FR, d::LittleDict{Symbol,Any}) = Point(x, y, d)
 point(n::String, x, y; kw...) = point(x, y; name=n, kw...)
 

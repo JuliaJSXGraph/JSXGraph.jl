@@ -14,7 +14,7 @@ $SIGNATURES
 
 Internal function to unpack kwargs.
 """
-dict(;kw...) = isempty(kw) ? nothing : LittleDict{Symbol,Any}(kw)
+dict(; kw...) = isempty(kw) ? nothing : LittleDict{Symbol,Any}(kw)
 
 """
 $SIGNATURES

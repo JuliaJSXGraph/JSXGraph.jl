@@ -12,7 +12,9 @@ if get(ENV, "BUILD_PLUTO_NOTEBOOKS", "false") == "true"
         @info "Rendering Pluto notebooks via PlutoStaticHTML…"
         @eval using PlutoStaticHTML
         notebook_dir = joinpath(@__DIR__, "notebooks")
-        opts = PlutoStaticHTML.BuildOptions(notebook_dir; output_format=PlutoStaticHTML.html_output)
+        opts = PlutoStaticHTML.BuildOptions(
+            notebook_dir; output_format=PlutoStaticHTML.html_output
+        )
         PlutoStaticHTML.build_notebooks(opts)
         # Splice the rendered HTML into pluto_bind.md between the marker
         # comments. Cache file lives next to the notebook (.html sibling).
@@ -24,7 +26,8 @@ if get(ENV, "BUILD_PLUTO_NOTEBOOKS", "false") == "true"
             md = replace(
                 md,
                 r"<!-- PLUTO_NOTEBOOK_START -->.*?<!-- PLUTO_NOTEBOOK_END -->"s =>
-                    "<!-- PLUTO_NOTEBOOK_START -->\n```@raw html\n" * rendered *
+                    "<!-- PLUTO_NOTEBOOK_START -->\n```@raw html\n" *
+                    rendered *
                     "\n```\n<!-- PLUTO_NOTEBOOK_END -->",
             )
             write(md_path, md)
@@ -33,7 +36,9 @@ if get(ENV, "BUILD_PLUTO_NOTEBOOKS", "false") == "true"
             @warn "Expected rendered notebook at $nb_html_path; page will keep its fallback content."
         end
     catch e
-        @warn "Pluto notebook render skipped (set BUILD_PLUTO_NOTEBOOKS=true and ensure PlutoStaticHTML resolves)" exception=(e, catch_backtrace())
+        @warn "Pluto notebook render skipped (set BUILD_PLUTO_NOTEBOOKS=true and ensure PlutoStaticHTML resolves)" exception=(
+            e, catch_backtrace()
+        )
     end
 end
 
@@ -68,4 +73,6 @@ makedocs(;
     warnonly=[:missing_docs, :docs_block],
 )
 
-deploydocs(; repo="github.com/JuliaJSXGraph/JSXGraph.jl", devbranch="main", push_preview=true)
+deploydocs(;
+    repo="github.com/JuliaJSXGraph/JSXGraph.jl", devbranch="main", push_preview=true
+)

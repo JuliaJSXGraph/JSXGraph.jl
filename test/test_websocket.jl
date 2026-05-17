@@ -14,14 +14,13 @@ function _wait_for_connections(lb, n::Int; timeout=5.0)
 end
 
 @testset "WebSocket Interactivity" begin
-
     @testset "Stub behavior without HTTP" begin
         # When HTTP IS loaded, the extension overrides stubs — tested implicitly
         # by all other tests in this file successfully calling serve/on/etc.
     end
 
     @testset "LiveBoard type" begin
-        b = Board("ws_test", xlim=(-5,5), ylim=(-5,5))
+        b = Board("ws_test", xlim=(-5, 5), ylim=(-5, 5))
         lb = LiveBoard(b, 0, false, nothing)
         @test lb.board === b
         @test lb.port == 0
@@ -29,7 +28,7 @@ end
     end
 
     @testset "serve() and stop_server!() lifecycle" begin
-        b = Board("lifecycle", xlim=(-5,5), ylim=(-5,5))
+        b = Board("lifecycle", xlim=(-5, 5), ylim=(-5, 5))
         p = point(0, 0; name="P")
         push!(b, p)
 
@@ -47,7 +46,9 @@ end
         @test occursin("ws://localhost:$(lb.port)/ws", html)
 
         # Verify 404 for unknown paths
-        resp404 = HTTP.get("http://127.0.0.1:$(lb.port)/nonexistent"; status_exception=false)
+        resp404 = HTTP.get(
+            "http://127.0.0.1:$(lb.port)/nonexistent"; status_exception=false
+        )
         @test resp404.status == 404
 
         # Stop the server
@@ -60,7 +61,7 @@ end
     end
 
     @testset "on() and off() callback registration" begin
-        b = Board("callbacks", xlim=(-5,5), ylim=(-5,5))
+        b = Board("callbacks", xlim=(-5, 5), ylim=(-5, 5))
         p = point(1, 2; name="P")
         s = slider([-4, 4], [0, 4], [0, 5, 10]; name="myslider")
         push!(b, p, s)
@@ -99,7 +100,7 @@ end
     end
 
     @testset "WebSocket event routing" begin
-        b = Board("events", xlim=(-5,5), ylim=(-5,5))
+        b = Board("events", xlim=(-5, 5), ylim=(-5, 5))
         p = point(0, 0; name="P")
         push!(b, p)
 
@@ -114,13 +115,15 @@ end
             # Connect a WebSocket client and send an event
             HTTP.WebSockets.open("ws://127.0.0.1:$(lb.port)/ws") do ws
                 # Send a drag event
-                event_msg = JSON.json(Dict(
-                    "type" => "event",
-                    "board_id" => "events",
-                    "element_id" => "el_001",
-                    "event" => "drag",
-                    "data" => Dict("x" => 1.5, "y" => 2.3)
-                ))
+                event_msg = JSON.json(
+                    Dict(
+                        "type" => "event",
+                        "board_id" => "events",
+                        "element_id" => "el_001",
+                        "event" => "drag",
+                        "data" => Dict("x" => 1.5, "y" => 2.3),
+                    ),
+                )
                 send(ws, event_msg)
 
                 # Wait for callback to fire
@@ -139,7 +142,7 @@ end
     end
 
     @testset "update!() sends messages to browser" begin
-        b = Board("updates", xlim=(-5,5), ylim=(-5,5))
+        b = Board("updates", xlim=(-5, 5), ylim=(-5, 5))
         p = point(0, 0; name="P")
         push!(b, p)
 
@@ -213,7 +216,7 @@ end
     end
 
     @testset "Callback error handling" begin
-        b = Board("errors", xlim=(-5,5), ylim=(-5,5))
+        b = Board("errors", xlim=(-5, 5), ylim=(-5, 5))
         p = point(0, 0; name="P")
         push!(b, p)
 
@@ -226,13 +229,15 @@ end
 
             # Send event via WebSocket — server should not crash
             HTTP.WebSockets.open("ws://127.0.0.1:$(lb.port)/ws") do ws
-                event_msg = JSON.json(Dict(
-                    "type" => "event",
-                    "board_id" => "errors",
-                    "element_id" => "el_001",
-                    "event" => "drag",
-                    "data" => Dict("x" => 1.0, "y" => 2.0)
-                ))
+                event_msg = JSON.json(
+                    Dict(
+                        "type" => "event",
+                        "board_id" => "errors",
+                        "element_id" => "el_001",
+                        "event" => "drag",
+                        "data" => Dict("x" => 1.0, "y" => 2.0),
+                    ),
+                )
                 send(ws, event_msg)
 
                 # Read response — should be an error notification
@@ -254,7 +259,7 @@ end
     end
 
     @testset "Multiple browser connections" begin
-        b = Board("multi", xlim=(-5,5), ylim=(-5,5))
+        b = Board("multi", xlim=(-5, 5), ylim=(-5, 5))
         p = point(0, 0; name="P")
         push!(b, p)
 
@@ -321,7 +326,7 @@ end
     end
 
     @testset "update!() requires serving" begin
-        b = Board("notserving", xlim=(-5,5), ylim=(-5,5))
+        b = Board("notserving", xlim=(-5, 5), ylim=(-5, 5))
         p = point(0, 0)
         push!(b, p)
 
@@ -332,7 +337,7 @@ end
     end
 
     @testset "HTML contains event listeners after on()" begin
-        b = Board("listeners", xlim=(-5,5), ylim=(-5,5))
+        b = Board("listeners", xlim=(-5, 5), ylim=(-5, 5))
         p = point(0, 0; name="P")
         push!(b, p)
 
@@ -362,5 +367,4 @@ end
             stop_server!(lb)
         end
     end
-
 end

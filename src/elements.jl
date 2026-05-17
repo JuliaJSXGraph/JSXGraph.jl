@@ -34,10 +34,12 @@ end
 
 # Backward-compatible constructors
 JSFunction(code::String) = JSFunction(code, "", JSFunction[], Dict{String,Any}())
-JSFunction(code::String, name::String) =
+function JSFunction(code::String, name::String)
     JSFunction(code, name, JSFunction[], Dict{String,Any}())
-JSFunction(code::String, name::String, deps::Vector{JSFunction}) =
+end
+function JSFunction(code::String, name::String, deps::Vector{JSFunction})
     JSFunction(code, name, deps, Dict{String,Any}())
+end
 
 """
 $(TYPEDEF)
@@ -114,7 +116,9 @@ function parent_to_js(x::JSFunction, elem_ids::Dict)
     return code
 end
 
-function _jsf_resolve_ref(value::AbstractJSXElement, elem_ids::Dict, placeholder::AbstractString)
+function _jsf_resolve_ref(
+    value::AbstractJSXElement, elem_ids::Dict, placeholder::AbstractString
+)
     id = objectid(value)
     haskey(elem_ids, id) || error(
         "@jsf references element `$(placeholder)` that is not on the board. " *
@@ -132,8 +136,10 @@ _jsf_resolve_ref(value::AbstractString, ::Dict, ::AbstractString) = JSON.json(va
 function _jsf_resolve_ref(value, elem_ids::Dict, placeholder::AbstractString)
     resolved = resolve_value(value)
     if resolved === value
-        error("@jsf cannot inline reference `$(placeholder)` of type $(typeof(value)). " *
-              "Supported: AbstractJSXElement, Real, Bool, AbstractString.")
+        error(
+            "@jsf cannot inline reference `$(placeholder)` of type $(typeof(value)). " *
+            "Supported: AbstractJSXElement, Real, Bool, AbstractString.",
+        )
     end
     return _jsf_resolve_ref(resolved, elem_ids, placeholder)
 end
@@ -643,7 +649,9 @@ t = ticks(ax, 1.0)
 t = ticks(ax, 1.0; minorTicks=4, drawLabels=true)
 ```
 """
-ticks(line_or_axis, tick_distance; kwargs...) = _create_element("ticks", (line_or_axis, tick_distance), kwargs)
+function ticks(line_or_axis, tick_distance; kwargs...)
+    _create_element("ticks", (line_or_axis, tick_distance), kwargs)
+end
 
 """
 $(SIGNATURES)
@@ -832,7 +840,9 @@ function parametricsurface3d(fx, fy, fz, u_range, v_range; kwargs...)
     jsfx = _to_jsfunction(fx, 2; param_names=["u", "v"])
     jsfy = _to_jsfunction(fy, 2; param_names=["u", "v"])
     jsfz = _to_jsfunction(fz, 2; param_names=["u", "v"])
-    return _create_element("parametricsurface3d", (jsfx, jsfy, jsfz, u_range, v_range), kwargs)
+    return _create_element(
+        "parametricsurface3d", (jsfx, jsfy, jsfz, u_range, v_range), kwargs
+    )
 end
 
 """
@@ -881,8 +891,9 @@ c = point3d(0, 0, 0)
 s = sphere3d(c, 2.0; fillColor="blue", fillOpacity=0.3)
 ```
 """
-sphere3d(center, radius_or_point; kwargs...) =
+function sphere3d(center, radius_or_point; kwargs...)
     _create_element("sphere3d", (center, radius_or_point), kwargs)
+end
 
 """
 $(SIGNATURES)
@@ -900,8 +911,9 @@ c = point3d(0, 0, 0)
 circ = circle3d(c, [0, 0, 0, 1], 2.0; strokeColor="red")
 ```
 """
-circle3d(center, normal, radius; kwargs...) =
+function circle3d(center, normal, radius; kwargs...)
     _create_element("circle3d", (center, normal, radius), kwargs)
+end
 
 """
 $(SIGNATURES)
@@ -986,8 +998,9 @@ pl2 = plane3d(p, [1, 0, 1], [0, 1, 0]; range_u=(-3, 3), range_v=(-3, 3))
 il = intersectionline3d(pl1, pl2; strokeColor="red")
 ```
 """
-intersectionline3d(plane1, plane2; kwargs...) =
+function intersectionline3d(plane1, plane2; kwargs...)
     _create_element("intersectionline3d", (plane1, plane2), kwargs)
+end
 
 """
 $(SIGNATURES)
@@ -1007,8 +1020,9 @@ s2 = sphere3d(c2, 2.0)
 ic = intersectioncircle3d(s1, s2; strokeColor="purple")
 ```
 """
-intersectioncircle3d(el1, el2; kwargs...) =
+function intersectioncircle3d(el1, el2; kwargs...)
     _create_element("intersectioncircle3d", (el1, el2), kwargs)
+end
 
 """
 $(SIGNATURES)
@@ -1024,8 +1038,7 @@ Create a 3D text label at position `(x, y, z)`.
 t = text3d(1, 2, 3, "Hello 3D"; fontSize=20)
 ```
 """
-text3d(x, y, z, txt; kwargs...) =
-    _create_element("text3d", (x, y, z, txt), kwargs)
+text3d(x, y, z, txt; kwargs...) = _create_element("text3d", (x, y, z, txt), kwargs)
 
 """
 $(SIGNATURES)
@@ -1045,8 +1058,9 @@ m = mesh3d([0, 0, 0], [1, 0, 0], [0, 1, 0], [-3, 3], [-3, 3];
     stepWidthU=1, stepWidthV=1)
 ```
 """
-mesh3d(point, dir1, dir2, range1, range2; kwargs...) =
+function mesh3d(point, dir1, dir2, range1, range2; kwargs...)
     _create_element("mesh3d", (point, dir1, dir2, range1, range2), kwargs)
+end
 
 """
 $(SIGNATURES)
@@ -1067,5 +1081,6 @@ faces = [[0, 1, 2], [0, 1, 3], [1, 2, 3], [0, 2, 3]]
 p = polyhedron3d(verts, faces; fillOpacity=0.8)
 ```
 """
-polyhedron3d(vertices, faces; kwargs...) =
+function polyhedron3d(vertices, faces; kwargs...)
     _create_element("polyhedron3d", (vertices, faces), kwargs)
+end

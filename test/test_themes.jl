@@ -33,7 +33,7 @@
         reset_theme!()
 
         custom = JSXGraph.Theme(
-            "point" => Dict{String,Any}("strokeColor" => "purple", "size" => 10),
+            "point" => Dict{String,Any}("strokeColor" => "purple", "size" => 10)
         )
         set_theme!(custom)
         @test current_theme() === custom
@@ -172,9 +172,7 @@
     @testset "register_theme!" begin
         reset_theme!()
 
-        my_theme = JSXGraph.Theme(
-            "point" => Dict{String,Any}("fillColor" => "orange"),
-        )
+        my_theme = JSXGraph.Theme("point" => Dict{String,Any}("fillColor" => "orange"))
         register_theme!(:custom_test, my_theme)
 
         set_theme!(:custom_test)
@@ -213,7 +211,10 @@
         @test p.attributes["size"] == 7
         @test p.attributes["strokeColor"] == "#112233"  # from global
 
-        try rm(tmpfile) catch end
+        try
+            rm(tmpfile)
+        catch
+        end
         reset_theme!()
     end
 
@@ -233,7 +234,10 @@
         @test theme["point"]["size"] == 5
         @test theme["line"]["strokeWidth"] == 3
 
-        try rm(tmpfile) catch end
+        try
+            rm(tmpfile)
+        catch
+        end
     end
 
     @testset "Invalid Theme File" begin
@@ -279,7 +283,10 @@
         m = mesh3d([0, 0, 0], [1, 0, 0], [0, 1, 0], [-3, 3], [-3, 3])
         @test m.attributes["strokeColor"] == "#888888"
 
-        ph = polyhedron3d([[0,0,0],[1,0,0],[0,1,0],[0,0,1]], [[0,1,2],[0,1,3],[1,2,3],[0,2,3]])
+        ph = polyhedron3d(
+            [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]],
+            [[0, 1, 2], [0, 1, 3], [1, 2, 3], [0, 2, 3]],
+        )
         @test ph.attributes["fillColor"] == "#45b7d1"
         @test ph.attributes["fillOpacity"] == 0.4
 

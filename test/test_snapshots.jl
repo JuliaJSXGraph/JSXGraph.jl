@@ -29,7 +29,7 @@ function snapshot_test(name::String, board::Board; asset_mode::Symbol=:cdn)
         if !isfile(snapshot_path)
             error(
                 "Snapshot '$(name).html' not found. Run with " *
-                "ENV[\"UPDATE_SNAPSHOTS\"]=\"true\" to generate it."
+                "ENV[\"UPDATE_SNAPSHOTS\"]=\"true\" to generate it.",
             )
         end
         expected = replace(read(snapshot_path, String), "\r\n" => "\n")
@@ -106,12 +106,16 @@ end
 
     @testset "Curve" begin
         b = Board("snap_curve", xlim=(-5, 5), ylim=(-5, 5))
-        push!(b, curve(
-            "function(t){ return 2*Math.cos(t); }",
-            "function(t){ return 2*Math.sin(t); }",
-            0, 6.28;
-            strokeColor="teal"
-        ))
+        push!(
+            b,
+            curve(
+                "function(t){ return 2*Math.cos(t); }",
+                "function(t){ return 2*Math.sin(t); }",
+                0,
+                6.28;
+                strokeColor="teal",
+            ),
+        )
         snapshot_test("curve", b)
     end
 

@@ -3,9 +3,9 @@ using JSXGraphRecipesBase
 # --- Test types for recipes ---
 
 struct RecipeTriangle
-    A::Tuple{Float64, Float64}
-    B::Tuple{Float64, Float64}
-    C::Tuple{Float64, Float64}
+    A::Tuple{Float64,Float64}
+    B::Tuple{Float64,Float64}
+    C::Tuple{Float64,Float64}
 end
 
 struct RecipeCircle2D
@@ -32,10 +32,7 @@ end
 
 @testset "Recipes" begin
     @testset "realize_specs - simple" begin
-        specs = [
-            ElementSpec(:point, 1, 2; name="P"),
-            ElementSpec(:point, 3, 4; name="Q"),
-        ]
+        specs = [ElementSpec(:point, 1, 2; name="P"), ElementSpec(:point, 3, 4; name="Q")]
         elems = realize_specs(specs)
         @test length(elems) == 2
         @test elems[1] isa JSXElement

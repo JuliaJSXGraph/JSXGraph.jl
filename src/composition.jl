@@ -162,12 +162,19 @@ b = scatter([1, 2, 3, 4], [1, 4, 9, 16])
 b = scatter([0.0, 1.0, 2.0], [0.0, 1.0, 0.0]; color="red", size=4)
 ```
 """
-function scatter(x::AbstractVector{<:Real}, y::AbstractVector{<:Real};
-                 xlim::Union{Nothing,Tuple{Real,Real}}=nothing,
-                 ylim::Union{Nothing,Tuple{Real,Real}}=nothing,
-                 kwargs...)
+function scatter(
+    x::AbstractVector{<:Real},
+    y::AbstractVector{<:Real};
+    xlim::Union{Nothing,Tuple{Real,Real}}=nothing,
+    ylim::Union{Nothing,Tuple{Real,Real}}=nothing,
+    kwargs...,
+)
     if length(x) != length(y)
-        throw(ArgumentError("x and y must have the same length, got $(length(x)) and $(length(y))"))
+        throw(
+            ArgumentError(
+                "x and y must have the same length, got $(length(x)) and $(length(y))"
+            ),
+        )
     end
     if isempty(x)
         throw(ArgumentError("x and y must not be empty"))
@@ -202,13 +209,21 @@ b = parametric(cos, sin, (0, 2π))
 b = parametric(:(t -> 2cos(t)), :(t -> 3sin(t)), (0, 2π); color="blue")
 ```
 """
-function parametric(fx, fy, t_range::Tuple{Real,Real};
-                    xlim::Tuple{Real,Real}=(-5, 5),
-                    ylim::Tuple{Real,Real}=(-5, 5),
-                    kwargs...)
+function parametric(
+    fx,
+    fy,
+    t_range::Tuple{Real,Real};
+    xlim::Tuple{Real,Real}=(-5, 5),
+    ylim::Tuple{Real,Real}=(-5, 5),
+    kwargs...,
+)
     t_start, t_end = t_range
     if t_start == t_end
-        throw(ArgumentError("Parameter range must have non-zero width, got ($t_start, $t_end)"))
+        throw(
+            ArgumentError(
+                "Parameter range must have non-zero width, got ($t_start, $t_end)"
+            ),
+        )
     end
     board = Board(""; xlim=xlim, ylim=ylim)
     c = curve(fx, fy, t_start, t_end; kwargs...)
@@ -233,10 +248,9 @@ b = implicit(:((x, y) -> x^2 + y^2 - 1))
 b = implicit(:((x, y) -> x^2 + y^2 - 4); color="green", xlim=(-3, 3), ylim=(-3, 3))
 ```
 """
-function implicit(F;
-                  xlim::Tuple{Real,Real}=(-5, 5),
-                  ylim::Tuple{Real,Real}=(-5, 5),
-                  kwargs...)
+function implicit(
+    F; xlim::Tuple{Real,Real}=(-5, 5), ylim::Tuple{Real,Real}=(-5, 5), kwargs...
+)
     board = Board(""; xlim=xlim, ylim=ylim)
     ic = implicitcurve(F; kwargs...)
     push!(board, ic)
@@ -265,10 +279,13 @@ b = polar(:(θ -> θ), (0, 4π))           # spiral
 b = polar(:(θ -> 2), (0, 2π))           # circle of radius 2
 ```
 """
-function polar(r, θ_range::Tuple{Real,Real}=(0, 2π);
-               xlim::Union{Nothing,Tuple{Real,Real}}=nothing,
-               ylim::Union{Nothing,Tuple{Real,Real}}=nothing,
-               kwargs...)
+function polar(
+    r,
+    θ_range::Tuple{Real,Real}=(0, 2π);
+    xlim::Union{Nothing,Tuple{Real,Real}}=nothing,
+    ylim::Union{Nothing,Tuple{Real,Real}}=nothing,
+    kwargs...,
+)
     θ_start, θ_end = θ_range
     if θ_start == θ_end
         throw(ArgumentError("Angle range must have non-zero width, got ($θ_start, $θ_end)"))

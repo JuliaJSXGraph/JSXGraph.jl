@@ -173,13 +173,13 @@ end
     # Rotation around origin
     t2 = transformation("rotate", π/4)
     @test t2.type_name == "transformation"
-    @test t2.parents[1] == Any[π/4]
+    @test t2.parents[1] == Any[π / 4]
     @test t2.parents[2] == "rotate"
 
     # Rotation around a point
     t3 = transformation("rotate", π/4, 1, 1)
     @test t3.type_name == "transformation"
-    @test t3.parents[1] == Any[π/4, 1, 1]
+    @test t3.parents[1] == Any[π / 4, 1, 1]
     @test t3.parents[2] == "rotate"
 
     # Scale

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Apply JuliaFormatter v2.3.0 (blue style) across the codebase. Whitespace-only changes — no behavior change. The `Format Check` workflow was added recently and only runs on pull requests, so the v1→v2 style drift on `main` had gone unnoticed until CompatHelper PRs (#13, #14, #15) tripped the check.
+
 ## [0.5.3] - 2026-05-13
 
 ### Added

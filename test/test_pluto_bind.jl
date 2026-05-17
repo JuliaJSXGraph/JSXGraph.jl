@@ -31,8 +31,7 @@ render(b) = JSXGraph.html_page(b; asset_mode=:cdn)
 
             # Dict-shaped values (post-JSON-decode) work too
             state2 = Dict{String,Any}(
-                "A" => Dict("x" => 3.0, "y" => 4.0),
-                "_order" => ["A"],
+                "A" => Dict("x" => 3.0, "y" => 4.0), "_order" => ["A"]
             )
             xs2, ys2 = points_xy(state2)
             @test xs2 == [3.0]
@@ -53,8 +52,8 @@ render(b) = JSXGraph.html_page(b; asset_mode=:cdn)
             push!(b, point(-1.0, 0.0))  # auto-id
             push!(b, slider([-4, -3], [4, -3], [-2, 0.3, 2]; name="k"))
             seed = JSXGraph._initial_bound_state(b)
-            @test seed["A"] == (x = 1.5, y = 2.5)
-            @test seed["point_1"] == (x = -1.0, y = 0.0)
+            @test seed["A"] == (x=1.5, y=2.5)
+            @test seed["point_1"] == (x=-1.0, y=0.0)
             @test seed["k"] == 0.3
         end
 
@@ -178,5 +177,4 @@ render(b) = JSXGraph.html_page(b; asset_mode=:cdn)
             end
         end
     end
-
 end

@@ -41,7 +41,9 @@ end
 
 # ── WebSocket client JavaScript ─────────────────────────────────────────────
 
-function _websocket_client_js(port::Int, board_id::String, registered_elements::Dict{String,Set{Symbol}})
+function _websocket_client_js(
+    port::Int, board_id::String, registered_elements::Dict{String,Set{Symbol}}
+)
     listeners_js = IOBuffer()
     board_var = "board_" * replace(board_id, r"[^a-zA-Z0-9_]" => "_")
 
@@ -65,7 +67,9 @@ function _websocket_client_js(port::Int, board_id::String, registered_elements::
                 "{}"
             end
 
-            print(listeners_js, """
+            print(
+                listeners_js,
+                """
       $(elem_id).on('$(jsxevent)', (function() {
         var _lastSend = 0;
         return function() {
@@ -83,7 +87,8 @@ function _websocket_client_js(port::Int, board_id::String, registered_elements::
           }
         };
       })());
-""")
+""",
+            )
         end
     end
 
@@ -131,7 +136,9 @@ end
 
 # ── Generate served HTML with WebSocket JS injected ─────────────────────────
 
-function _generate_served_html(board::JSXGraph.Board, port::Int, registered_elements::Dict{String,Set{Symbol}})
+function _generate_served_html(
+    board::JSXGraph.Board, port::Int, registered_elements::Dict{String,Set{Symbol}}
+)
     base_html = JSXGraph.html_page(board; asset_mode=:cdn)
     ws_js = _websocket_client_js(port, board.id, registered_elements)
     return replace(base_html, "</body>" => "$(ws_js)\n</body>")
@@ -175,8 +182,13 @@ function _handle_ws_message(state::_ServerState, msg_str::String)
             try
                 handler(data)
             catch e
-                @error "JSXGraph WebSocket: callback error" element_id event exception=(e, catch_backtrace())
-                return Dict("type" => "error", "message" => "Callback error: $(sprint(showerror, e))")
+                @error "JSXGraph WebSocket: callback error" element_id event exception=(
+                    e, catch_backtrace()
+                )
+                return Dict(
+                    "type" => "error",
+                    "message" => "Callback error: $(sprint(showerror, e))",
+                )
             end
         end
     else
@@ -206,12 +218,11 @@ end
 
 # ── serve() implementation ──────────────────────────────────────────────────
 
-function JSXGraph.serve(board::JSXGraph.Board; port::Int=0, open_browser::Bool=!haskey(ENV, "CI"))
+function JSXGraph.serve(
+    board::JSXGraph.Board; port::Int=0, open_browser::Bool=(!haskey(ENV, "CI"))
+)
     state = _ServerState(
-        nothing,
-        Set{Any}(),
-        Dict{Tuple{String,Symbol},Vector{Function}}(),
-        ""
+        nothing, Set{Any}(), Dict{Tuple{String,Symbol},Vector{Function}}(), ""
     )
 
     lb = JSXGraph.LiveBoard(board, 0, false, state)
@@ -235,7 +246,9 @@ function JSXGraph.serve(board::JSXGraph.Board; port::Int=0, open_browser::Bool=!
                     end
                 catch e
                     if !(e isa EOFError)
-                        @debug "JSXGraph WebSocket connection closed" exception=(e, catch_backtrace())
+                        @debug "JSXGraph WebSocket connection closed" exception=(
+                            e, catch_backtrace()
+                        )
                     end
                 finally
                     delete!(state.connections, ws)
@@ -297,7 +310,9 @@ end
 function _open_browser(url::String)
     # Use DefaultApplication.jl if loaded (preferred cross-platform approach),
     # otherwise fall back to platform-specific commands (non-blocking)
-    da_id = Base.PkgId(Base.UUID("3f0dd361-4fe0-5fc6-8523-80b14ec94d85"), "DefaultApplication")
+    da_id = Base.PkgId(
+        Base.UUID("3f0dd361-4fe0-5fc6-8523-80b14ec94d85"), "DefaultApplication"
+    )
     if haskey(Base.loaded_modules, da_id)
         Base.loaded_modules[da_id].open(url)
     elseif Sys.isapple()
@@ -344,8 +359,15 @@ end
 
 const _SUPPORTED_EVENTS = Set([:drag, :change, :click])
 
-function JSXGraph.on(lb::JSXGraph.LiveBoard, elem::JSXGraph.AbstractJSXElement, event::Symbol, handler::Function)
-    event in _SUPPORTED_EVENTS || throw(ArgumentError("Unsupported event type :$event. Supported: :drag, :change, :click"))
+function JSXGraph.on(
+    lb::JSXGraph.LiveBoard,
+    elem::JSXGraph.AbstractJSXElement,
+    event::Symbol,
+    handler::Function,
+)
+    event in _SUPPORTED_EVENTS || throw(
+        ArgumentError("Unsupported event type :$event. Supported: :drag, :change, :click"),
+    )
 
     state = lb._state::_ServerState
     elem_id = _get_element_id(lb.board, elem)
@@ -363,13 +385,20 @@ function JSXGraph.on(lb::JSXGraph.LiveBoard, elem::JSXGraph.AbstractJSXElement, 
 end
 
 # do-block syntax
-function JSXGraph.on(handler::Function, lb::JSXGraph.LiveBoard, elem::JSXGraph.AbstractJSXElement, event::Symbol)
+function JSXGraph.on(
+    handler::Function,
+    lb::JSXGraph.LiveBoard,
+    elem::JSXGraph.AbstractJSXElement,
+    event::Symbol,
+)
     return JSXGraph.on(lb, elem, event, handler)
 end
 
 # ── off() implementation ────────────────────────────────────────────────────
 
-function JSXGraph.off(lb::JSXGraph.LiveBoard, elem::JSXGraph.AbstractJSXElement, event::Symbol)
+function JSXGraph.off(
+    lb::JSXGraph.LiveBoard, elem::JSXGraph.AbstractJSXElement, event::Symbol
+)
     state = lb._state::_ServerState
     elem_id = _get_element_id(lb.board, elem)
     key = (elem_id, event)
@@ -382,7 +411,9 @@ end
 
 # ── update!() implementation ────────────────────────────────────────────────
 
-function JSXGraph.update!(lb::JSXGraph.LiveBoard, elem::JSXGraph.AbstractJSXElement; kwargs...)
+function JSXGraph.update!(
+    lb::JSXGraph.LiveBoard, elem::JSXGraph.AbstractJSXElement; kwargs...
+)
     lb.is_serving || error("LiveBoard is not serving. Call serve(board) first.")
 
     state = lb._state::_ServerState
@@ -395,12 +426,15 @@ function JSXGraph.update!(lb::JSXGraph.LiveBoard, elem::JSXGraph.AbstractJSXElem
         x = get(kw, :x, nothing)
         y = get(kw, :y, nothing)
         coords = [something(x, 0), something(y, 0)]
-        _broadcast(state, Dict(
-            "type" => "update",
-            "element_id" => elem_id,
-            "method" => "moveTo",
-            "args" => [coords]
-        ))
+        _broadcast(
+            state,
+            Dict(
+                "type" => "update",
+                "element_id" => elem_id,
+                "method" => "moveTo",
+                "args" => [coords],
+            ),
+        )
         delete!(kw, :x)
         delete!(kw, :y)
     end
@@ -408,12 +442,15 @@ function JSXGraph.update!(lb::JSXGraph.LiveBoard, elem::JSXGraph.AbstractJSXElem
     # Handle remaining kwargs → setAttribute
     if !isempty(kw)
         attrs = Dict{String,Any}(string(k) => v for (k, v) in kw)
-        _broadcast(state, Dict(
-            "type" => "update",
-            "element_id" => elem_id,
-            "method" => "setAttribute",
-            "args" => [attrs]
-        ))
+        _broadcast(
+            state,
+            Dict(
+                "type" => "update",
+                "element_id" => elem_id,
+                "method" => "setAttribute",
+                "args" => [attrs],
+            ),
+        )
     end
 
     return nothing
