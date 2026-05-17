@@ -6,10 +6,10 @@ board(&quot;wiki_exp&quot;, xlim=(-3, 3), ylim=(-1, 10)) do brd
     push!(brd, A)
     push!(brd, functiongraph(@jsf x -&gt; A.Y()^(x / A.X()); strokeColor=&quot;blue&quot;, strokeWidth=2))
 end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
-<div id="jxg_tXep739SzkzY" class="jxgbox" style="width:500px;height:500px"></div>
+<div id="jxg_tzv2xZrdE94H" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_jxg_tXep739SzkzY = JXG.JSXGraph.initBoard(\'jxg_tXep739SzkzY\', {"axis":true,"boundingbox":[-3,10,3,-1],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_tXep739SzkzY.create(\'point\', [1.0,2.718281828459045], {"name":"A","size":4,"strokeColor":"red"});\nvar el_002 = board_jxg_tXep739SzkzY.create(\'functiongraph\', [function(x){return Math.pow(el_001.Y(), x / el_001.X());}], {"strokeColor":"blue","strokeWidth":2});\n';
+  var boardCode = 'var board_jxg_tzv2xZrdE94H = JXG.JSXGraph.initBoard(\'jxg_tzv2xZrdE94H\', {"axis":true,"boundingbox":[-3,10,3,-1],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_tzv2xZrdE94H.create(\'point\', [1.0,2.718281828459045], {"name":"A","size":4,"strokeColor":"red"});\nvar el_002 = board_jxg_tzv2xZrdE94H.create(\'functiongraph\', [function(x){return Math.pow(el_001.Y(), x / el_001.X());}], {"strokeColor":"blue","strokeWidth":2});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();
@@ -34,10 +34,10 @@ end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdeliv
         strokeColor=&quot;purple&quot;, strokeWidth=1,
     ))
 end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
-<div id="jxg_EUEEOEBkelma" class="jxgbox" style="width:500px;height:500px"></div>
+<div id="jxg_YxFzDKIaXsLr" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_jxg_EUEEOEBkelma = JXG.JSXGraph.initBoard(\'jxg_EUEEOEBkelma\', {"axis":true,"boundingbox":[-3,9,5,-3],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_EUEEOEBkelma.create(\'slider\', [[1,8],[5,8],[0,1,4]], {"name":"k"});\nvar el_002 = board_jxg_EUEEOEBkelma.create(\'curve\', [function(t){return Math.sqrt(el_001.Value() / t) * Math.cos(t);},function(t){return Math.sqrt(el_001.Value() / t) * Math.sin(t);},0.0001,25.132741228718345], {"strokeColor":"purple","strokeWidth":1});\n';
+  var boardCode = 'var board_jxg_YxFzDKIaXsLr = JXG.JSXGraph.initBoard(\'jxg_YxFzDKIaXsLr\', {"axis":true,"boundingbox":[-3,9,5,-3],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_YxFzDKIaXsLr.create(\'slider\', [[1,8],[5,8],[0,1,4]], {"name":"k"});\nvar el_002 = board_jxg_YxFzDKIaXsLr.create(\'curve\', [function(t){return Math.sqrt(el_001.Value() / t) * Math.cos(t);},function(t){return Math.sqrt(el_001.Value() / t) * Math.sin(t);},0.0001,25.132741228718345], {"strokeColor":"purple","strokeWidth":1});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();
@@ -58,10 +58,10 @@ end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdeliv
     push!(brd, implicitcurve(@jsf (x, y) -&gt; abs(x)^p + abs(y)^p - 1;
                               strokeColor=&quot;darkred&quot;, strokeWidth=2))
 end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
-<div id="jxg_wUqtLDPMyeDO" class="jxgbox" style="width:500px;height:500px"></div>
+<div id="jxg_mEymoAMMGBKt" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_jxg_wUqtLDPMyeDO = JXG.JSXGraph.initBoard(\'jxg_wUqtLDPMyeDO\', {"axis":true,"boundingbox":[-1.5,1.5,1.5,-1.5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_wUqtLDPMyeDO.create(\'slider\', [[-1.3,1.3],[1.3,1.3],[0.5,2.0,5.0]], {"name":"p"});\nvar el_002 = board_jxg_wUqtLDPMyeDO.create(\'implicitcurve\', [function(x, y){return Math.pow(Math.abs(x), el_001.Value()) + Math.pow(Math.abs(y), el_001.Value()) - 1;}], {"strokeColor":"darkred","strokeWidth":2});\n';
+  var boardCode = 'var board_jxg_mEymoAMMGBKt = JXG.JSXGraph.initBoard(\'jxg_mEymoAMMGBKt\', {"axis":true,"boundingbox":[-1.5,1.5,1.5,-1.5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_mEymoAMMGBKt.create(\'slider\', [[-1.3,1.3],[1.3,1.3],[0.5,2.0,5.0]], {"name":"p"});\nvar el_002 = board_jxg_mEymoAMMGBKt.create(\'implicitcurve\', [function(x, y){return Math.pow(Math.abs(x), el_001.Value()) + Math.pow(Math.abs(y), el_001.Value()) - 1;}], {"strokeColor":"darkred","strokeWidth":2});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();
@@ -85,10 +85,10 @@ end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdeliv
     push!(brd, functiongraph(@jsf x -&gt; a * x^4 + b * x^3 + c * x^2 + d * x;
                               strokeColor=&quot;darkred&quot;, strokeWidth=2))
 end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
-<div id="jxg_ENyfJ6goQUwB" class="jxgbox" style="width:500px;height:500px"></div>
+<div id="jxg_joxdUBgAYVBO" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_jxg_ENyfJ6goQUwB = JXG.JSXGraph.initBoard(\'jxg_ENyfJ6goQUwB\', {"axis":true,"boundingbox":[-4,10,4,-10],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_ENyfJ6goQUwB.create(\'slider\', [[-3,8],[3,8],[-2.0,0.5,2.0]], {"name":"a"});\nvar el_002 = board_jxg_ENyfJ6goQUwB.create(\'slider\', [[-3,7],[3,7],[-3,0,3]], {"name":"b"});\nvar el_003 = board_jxg_ENyfJ6goQUwB.create(\'slider\', [[-3,6],[3,6],[-3,0,3]], {"name":"c"});\nvar el_004 = board_jxg_ENyfJ6goQUwB.create(\'slider\', [[-3,5],[3,5],[-3,0,3]], {"name":"d"});\nvar el_005 = board_jxg_ENyfJ6goQUwB.create(\'functiongraph\', [function(x){return el_001.Value() * Math.pow(x, 4) + el_002.Value() * Math.pow(x, 3) + el_003.Value() * Math.pow(x, 2) + el_004.Value() * x;}], {"strokeColor":"darkred","strokeWidth":2});\n';
+  var boardCode = 'var board_jxg_joxdUBgAYVBO = JXG.JSXGraph.initBoard(\'jxg_joxdUBgAYVBO\', {"axis":true,"boundingbox":[-4,10,4,-10],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_joxdUBgAYVBO.create(\'slider\', [[-3,8],[3,8],[-2.0,0.5,2.0]], {"name":"a"});\nvar el_002 = board_jxg_joxdUBgAYVBO.create(\'slider\', [[-3,7],[3,7],[-3,0,3]], {"name":"b"});\nvar el_003 = board_jxg_joxdUBgAYVBO.create(\'slider\', [[-3,6],[3,6],[-3,0,3]], {"name":"c"});\nvar el_004 = board_jxg_joxdUBgAYVBO.create(\'slider\', [[-3,5],[3,5],[-3,0,3]], {"name":"d"});\nvar el_005 = board_jxg_joxdUBgAYVBO.create(\'functiongraph\', [function(x){return el_001.Value() * Math.pow(x, 4) + el_002.Value() * Math.pow(x, 3) + el_003.Value() * Math.pow(x, 2) + el_004.Value() * x;}], {"strokeColor":"darkred","strokeWidth":2});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();
@@ -125,10 +125,10 @@ end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdeliv
     fn = JSXGraph.JSFunction(code, &quot;&quot;, JSXGraph.JSFunction[], Dict{String,Any}(&quot;__JSF_REF_s__&quot; =&gt; s))
     push!(brd, functiongraph(fn; strokeColor=&quot;blue&quot;, strokeWidth=2))
 end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
-<div id="jxg_p9pp6D9U98bx" class="jxgbox" style="width:500px;height:500px"></div>
+<div id="jxg_R2zlf8U4nJBA" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_jxg_p9pp6D9U98bx = JXG.JSXGraph.initBoard(\'jxg_p9pp6D9U98bx\', {"axis":true,"boundingbox":[-10,3,10,-3],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_p9pp6D9U98bx.create(\'functiongraph\', [function(t){return Math.sin(t);}], {"strokeColor":"#cccccc","strokeWidth":2});\nvar el_002 = board_jxg_p9pp6D9U98bx.create(\'slider\', [[-9.0,-2.5],[9.0,-2.5],[0,1,10]], {"name":"N","snapWidth":1});\nvar el_003 = board_jxg_p9pp6D9U98bx.create(\'functiongraph\', [function(t){\n    var v = 0, k, sv = el_002.Value() + 1, a;\n    for (k = 0; k < sv; k++) {\n        a = 1;\n        for (var j = 1; j <= 2*k + 1; j++) a *= j;\n        v += Math.pow(-1, k) * Math.pow(t, 2*k + 1) / a;\n    }\n    return v;\n}], {"strokeColor":"blue","strokeWidth":2});\n';
+  var boardCode = 'var board_jxg_R2zlf8U4nJBA = JXG.JSXGraph.initBoard(\'jxg_R2zlf8U4nJBA\', {"axis":true,"boundingbox":[-10,3,10,-3],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_R2zlf8U4nJBA.create(\'functiongraph\', [function(t){return Math.sin(t);}], {"strokeColor":"#cccccc","strokeWidth":2});\nvar el_002 = board_jxg_R2zlf8U4nJBA.create(\'slider\', [[-9.0,-2.5],[9.0,-2.5],[0,1,10]], {"name":"N","snapWidth":1});\nvar el_003 = board_jxg_R2zlf8U4nJBA.create(\'functiongraph\', [function(t){\n    var v = 0, k, sv = el_002.Value() + 1, a;\n    for (k = 0; k < sv; k++) {\n        a = 1;\n        for (var j = 1; j <= 2*k + 1; j++) a *= j;\n        v += Math.pow(-1, k) * Math.pow(t, 2*k + 1) / a;\n    }\n    return v;\n}], {"strokeColor":"blue","strokeWidth":2});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();
@@ -165,10 +165,10 @@ end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdeliv
                            a=get_a, b=get_b,
                            fillColor=&quot;yellow&quot;, fillOpacity=0.4))
 end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
-<div id="jxg_hol9EgYwlNEY" class="jxgbox" style="width:500px;height:500px"></div>
+<div id="jxg_tHeLL5ELykhb" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_jxg_hol9EgYwlNEY = JXG.JSXGraph.initBoard(\'jxg_hol9EgYwlNEY\', {"axis":true,"boundingbox":[-8,4,8,-4],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_hol9EgYwlNEY.create(\'slider\', [[1,3],[5,3],[1,10,50]], {"name":"n","snapWidth":1});\nvar el_002 = board_jxg_hol9EgYwlNEY.create(\'slider\', [[1,2],[5,2],[-10,-3,0]], {"name":"start"});\nvar el_003 = board_jxg_hol9EgYwlNEY.create(\'slider\', [[1,1],[5,1],[0.0,3.141592653589793,10.0]], {"name":"end"});\nvar el_004 = board_jxg_hol9EgYwlNEY.create(\'functiongraph\', [function(x){return Math.sin(x);},function(){return el_002.Value();},function(){return el_003.Value();}], {"strokeColor":"blue","strokeWidth":2});\nvar el_005 = board_jxg_hol9EgYwlNEY.create(\'riemannsum\', [function(x){return Math.sin(x);},function(){return el_001.Value();},"left",function(){return el_002.Value();},function(){return el_003.Value();}], {"fillColor":"yellow","fillOpacity":0.4});\n';
+  var boardCode = 'var board_jxg_tHeLL5ELykhb = JXG.JSXGraph.initBoard(\'jxg_tHeLL5ELykhb\', {"axis":true,"boundingbox":[-8,4,8,-4],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_tHeLL5ELykhb.create(\'slider\', [[1,3],[5,3],[1,10,50]], {"name":"n","snapWidth":1});\nvar el_002 = board_jxg_tHeLL5ELykhb.create(\'slider\', [[1,2],[5,2],[-10,-3,0]], {"name":"start"});\nvar el_003 = board_jxg_tHeLL5ELykhb.create(\'slider\', [[1,1],[5,1],[0.0,3.141592653589793,10.0]], {"name":"end"});\nvar el_004 = board_jxg_tHeLL5ELykhb.create(\'functiongraph\', [function(x){return Math.sin(x);},function(){return el_002.Value();},function(){return el_003.Value();}], {"strokeColor":"blue","strokeWidth":2});\nvar el_005 = board_jxg_tHeLL5ELykhb.create(\'riemannsum\', [function(x){return Math.sin(x);},function(){return el_001.Value();},"left",function(){return el_002.Value();},function(){return el_003.Value();}], {"fillColor":"yellow","fillOpacity":0.4});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();
@@ -194,10 +194,10 @@ end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdeliv
     push!(brd, l2)
     push!(brd, inequality(l2; fillColor=&quot;red&quot;, inverse=true))
 end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css" />
-<div id="jxg_ihG990XRmKwx" class="jxgbox" style="width:500px;height:500px"></div>
+<div id="jxg_HjrznbDHr41S" class="jxgbox" style="width:500px;height:500px"></div>
 <script>
 (function() {
-  var boardCode = 'var board_jxg_ihG990XRmKwx = JXG.JSXGraph.initBoard(\'jxg_ihG990XRmKwx\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_ihG990XRmKwx.create(\'line\', [3,2,-1], {});\nvar el_002 = board_jxg_ihG990XRmKwx.create(\'inequality\', [el_001], {"fillColor":"yellow"});\nvar el_003 = board_jxg_ihG990XRmKwx.create(\'line\', [-3,1,0], {"strokeColor":"black"});\nvar el_004 = board_jxg_ihG990XRmKwx.create(\'inequality\', [el_003], {"fillColor":"red","inverse":true});\n';
+  var boardCode = 'var board_jxg_HjrznbDHr41S = JXG.JSXGraph.initBoard(\'jxg_HjrznbDHr41S\', {"axis":true,"boundingbox":[-5,5,5,-5],"showCopyright":false,"showNavigation":false});\nvar el_001 = board_jxg_HjrznbDHr41S.create(\'line\', [3,2,-1], {});\nvar el_002 = board_jxg_HjrznbDHr41S.create(\'inequality\', [el_001], {"fillColor":"yellow"});\nvar el_003 = board_jxg_HjrznbDHr41S.create(\'line\', [-3,1,0], {"strokeColor":"black"});\nvar el_004 = board_jxg_HjrznbDHr41S.create(\'inequality\', [el_003], {"fillColor":"red","inverse":true});\n';
   function runBoard() { try { eval(boardCode); } catch(ex) { console.error('JSXGraph board error:', ex); } }
   if (typeof JXG !== 'undefined') {
     runBoard();
@@ -212,4 +212,4 @@ end</code></pre><link rel="stylesheet" type="text/css" href="https://cdn.jsdeliv
   }
 })();
 </script>
-</article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../gallery3d/">« 3D Gallery</a><a class="docs-footer-nextpage" href="../html_generation/">HTML Generation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Sunday 17 May 2026 04:03">Sunday 17 May 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../gallery3d/">« 3D Gallery</a><a class="docs-footer-nextpage" href="../html_generation/">HTML Generation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Sunday 17 May 2026 04:15">Sunday 17 May 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
