@@ -277,10 +277,10 @@ $(SIGNATURES)
 Normalize a raw parsed dictionary into a Theme.
 Ensures all inner values are Dict{String, Any}.
 """
-function _normalize_theme(raw::Dict)::Theme
+function _normalize_theme(raw::AbstractDict)::Theme
     theme = Theme()
     for (section, attrs) in raw
-        if attrs isa Dict
+        if attrs isa AbstractDict
             theme[string(section)] = Dict{String,Any}(string(k) => v for (k, v) in attrs)
         end
     end

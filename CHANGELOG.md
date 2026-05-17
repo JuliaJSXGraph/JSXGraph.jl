@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Apply JuliaFormatter v2.3.0 (blue style) across the codebase. Whitespace-only changes — no behavior change. The `Format Check` workflow was added recently and only runs on pull requests, so the v1→v2 style drift on `main` had gone unnoticed until CompatHelper PRs (#13, #14, #15) tripped the check.
+- `_normalize_theme` accepts any `AbstractDict` (previously `Dict` only). This lets `load_theme` work with JSON.jl v1, whose `parsefile` returns `JSON.Object{String,Any} <: AbstractDict` rather than `Dict{String,Any}`. Tests pass against both JSON 0.21 and 1.6.
 
 ## [0.5.3] - 2026-05-13
 
