@@ -28,7 +28,7 @@ begin
         Pkg.rm("JSXGraph")
     catch
     end
-    Pkg.develop(PackageSpec(path = joinpath(@__DIR__, "..", "..")))
+    Pkg.develop(PackageSpec(; path=joinpath(@__DIR__, "..", "..")))
     using JSXGraph
 end
 
@@ -47,9 +47,9 @@ variable.
 
 # ╔═╡ 77777777-7777-7777-7777-777777777777
 @bind state board("demo"; xlim=(-5, 5), ylim=(-5, 5), bindable=true) do b
-    push!(b, point(-2.0,  1.0; name="A"))
-    push!(b, point( 0.0, -1.0; name="B"))
-    push!(b, point( 2.0,  2.0; name="C"))
+    push!(b, point(-2.0, 1.0; name="A"))
+    push!(b, point(0.0, -1.0; name="B"))
+    push!(b, point(2.0, 2.0; name="C"))
 end
 
 # ╔═╡ 33333333-3333-3333-3333-333333333333
